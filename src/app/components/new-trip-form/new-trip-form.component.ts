@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {TripsService} from '../../services/trips-service.service';
 
 @Component({
   selector: 'app-new-trip-form',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewTripFormComponent implements OnInit {
 
-  constructor() { }
+  formdata;
 
-  ngOnInit() {
+  constructor(private tripsService: TripsService) {
   }
 
+  ngOnInit() {
+    this.formdata = new FormGroup({
+      nazwa: new FormControl(),
+      kraj: new FormControl(),
+      startDate: new FormControl(),
+      endDate: new FormControl(),
+      cena: new FormControl(),
+      maxMiejsc: new FormControl(),
+      opis: new FormControl(),
+      zdjecie: new FormControl(),
+    });
+  }
+
+  onClickSubmit(data) {
+    console.log('Submitted!', data);
+  }
 }

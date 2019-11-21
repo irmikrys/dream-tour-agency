@@ -1,1 +1,56 @@
-<p>new-trip-form works!</p>
+<div>
+  <h3>Add a new trip:</h3>
+  <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
+    <input type="text"
+           class="fortextbox"
+           name="nazwa"
+           placeholder="nazwa..."
+           formControlName="nazwa">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="kraj"
+           placeholder="kraj..."
+           formControlName="kraj">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="startDate"
+           placeholder="początek..."
+           formControlName="startDate">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="endDate"
+           placeholder="koniec..."
+           formControlName="endDate">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="cena"
+           placeholder="cena..."
+           formControlName="cena">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="maxMiejsc"
+           placeholder="maksymalnie miejsc..."
+           formControlName="maxMiejsc">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="opis"
+           placeholder="opis..."
+           formControlName="opis">
+    <br/>
+    <input type="text"
+           class="fortextbox"
+           name="zdjecie"
+           placeholder="URL zdjęcia..."
+           formControlName="zdjecie">
+    <br/>
+
+    <input type="submit" class="forsubmit" value="Add trip">
+  </form>
+</div>
+<p> Email entered is : {{nazwa}} </p>
