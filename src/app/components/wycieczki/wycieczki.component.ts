@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Trip} from '../shared/models/trip.model';
-import {TripsService} from '../services/trips-service.service';
+import {Trip} from '../../shared/models/trip.model';
+import {TripsService} from '../../services/trips-service.service';
 
 @Component({
   selector: 'app-wycieczki',
