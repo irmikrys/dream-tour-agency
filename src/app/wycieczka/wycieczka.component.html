@@ -1,0 +1,28 @@
+<script src="wycieczka.component.ts"></script>
+<div
+  [ngStyle]="{'border': trip.id === highest ? '2px solid red' : trip.id === lowest ? '2px solid green' : '1px solid black'}"
+  class="trip"
+>
+
+  <span>{{trip.nazwa | uppercase}}</span>
+  --> {{trip.kraj | uppercase}}<br/>
+
+  <div class="image-cropper">
+    <img [src]="trip.zdjecie" class="trip-pic">
+  </div>
+
+  <div>Zakres czasowy: {{trip.startDate | date }} - {{trip.endDate | date}}</div>
+  <div>Cena: ${{trip.cena}}</div>
+  <div *ngIf="trip.miejsc != 0"
+       [ngStyle]="{'background': trip.miejsc < 3 ? 'red' : 'transparent'}">
+    Miejsca: {{trip.miejsc}}
+  </div>
+  <div *ngIf="trip.miejsc == 0">Brak wolnych miejsc!</div>
+
+  <div>
+    <button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">+</button>
+    <button (click)="removeTrip(trip)" *ngIf="trip.miejsc !=0">-</button>
+    <button (click)="deleteChildTrip(trip)">Delete</button>
+  </div>
+
+</div>

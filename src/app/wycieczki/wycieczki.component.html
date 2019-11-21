@@ -1,0 +1,14 @@
+<app-naglowek></app-naglowek>
+<span [ngStyle]="{'background': takenTrips > 5 ? 'green' : 'red'}">
+  Taken trips: {{takenTrips}}
+</span>
+<ul class="trips">
+  <li *ngFor="let trip of trips" style="padding: 2em">
+    <app-wycieczka [trip]="trip"
+                   [highest]="highest"
+                   [lowest]="lowest"
+                   (reserveTrip)="onTripReserved($event)"
+                   (deleteTrip)="onTripDeleted($event)"
+    ></app-wycieczka>
+  </li>
+</ul>
