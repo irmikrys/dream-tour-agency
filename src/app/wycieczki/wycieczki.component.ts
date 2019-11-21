@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Trip} from '../shared/models/trip.model';
+import {TripsService} from '../services/trips-service.service';
 
 @Component({
   selector: 'app-wycieczki',
@@ -9,32 +10,37 @@ import {Trip} from '../shared/models/trip.model';
 export class WycieczkiComponent implements OnInit {
 
   trips: Trip[];
+  takenTrips: number;
+  highest: number;
+  lowest: number;
 
-  highest: number = this.trips
-    .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
-    .map(trip => trip.id)[this.trips.length - 1];
+  constructor(private tripsService: TripsService) {
+  }
 
-  lowest: number = this.trips
-    .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
-    .map(trip => trip.id)[0];
+  ngOnInit() {
+    this.getProducts();
+    this.takenTrips = 0;
+    this.highest = this.trips
+      .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
+      .map(trip => trip.id)[this.trips.length - 1];
+    this.lowest = this.trips
+      .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
+      .map(trip => trip.id)[0];
+  }
 
-  takenTrips = 0;
+  getProducts(): void {
+    this.trips = this.tripsService.getProducts();
+  }
 
-  onTripReserved(trip) {
+  onTripReserved(trip): void {
     trip.miejsc -= 1;
     if (trip.miejsc === 0) {
       this.takenTrips += 1;
     }
   }
 
-  onTripDeleted(trip) {
+  onTripDeleted(trip): void {
     this.trips = this.trips.filter(it => it.id !== trip.id);
-  }
-
-  constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }
