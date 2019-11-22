@@ -13,7 +13,7 @@ export class TripComponent implements OnInit {
   @Input() highest;
 
   @Output() reserveTrip = new EventEmitter<Trip>();
-  @Output() deleteTrip = new EventEmitter<object>();
+  @Output() deleteTrip = new EventEmitter<Trip>();
 
   constructor() {
   }
