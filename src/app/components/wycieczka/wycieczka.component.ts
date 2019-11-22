@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Trip} from '../../shared/models/trip.model';
 
 @Component({
   selector: 'app-wycieczka',
@@ -11,7 +12,7 @@ export class WycieczkaComponent implements OnInit {
   @Input() lowest;
   @Input() highest;
 
-  @Output() reserveTrip = new EventEmitter<object>();
+  @Output() reserveTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<object>();
 
   constructor() {

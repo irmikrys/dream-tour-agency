@@ -32,14 +32,14 @@ export class WycieczkiComponent implements OnInit {
     this.trips = this.tripsService.getProducts();
   }
 
-  onTripReserved(trip): void {
+  onTripReserved(trip: Trip): void {
     trip.miejsc -= 1;
     if (trip.miejsc === 0) {
       this.takenTrips += 1;
     }
   }
 
-  onTripDeleted(trip): void {
+  onTripDeleted(trip: Trip): void {
     this.trips = this.trips.filter(it => it.id !== trip.id);
   }
 
