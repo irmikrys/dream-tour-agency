@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../../shared/models/trip.model';
 
 @Component({
-  selector: 'app-wycieczka',
-  templateUrl: './wycieczka.component.html',
-  styleUrls: ['./wycieczka.component.less']
+  selector: 'app-trip',
+  templateUrl: './trip.component.html',
+  styleUrls: ['./trip.component.less']
 })
-export class WycieczkaComponent implements OnInit {
+export class TripComponent implements OnInit {
 
   @Input() trip;
   @Input() lowest;

@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
-import { AppComponent } from './app.component';
-import { WycieczkiComponent } from './components/wycieczki/wycieczki.component';
-import { NaglowekComponent } from './components/naglowek/naglowek.component';
-import { WycieczkaComponent } from './components/wycieczka/wycieczka.component';
+import { AppComponent } from './components/app/app.component';
+import { TripsComponent } from './components/trips/trips.component';
+import { HeaderComponent } from './components/header/header.component';
+import { TripComponent } from './components/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WycieczkiComponent,
-    NaglowekComponent,
-    WycieczkaComponent,
+    TripsComponent,
+    HeaderComponent,
+    TripComponent,
     NewTripFormComponent
   ],
   imports: [

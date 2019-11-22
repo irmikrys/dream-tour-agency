@@ -10,7 +10,7 @@ export const fakeTrips: Trip[] = [
     cena: 100,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 1',
+    opis: 'Opis trips 1',
     zdjecie: 'https://bi.im-g.pl/im/8/9964/z9964668IH,mazury--polska--jezioro--las.jpg'
   },
   {
@@ -22,7 +22,7 @@ export const fakeTrips: Trip[] = [
     cena: 450,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 2',
+    opis: 'Opis trips 2',
     zdjecie: 'https://www.bawaria.travel/data/mediadb/cms_pictures/generated/b8be73a42b08ad63a257fab36708fe4f.jpeg'
   },
   {
@@ -34,7 +34,7 @@ export const fakeTrips: Trip[] = [
     cena: 200,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 3',
+    opis: 'Opis trips 3',
     zdjecie: 'https://cdnpl1.img.sputniknews.com/images/74/49/744950.jpg'
   },
   {
@@ -46,7 +46,7 @@ export const fakeTrips: Trip[] = [
     cena: 25,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 4',
+    opis: 'Opis trips 4',
     zdjecie: 'https://f4fcdn.eu/wp-content/uploads/2017/11/Ukraina650ST.png'
   },
   {
@@ -58,7 +58,7 @@ export const fakeTrips: Trip[] = [
     cena: 1000,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 5',
+    opis: 'Opis trips 5',
     zdjecie: 'https://www.indexpolska.com.pl/public/import_img/M_201901081442230.wycieczka_do_chorwacji_-_biuro_podrozy_index_7.jpg'
   },
   {
@@ -70,7 +70,7 @@ export const fakeTrips: Trip[] = [
     cena: 1500,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 6',
+    opis: 'Opis trips 6',
     zdjecie: 'https://i.wpimg.pl/O/644x430/i.wp.pl/a/f/jpeg/36433/sveti_stefan.jpeg'
   },
   {
@@ -82,7 +82,7 @@ export const fakeTrips: Trip[] = [
     cena: 2000,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 7',
+    opis: 'Opis trips 7',
     zdjecie: 'https://swakacje.pl/no-index/hotel/turcja/orange-county-resort-alanya-basen-sport-i-rekreacja-795525345-original.jpg'
   },
   {
@@ -94,7 +94,7 @@ export const fakeTrips: Trip[] = [
     cena: 7000,
     maxMiejsc: 10,
     miejsc: 10,
-    opis: 'Opis wycieczki 8',
+    opis: 'Opis trips 8',
     zdjecie: 'https://www.traveligo.pl/repository/images/box_promocja/sylwia/indonezja.jpg'
   },
 ];

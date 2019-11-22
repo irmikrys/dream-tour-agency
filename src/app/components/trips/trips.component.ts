@@ -3,11 +3,11 @@ import {Trip} from '../../shared/models/trip.model';
 import {TripsService} from '../../services/trips-service.service';
 
 @Component({
-  selector: 'app-wycieczki',
-  templateUrl: './wycieczki.component.html',
-  styleUrls: ['./wycieczki.component.less']
+  selector: 'app-trips',
+  templateUrl: './trips.component.html',
+  styleUrls: ['./trips.component.less']
 })
-export class WycieczkiComponent implements OnInit {
+export class TripsComponent implements OnInit {
 
   trips: Trip[];
   takenTrips: number;
