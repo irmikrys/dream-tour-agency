@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MainRoutingModule } from './main-routing.module';
+import { MainRoutingModule } from './routing/main-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { TripsComponent } from './components/trips/trips.component';
 import { HeaderComponent } from './components/header/header.component';
