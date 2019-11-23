@@ -9,8 +9,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { TripComponent } from './components/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import {MatButtonModule, MatIconModule, MatRippleModule, MatToolbarModule} from '@angular/material';
+import { NavbarComponent } from './components/navigation/navbar/navbar.component';
+import {MatButtonModule, MatIconModule, MatMenuModule, MatRippleModule, MatTabsModule, MatToolbarModule} from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { LayoutComponent } from './components/layout/layout.component';
+import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -19,7 +25,10 @@ import {MatButtonModule, MatIconModule, MatRippleModule, MatToolbarModule} from 
     HeaderComponent,
     TripComponent,
     NewTripFormComponent,
-    NavbarComponent
+    NavbarComponent,
+    LayoutComponent,
+    SidenavListComponent,
+    // FlexLayoutModule,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +39,13 @@ import {MatButtonModule, MatIconModule, MatRippleModule, MatToolbarModule} from 
     MatIconModule,
     MatButtonModule,
     MatRippleModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTabsModule,
+    MatMenuModule,
+    FlexModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
