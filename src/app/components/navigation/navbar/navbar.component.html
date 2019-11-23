@@ -18,39 +18,45 @@
       <div matRipple class="mat-button-ripple mat-ripple"></div>
       <div class="mat-button-focus-overlay"></div>
     </a>
+    <a mat-button
+       routerLink="/"
+       aria-label="New trip"
+       class="mat-button mat-button-base"
+       tabindex="0"
+       aria-disabled="false">
+      <span class="mat-button-wrapper">
+        <span> New trip</span>
+      </span>
+      <div matRipple class="mat-button-ripple mat-ripple"></div>
+      <div class="mat-button-focus-overlay"></div>
+    </a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li>
-        <a mat-button
-           routerLink="/"
-           aria-label="DreamTour"
-           class="mat-button mat-button-base"
-           tabindex="0"
-           aria-disabled="false">
-            <span class="mat-button-wrapper">
-              <i class="material-icons">face</i>
-              <span> User</span>
-            </span>
-          <div matRipple class="mat-button-ripple mat-ripple"></div>
-          <div class="mat-button-focus-overlay"></div>
-        </a>
-      </li>
-      <li>
-        <a mat-button
-           routerLink="/"
-           aria-label="DreamTour"
-           class="mat-button mat-button-base"
-           tabindex="0"
-           aria-disabled="false">
-            <span class="mat-button-wrapper">
-              <i class="material-icons">eco</i>
-              <span> Some eco button</span>
-            </span>
-          <div matRipple class="mat-button-ripple mat-ripple"></div>
-          <div class="mat-button-focus-overlay"></div>
-        </a>
-      </li>
-    </ul>
+    <a mat-button
+       routerLink="/"
+       aria-label="Shopping cart"
+       class="mat-button mat-button-base"
+       tabindex="0"
+       aria-disabled="false">
+      <span class="mat-button-wrapper">
+        <i class="material-icons">shopping_cart</i>
+        <!--              <span> Shopping cart</span>-->
+      </span>
+      <div matRipple class="mat-button-ripple mat-ripple"></div>
+      <div class="mat-button-focus-overlay"></div>
+    </a>
+    <a mat-button
+       routerLink="/"
+       aria-label="User"
+       class="mat-button mat-button-base"
+       tabindex="0"
+       aria-disabled="false">
+      <span class="mat-button-wrapper">
+        <i class="material-icons">face</i>
+        <!--              <span> User</span>-->
+      </span>
+      <div matRipple class="mat-button-ripple mat-ripple"></div>
+      <div class="mat-button-focus-overlay"></div>
+    </a>
   </div>
 </mat-toolbar>
