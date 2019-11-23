@@ -9,6 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { TripComponent } from './components/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {MatButtonModule, MatIconModule, MatRippleModule, MatToolbarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TripsComponent,
     HeaderComponent,
     TripComponent,
-    NewTripFormComponent
+    NewTripFormComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     MainRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
