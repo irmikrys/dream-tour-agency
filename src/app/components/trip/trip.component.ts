@@ -8,7 +8,7 @@ import {Trip} from '../../shared/models/trip.model';
 })
 export class TripComponent implements OnInit {
 
-  @Input() trip;
+  @Input() trip: Trip;
   @Input() lowest;
   @Input() highest;
 

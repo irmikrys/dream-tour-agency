@@ -10,7 +10,15 @@ import { TripComponent } from './components/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
-import {MatButtonModule, MatIconModule, MatMenuModule, MatRippleModule, MatTabsModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatMenuModule,
+  MatRippleModule,
+  MatTabsModule,
+  MatToolbarModule
+} from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -46,6 +54,7 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     MatMenuModule,
     FlexModule,
     FlexLayoutModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

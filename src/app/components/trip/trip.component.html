@@ -1,11 +1,12 @@
-<script src="trip.component.ts"></script>
-<div
-  [ngStyle]="{'border': trip.id === highest ? '2px solid red' : trip.id === lowest ? '2px solid green' : '1px solid black'}"
+<mat-card
+  [ngStyle]="{'border': trip.id === highest ? '2px solid red' : trip.id === lowest ? '2px solid green' : 'none'}"
   class="trip"
 >
 
-  <span>{{trip.nazwa | uppercase}}</span>
-  --> {{trip.kraj | uppercase}}<br/>
+  <mat-card-title-group>
+    <mat-card-title>{{trip.nazwa | uppercase}}</mat-card-title>
+    <mat-card-subtitle>{{trip.kraj | uppercase}}</mat-card-subtitle>
+  </mat-card-title-group>
 
   <div class="image-cropper">
     <img [src]="trip.zdjecie" class="trip-pic">
@@ -19,10 +20,12 @@
   </div>
   <div *ngIf="trip.miejsc == 0">Brak wolnych miejsc!</div>
 
-  <div>
-    <button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">+</button>
-    <button (click)="removeTrip(trip)" *ngIf="trip.miejsc !=0">-</button>
-    <button (click)="deleteChildTrip(trip)">Delete</button>
-  </div>
+  <mat-card-actions>
+    <button mat-button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
+    <button mat-button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
+    <div fxFlex fxLayoutAlign="end">
+      <button mat-button mat-raised-button (click)="deleteChildTrip(trip)">Delete</button>
+    </div>
+  </mat-card-actions>
 
-</div>
+</mat-card>
