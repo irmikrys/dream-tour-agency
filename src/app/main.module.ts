@@ -8,6 +8,7 @@ import { TripsComponent } from './components/trips/trips.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TripComponent } from './components/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.c
     BrowserModule,
     MainRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
