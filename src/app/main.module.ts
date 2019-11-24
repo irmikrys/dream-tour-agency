@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import { PageNotFoundComponent } from './components/navigation/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     NavbarComponent,
     LayoutComponent,
     SidenavListComponent,
+    PageNotFoundComponent,
     // FlexLayoutModule,
   ],
   imports: [
