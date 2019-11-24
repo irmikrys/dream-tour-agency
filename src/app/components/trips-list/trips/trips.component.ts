@@ -40,7 +40,7 @@ export class TripsComponent implements OnInit {
   }
 
   onTripDeleted(trip: Trip): void {
-    this.trips = this.trips.filter(it => it.id !== trip.id);
+    this.tripsService.deleteProduct(trip.id);
   }
 
 }

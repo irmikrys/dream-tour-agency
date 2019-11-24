@@ -7,23 +7,26 @@ import {fakeTrips} from '../shared/data/fakeTripsData';
 })
 export class TripsService {
 
+  private trips: Trip[];
+
   constructor() {
+    this.trips = fakeTrips;
   }
 
   getProducts(): Trip[] {
-    return fakeTrips;
+    return this.trips;
   }
 
   getProduct(id: number) {
-    return fakeTrips.filter(trip => trip.id === id);
+    return this.trips.filter(trip => trip.id === id);
   }
 
   addProduct(trip: Trip) {
-    fakeTrips.push(trip);
+    this.trips.push(trip);
   }
 
   deleteProduct(id: number) {
-    fakeTrips.splice(fakeTrips.findIndex(trip => {
+    this.trips.splice(fakeTrips.findIndex(trip => {
       return trip.id === id;
     }), 1);
   }
