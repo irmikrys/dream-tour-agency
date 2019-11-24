@@ -17,7 +17,7 @@ import {
   MatMenuModule,
   MatRippleModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -58,6 +58,7 @@ import { TripDetailsComponent } from './components/trip-details/trip-details.com
     FlexModule,
     FlexLayoutModule,
     MatCardModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

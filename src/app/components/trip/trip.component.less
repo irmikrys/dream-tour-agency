@@ -1,20 +1,46 @@
+@trip-image-width: 200px;
+@trip-image-height: @trip-image-width;
+
 .trip {
   padding: 2em;
-}
 
-.image-cropper {
-  margin: 1em;
-  box-sizing: border-box;
-  width: 250px;
-  height: 250px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
+  mat-card-content {
+    height: auto;
+    overflow: hidden;
+    .trip-info {
+      width: auto;
+      overflow: hidden;
 
-  .trip-pic {
-    display: inline;
-    margin: 0 auto 0 -25%;
-    height: 100%;
-    width: auto;
+      .price-container {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .trip-image {
+      width: @trip-image-width;
+      float: right;
+    }
+  }
+
+  .btn-trip-details {
+    margin-right: 8px;
+  }
+
+  .image-cropper {
+    margin: 1em;
+    box-sizing: border-box;
+    width: @trip-image-width;
+    height: @trip-image-height;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+
+    .trip-pic {
+      display: inline;
+      margin: 0 auto 0 -25%;
+      height: 100%;
+      width: auto;
+    }
   }
 }

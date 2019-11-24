@@ -15,10 +15,20 @@ export class TripComponent implements OnInit {
   @Output() reserveTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<Trip>();
 
+  priceColor: object;
+
   constructor() {
   }
 
   ngOnInit() {
+    const {trip: {id}, highest, lowest} = this;
+    this.priceColor = {
+      color: id === highest
+        ? '#ffc107'
+        : id === lowest
+          ? '#2e7d32'
+          : 'black'
+    };
   }
 
   addTrip(trip) {

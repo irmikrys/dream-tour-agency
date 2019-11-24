@@ -1,33 +1,49 @@
 <mat-card class="trip">
   <mat-card-title-group>
+<!--    <img mat-card-avatar [src]="trip.zdjecie" alt="Photo" class="trip-avatar"/>-->
     <mat-card-title>
-      <i *ngIf="trip.id === highest || trip.id === lowest" class="material-icons" [ngStyle]="{'color': trip.id === highest ? 'red' : 'green'}">bookmark</i>
       {{trip.nazwa | uppercase}}
     </mat-card-title>
     <mat-card-subtitle>{{trip.kraj | uppercase}}</mat-card-subtitle>
   </mat-card-title-group>
 
-  <div class="image-cropper">
-    <img [src]="trip.zdjecie" class="trip-pic">
-  </div>
+  <mat-card-content>
 
-  <div>Zakres czasowy: {{trip.startDate | date }} - {{trip.endDate | date}}</div>
-  <div>Cena: ${{trip.cena}}</div>
-  <div *ngIf="trip.miejsc != 0"
-       [ngStyle]="{'background': trip.miejsc < 3 ? 'red' : 'transparent'}">
-    Miejsca: {{trip.miejsc}}
-  </div>
-  <div *ngIf="trip.miejsc == 0">Brak wolnych miejsc!</div>
+    <div class="trip-image image-cropper">
+      <img mat-card-lg-image [src]="trip.zdjecie" class="trip-pic" alt="Photo">
+    </div>
+
+    <div class="trip-info">
+      <div class="price-container">
+        <i  class="material-icons"
+            #tooltip="matTooltip"
+            matTooltip="{{trip.id === highest ? 'Highest price available!' : trip.id === lowest ? 'Lowest price available!' : ''}}"
+            matTooltipPosition="right"
+            [ngStyle]="priceColor">monetization_on
+        </i>
+        <span>Price: {{trip.cena | currency: 'EUR'}}</span>
+      </div>
+      <div>When: {{trip.startDate | date }} - {{trip.endDate | date}}</div>
+      <div *ngIf="trip.miejsc != 0"
+           [ngStyle]="{'background': trip.miejsc < 3 ? 'red' : 'transparent'}">
+        Free places: {{trip.miejsc}}
+      </div>
+      <div *ngIf="trip.miejsc == 0">No free places!</div>
+    </div>
+
+  </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button mat-raised-button class="mat-primary" [routerLink]="['/trip', trip.id]" routerLinkActive="true">Details</button>
-    <button mat-button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
-    <button mat-button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
+    <button mat-raised-button class="mat-primary btn-trip-details" [routerLink]="['/trip', trip.id]" routerLinkActive="true">
+      Details
+    </button>
+    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
+    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
     <div fxFlex fxLayoutAlign="end">
-      <a mat-raised-button color="accent" class="docs-button mat-raised-button mat-button-base mat-accent"
+      <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-button-base mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
         <span class="mat-button-wrapper">Delete</span>
-        <div matripple class="mat-button-ripple mat-ripple"></div>
+        <div matRipple class="mat-button-ripple mat-ripple"></div>
         <div class="mat-button-focus-overlay"></div>
       </a>
     </div>
