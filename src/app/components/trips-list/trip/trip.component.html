@@ -3,7 +3,8 @@
     <!--    <img mat-card-avatar [src]="trip.pictureLink" alt="Photo" class="trip-avatar"/>-->
     <mat-card-title>
       {{trip.name | uppercase}}
-      <app-trip-rating></app-trip-rating>
+      <app-trip-rating [rating]="rating" [starCount]="starCount" [color]="starColor"
+                       (ratingUpdated)="onRatingChanged($event)"></app-trip-rating>
     </mat-card-title>
     <mat-card-subtitle>{{trip.country | uppercase}}</mat-card-subtitle>
   </mat-card-title-group>

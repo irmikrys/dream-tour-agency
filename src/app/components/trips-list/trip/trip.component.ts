@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
+import {TripRatingColor} from '../trip-rating/trip-rating.component';
 
 @Component({
   selector: 'app-trip',
@@ -16,6 +17,12 @@ export class TripComponent implements OnInit {
   @Output() deleteTrip = new EventEmitter<Trip>();
 
   priceColor: object;
+
+  rating = 3;
+  starCount = 5;
+  starColor: TripRatingColor = TripRatingColor.accent;
+  starColorP: TripRatingColor = TripRatingColor.primary;
+  starColorW: TripRatingColor = TripRatingColor.warn;
 
   constructor() {
   }
@@ -43,6 +50,11 @@ export class TripComponent implements OnInit {
 
   deleteChildTrip(trip) {
     this.deleteTrip.emit(trip);
+  }
+
+  onRatingChanged(rating) {
+    console.log(rating);
+    this.rating = rating;
   }
 
 }
