@@ -36,8 +36,8 @@ export class TripComponent implements OnInit {
   }
 
   removeTrip(trip) {
-    if (trip.miejsc < trip.maxMiejsc) {
-      trip.miejsc += 1;
+    if (trip.placesCount < trip.maxPlaces) {
+      trip.placesCount += 1;
     }
   }
 

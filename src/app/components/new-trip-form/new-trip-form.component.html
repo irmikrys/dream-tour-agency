@@ -3,15 +3,15 @@
   <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
     <input type="text"
            class="fortextbox"
-           name="nazwa"
-           placeholder="nazwa..."
-           formControlName="nazwa">
+           name="name"
+           placeholder="name..."
+           formControlName="name">
     <br/>
     <input type="text"
            class="fortextbox"
-           name="kraj"
-           placeholder="kraj..."
-           formControlName="kraj">
+           name="country"
+           placeholder="country..."
+           formControlName="country">
     <br/>
     <input type="text"
            class="fortextbox"
@@ -27,27 +27,27 @@
     <br/>
     <input type="text"
            class="fortextbox"
-           name="cena"
-           placeholder="cena..."
-           formControlName="cena">
+           name="price"
+           placeholder="price..."
+           formControlName="price">
     <br/>
     <input type="text"
            class="fortextbox"
-           name="maxMiejsc"
-           placeholder="maksymalnie miejsc..."
-           formControlName="maxMiejsc">
+           name="maxPlaces"
+           placeholder="maksymalnie placesCount..."
+           formControlName="maxPlaces">
     <br/>
     <input type="text"
            class="fortextbox"
-           name="opis"
-           placeholder="opis..."
-           formControlName="opis">
+           name="description"
+           placeholder="description..."
+           formControlName="description">
     <br/>
     <input type="text"
            class="fortextbox"
-           name="zdjecie"
+           name="pictureLink"
            placeholder="URL zdjęcia..."
-           formControlName="zdjecie">
+           formControlName="pictureLink">
     <br/>
 
     <input type="submit" class="forsubmit" value="Add trip">

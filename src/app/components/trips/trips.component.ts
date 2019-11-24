@@ -21,10 +21,10 @@ export class TripsComponent implements OnInit {
     this.getProducts();
     this.takenTrips = 0;
     this.highest = this.trips
-      .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
+      .sort((a, b) => (a.price > b.price) ? 1 : -1)
       .map(trip => trip.id)[this.trips.length - 1];
     this.lowest = this.trips
-      .sort((a, b) => (a.cena > b.cena) ? 1 : -1)
+      .sort((a, b) => (a.price > b.price) ? 1 : -1)
       .map(trip => trip.id)[0];
   }
 
@@ -33,8 +33,8 @@ export class TripsComponent implements OnInit {
   }
 
   onTripReserved(trip: Trip): void {
-    trip.miejsc -= 1;
-    if (trip.miejsc === 0) {
+    trip.placesCount -= 1;
+    if (trip.placesCount === 0) {
       this.takenTrips += 1;
     }
   }

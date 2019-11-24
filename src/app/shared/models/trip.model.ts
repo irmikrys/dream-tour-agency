@@ -1,12 +1,12 @@
 export interface Trip {
   id: number;
-  nazwa: string;
-  kraj: string;
+  name: string;
+  country: string;
   startDate: Date;
   endDate: Date;
-  cena: number;
-  maxMiejsc: number;
-  miejsc?: number;
-  opis: string;
-  zdjecie: string;
+  price: number;
+  maxPlaces: number;
+  placesCount?: number;
+  description: string;
+  pictureLink: string;
 }

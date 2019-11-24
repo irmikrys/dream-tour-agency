@@ -16,14 +16,14 @@ export class NewTripFormComponent implements OnInit {
 
   ngOnInit() {
     this.formdata = new FormGroup({
-      nazwa: new FormControl(),
-      kraj: new FormControl(),
+      name: new FormControl(),
+      country: new FormControl(),
       startDate: new FormControl(),
       endDate: new FormControl(),
-      cena: new FormControl(),
-      maxMiejsc: new FormControl(),
-      opis: new FormControl(),
-      zdjecie: new FormControl(),
+      price: new FormControl(),
+      maxPlaces: new FormControl(),
+      description: new FormControl(),
+      pictureLink: new FormControl(),
     });
   }
 

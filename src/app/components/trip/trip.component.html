@@ -1,16 +1,16 @@
 <mat-card class="trip">
   <mat-card-title-group>
-    <!--    <img mat-card-avatar [src]="trip.zdjecie" alt="Photo" class="trip-avatar"/>-->
+    <!--    <img mat-card-avatar [src]="trip.pictureLink" alt="Photo" class="trip-avatar"/>-->
     <mat-card-title>
-      {{trip.nazwa | uppercase}}
+      {{trip.name | uppercase}}
     </mat-card-title>
-    <mat-card-subtitle>{{trip.kraj | uppercase}}</mat-card-subtitle>
+    <mat-card-subtitle>{{trip.country | uppercase}}</mat-card-subtitle>
   </mat-card-title-group>
 
   <mat-card-content>
 
     <div class="trip-image image-cropper">
-      <img mat-card-lg-image [src]="trip.zdjecie" class="trip-pic" alt="Photo">
+      <img mat-card-lg-image [src]="trip.pictureLink" class="trip-pic" alt="Photo">
     </div>
 
     <div class="trip-info">
@@ -21,25 +21,25 @@
            matTooltipPosition="right"
            [ngStyle]="priceColor">monetization_on
         </i>
-        <span> {{trip.cena | currency: 'EUR'}} </span>
+        <span> {{trip.price | currency: 'EUR'}} </span>
       </div>
       <div class="icon-containable">
         <mat-icon>date_range</mat-icon>
         <span> {{trip.startDate | date }} - {{trip.endDate | date}} </span>
       </div>
       <div class="icon-containable"
-           *ngIf="trip.miejsc !== 0"
-           [ngStyle]="{'color': trip.miejsc < 3 ? 'red' : 'inherit'}">
+           *ngIf="trip.placesCount !== 0"
+           [ngStyle]="{'color': trip.placesCount < 3 ? 'red' : 'inherit'}">
         <mat-icon>people_outline</mat-icon>
-        <span>Free places: {{trip.miejsc}}</span>
+        <span>Free places: {{trip.placesCount}}</span>
       </div>
-      <div class="icon-containable" *ngIf="trip.miejsc == 0">
+      <div class="icon-containable" *ngIf="trip.placesCount == 0">
         <mat-icon>people_outline</mat-icon>
         <span>No free places!</span>
       </div>
       <div class="icon-containable">
         <mat-icon>info</mat-icon>
-        <span>{{trip.opis}}</span>
+        <span>{{trip.description}}</span>
       </div>
     </div>
 
@@ -50,8 +50,8 @@
             routerLinkActive="true">
       Details
     </button>
-    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
-    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
+    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.placesCount > 0">Reserve</button>
+    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.placesCount != 0">Discard</button>
     <div fxFlex fxLayoutAlign="end">
       <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-button-base mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
