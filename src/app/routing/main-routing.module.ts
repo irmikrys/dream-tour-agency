@@ -5,14 +5,18 @@ import {TripComponent} from '../components/trip/trip.component';
 import {PageNotFoundComponent} from '../components/navigation/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  {path: 'trips', component: TripsComponent},
+  {
+    path: 'trips',
+    component: TripsComponent,
+    data: {title: 'Trips List'}
+  },
   {path: 'trip/:id', component: TripComponent},
   {
     path: '',
     redirectTo: '/trips',
     pathMatch: 'full'
   },
-  { path: '**', component: PageNotFoundComponent }
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

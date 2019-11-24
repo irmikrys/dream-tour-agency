@@ -38,7 +38,6 @@ import { PageNotFoundComponent } from './components/navigation/page-not-found/pa
     LayoutComponent,
     SidenavListComponent,
     PageNotFoundComponent,
-    // FlexLayoutModule,
   ],
   imports: [
     BrowserModule,
