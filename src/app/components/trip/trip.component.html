@@ -20,7 +20,7 @@
   <div *ngIf="trip.miejsc == 0">Brak wolnych miejsc!</div>
 
   <mat-card-actions>
-    <button mat-button mat-raised-button class="mat-primary" [routerLink]="['/trip', trip.id]">Details</button>
+    <button mat-button mat-raised-button class="mat-primary" [routerLink]="['/trip', trip.id]" routerLinkActive="true">Details</button>
     <button mat-button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
     <button mat-button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
     <div fxFlex fxLayoutAlign="end">

@@ -43,8 +43,4 @@ export class TripsComponent implements OnInit {
     this.trips = this.trips.filter(it => it.id !== trip.id);
   }
 
-  public executeSelectedChange = (event) => {
-    console.log(event);
-  }
-
 }

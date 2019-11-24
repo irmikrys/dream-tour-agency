@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {TripsComponent} from '../components/trips/trips.component';
-import {TripComponent} from '../components/trip/trip.component';
 import {PageNotFoundComponent} from '../components/navigation/page-not-found/page-not-found.component';
+import {TripsComponent} from '../components/trips/trips.component';
+import {TripDetailsComponent} from '../components/trip-details/trip-details.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
     component: TripsComponent,
     data: {title: 'Trips List'}
   },
-  {path: 'trip/:id', component: TripComponent},
+  {path: 'trip/:id', component: TripDetailsComponent},
   {
     path: '',
     redirectTo: '/trips',

@@ -26,6 +26,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import { PageNotFoundComponent } from './components/navigation/page-not-found/page-not-found.component';
+import { TripDetailsComponent } from './components/trip-details/trip-details.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PageNotFoundComponent } from './components/navigation/page-not-found/pa
     LayoutComponent,
     SidenavListComponent,
     PageNotFoundComponent,
+    TripDetailsComponent,
   ],
   imports: [
     BrowserModule,
