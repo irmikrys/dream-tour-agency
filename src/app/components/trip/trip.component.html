@@ -1,10 +1,9 @@
-<mat-card
-  [ngStyle]="{'border': trip.id === highest ? '2px solid red' : trip.id === lowest ? '2px solid green' : 'none'}"
-  class="trip"
->
-
+<mat-card class="trip">
   <mat-card-title-group>
-    <mat-card-title>{{trip.nazwa | uppercase}}</mat-card-title>
+    <mat-card-title>
+      <i *ngIf="trip.id === highest || trip.id === lowest" class="material-icons" [ngStyle]="{'color': trip.id === highest ? 'red' : 'green'}">bookmark</i>
+      {{trip.nazwa | uppercase}}
+    </mat-card-title>
     <mat-card-subtitle>{{trip.kraj | uppercase}}</mat-card-subtitle>
   </mat-card-title-group>
 
@@ -21,10 +20,15 @@
   <div *ngIf="trip.miejsc == 0">Brak wolnych miejsc!</div>
 
   <mat-card-actions>
-    <button mat-button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
+    <button mat-button mat-raised-button class="mat-primary" (click)="addTrip(trip)" *ngIf="trip.miejsc > 0">Reserve</button>
     <button mat-button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.miejsc != 0">Discard</button>
     <div fxFlex fxLayoutAlign="end">
-      <button mat-button mat-raised-button (click)="deleteChildTrip(trip)">Delete</button>
+      <a mat-raised-button color="accent" class="docs-button mat-raised-button mat-button-base mat-accent"
+         tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
+        <span class="mat-button-wrapper">Delete</span>
+        <div matripple class="mat-button-ripple mat-ripple"></div>
+        <div class="mat-button-focus-overlay"></div>
+      </a>
     </div>
   </mat-card-actions>
 
