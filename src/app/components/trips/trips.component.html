@@ -1,11 +1,8 @@
-<section fxLayout="column" fxFlexAlign="stretch">
+<section fxLayout="column" fxFlexAlign="stretch" class="trips-list-container">
   <div fxFlexAlign="center" class="header-container">
     <app-header></app-header>
   </div>
 
-  <span [ngStyle]="{'background': takenTrips > 5 ? 'green' : 'red'}">
-    Taken trips: {{takenTrips}}
-  </span>
   <ul class="trips">
     <li *ngFor="let trip of trips" style="padding: 2em">
       <app-trip [trip]="trip"
@@ -16,5 +13,12 @@
       ></app-trip>
     </li>
   </ul>
+
+  <button mat-raised-button color="primary" class="trips-count-indicator"
+          [ngStyle]="{'background': takenTrips > 5 ? 'green' : 'red'}">
+    <span>
+      Taken trips: {{takenTrips}}
+    </span>
+  </button>
 
 </section>
