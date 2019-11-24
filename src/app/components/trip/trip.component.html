@@ -50,8 +50,14 @@
             routerLinkActive="true">
       Details
     </button>
-    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.placesCount > 0">Reserve</button>
-    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.placesCount != 0">Discard</button>
+    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.placesCount > 0">
+      <mat-icon>add_shopping_cart</mat-icon>
+      Reserve
+    </button>
+    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.placesCount != 0">
+      <mat-icon>remove_shopping_cart</mat-icon>
+      Discard
+    </button>
     <div fxFlex fxLayoutAlign="end">
       <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-button-base mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
