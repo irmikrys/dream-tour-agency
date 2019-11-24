@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {PageNotFoundComponent} from '../components/navigation/page-not-found/page-not-found.component';
-import {TripsComponent} from '../components/trips/trips.component';
+import {TripsComponent} from '../components/trips-list/trips/trips.component';
 import {TripDetailsComponent} from '../components/trip-details/trip-details.component';
 import {NewTripFormComponent} from '../components/new-trip-form/new-trip-form.component';
 

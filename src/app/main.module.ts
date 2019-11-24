@@ -4,9 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './routing/main-routing.module';
 import { AppComponent } from './components/app/app.component';
-import { TripsComponent } from './components/trips/trips.component';
-import { HeaderComponent } from './components/header/header.component';
-import { TripComponent } from './components/trip/trip.component';
+import { TripsComponent } from './components/trips-list/trips/trips.component';
+import { HeaderComponent } from './components/trips-list/header/header.component';
+import { TripComponent } from './components/trips-list/trip/trip.component';
 import { NewTripFormComponent } from './components/new-trip-form/new-trip-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
@@ -27,6 +27,7 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import { PageNotFoundComponent } from './components/navigation/page-not-found/page-not-found.component';
 import { TripDetailsComponent } from './components/trip-details/trip-details.component';
+import { TripRatingComponent } from './components/trips-list/trip-rating/trip-rating.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TripDetailsComponent } from './components/trip-details/trip-details.com
     SidenavListComponent,
     PageNotFoundComponent,
     TripDetailsComponent,
+    TripRatingComponent,
   ],
   imports: [
     BrowserModule,
