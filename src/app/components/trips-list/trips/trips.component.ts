@@ -9,7 +9,7 @@ import {TripsService} from '../../../services/trips-service.service';
 })
 export class TripsComponent implements OnInit {
 
-  trips: Trip[];
+  trips: Trip[] = [];
   takenTrips: number;
   highest: number;
   lowest: number;
