@@ -41,7 +41,7 @@
       </div>
       <div class="icon-containable trip-rating-result">
         <mat-icon>stars</mat-icon>
-        <span>{{trip.rating || 'Never rated'}}</span>
+        <span>{{(trip.rating | number: '1.1-1') || 'Never rated'}}</span>
       </div>
       <div>
         <span>Rate trip: </span>

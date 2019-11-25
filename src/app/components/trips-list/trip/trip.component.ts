@@ -15,10 +15,11 @@ export class TripComponent implements OnInit {
 
   @Output() reserveTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<Trip>();
+  @Output() rateTrip = new EventEmitter<Trip>();
 
   priceColor: object;
 
-  rating = 3;
+  rating = 0;
   starCount = 5;
   starColor: TripRatingColor = TripRatingColor.accent;
   starColorP: TripRatingColor = TripRatingColor.primary;
@@ -53,8 +54,26 @@ export class TripComponent implements OnInit {
   }
 
   onRatingChanged(rating) {
-    console.log(rating);
     this.rating = rating;
+
+    let ratesCount = this.trip.ratesCount || 0;
+    let currentRating = this.trip.rating || 0;
+
+    console.log('ratescount first: ', ratesCount);
+    console.log('currentrating first: ', ratesCount);
+
+    currentRating *= ratesCount;
+    ratesCount += 1;
+
+    console.log('ratescount second: ', ratesCount);
+    console.log('currentrating second: ', ratesCount);
+
+    this.trip.ratesCount = ratesCount;
+    this.trip.rating = (currentRating + rating) / ratesCount;
+
+    console.log('new rating', this.trip.rating);
+
+    this.rateTrip.emit(this.trip);
   }
 
 }

@@ -43,4 +43,9 @@ export class TripsComponent implements OnInit {
     this.tripsService.deleteProduct(trip.id);
   }
 
+  onTripRated(trip: Trip): void {
+    console.log('trip rated', trip);
+    this.tripsService.updateProduct(trip);
+  }
+
 }
