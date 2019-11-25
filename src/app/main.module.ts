@@ -13,7 +13,7 @@ import {NavbarComponent} from './components/navigation/navbar/navbar.component';
 import {
   MatButtonModule,
   MatCardModule,
-  MatIconModule,
+  MatIconModule, MatInputModule,
   MatMenuModule,
   MatRippleModule,
   MatSelectModule,
@@ -64,6 +64,7 @@ import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rati
     MatCardModule,
     MatTooltipModule,
     MatSelectModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

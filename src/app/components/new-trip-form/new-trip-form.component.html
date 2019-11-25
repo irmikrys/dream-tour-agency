@@ -1,54 +1,57 @@
-<div>
-  <h3>Add a new trip:</h3>
-  <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
-    <input type="text"
-           class="fortextbox"
-           name="name"
-           placeholder="name..."
-           formControlName="name">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="country"
-           placeholder="country..."
-           formControlName="country">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="startDate"
-           placeholder="początek..."
-           formControlName="startDate">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="endDate"
-           placeholder="koniec..."
-           formControlName="endDate">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="price"
-           placeholder="price..."
-           formControlName="price">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="maxPlaces"
-           placeholder="maksymalnie placesCount..."
-           formControlName="maxPlaces">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="description"
-           placeholder="description..."
-           formControlName="description">
-    <br/>
-    <input type="text"
-           class="fortextbox"
-           name="pictureLink"
-           placeholder="URL zdjęcia..."
-           formControlName="pictureLink">
-    <br/>
+<div class="new-trip-form">
+<!--  <h3>Add a new trip</h3>-->
+  <form class="example-form" [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Country" [formControl]="countryFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="countryFormControl.hasError('required')">
+        Country is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Start date" [formControl]="startDateFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formData.get('startDate').hasError('pattern') && !startDateFormControl.hasError('required')">
+        Start date needs format <strong>YYYY-MM-DD</strong>
+      </mat-error>
+      <mat-error *ngIf="startDateFormControl.hasError('required')">
+        Start date is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="End date" [formControl]="endDateFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="endDateFormControl.hasError('required')">
+        End date is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Price" [formControl]="priceFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="priceFormControl.hasError('required')">
+        Price is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Max places" [formControl]="maxPlacesFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="maxPlacesFormControl.hasError('required')">
+        Maximal places count is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Description" [formControl]="descriptionFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="descriptionFormControl.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Picture link" [formControl]="pictureLinkFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="pictureLinkFormControl.hasError('required')">
+        Picture link is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
     <input type="submit" class="forsubmit" value="Add trip">
   </form>

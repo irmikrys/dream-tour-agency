@@ -39,7 +39,7 @@ export class TripComponent implements OnInit {
     };
   }
 
-  addTrip(trip) {
+  addTrip(trip: Trip): void {
     this.reserveTrip.emit(trip);
   }
 
@@ -59,19 +59,11 @@ export class TripComponent implements OnInit {
     let ratesCount = this.trip.ratesCount || 0;
     let currentRating = this.trip.rating || 0;
 
-    console.log('ratescount first: ', ratesCount);
-    console.log('currentrating first: ', ratesCount);
-
     currentRating *= ratesCount;
     ratesCount += 1;
 
-    console.log('ratescount second: ', ratesCount);
-    console.log('currentrating second: ', ratesCount);
-
     this.trip.ratesCount = ratesCount;
     this.trip.rating = (currentRating + rating) / ratesCount;
-
-    console.log('new rating', this.trip.rating);
 
     this.rateTrip.emit(this.trip);
   }

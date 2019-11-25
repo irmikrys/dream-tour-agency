@@ -1,6 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {TripsService} from '../../services/trips-service.service';
+import {Trip} from '../../shared/models/trip.model';
+import {ErrorStateMatcher} from '@angular/material';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-new-trip-form',
@@ -9,25 +19,43 @@ import {TripsService} from '../../services/trips-service.service';
 })
 export class NewTripFormComponent implements OnInit {
 
-  formdata;
+  nameFormControl = new FormControl('', [Validators.required]);
+  countryFormControl = new FormControl('', [Validators.required]);
+  startDateFormControl = new FormControl('', [
+    Validators.required,
+    // Validators.pattern('YYYY-MM-DD') // fixme use datepicker
+  ]);
+  endDateFormControl = new FormControl('', [Validators.required]);
+  priceFormControl = new FormControl('', [Validators.required]); // todo price with currency
+  maxPlacesFormControl = new FormControl('', [Validators.required]);
+  descriptionFormControl = new FormControl('', [Validators.required]); // todo textarea & max length
+  pictureLinkFormControl = new FormControl('', [Validators.required]);
+
+  formData: FormGroup = new FormGroup({
+    name: this.nameFormControl,
+    country: this.countryFormControl,
+    startDate: this.startDateFormControl,
+    endDate: this.endDateFormControl,
+    price: this.priceFormControl,
+    maxPlaces: this.maxPlacesFormControl,
+    description: this.descriptionFormControl,
+    pictureLink: this.pictureLinkFormControl,
+  });
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private tripsService: TripsService) {
   }
 
   ngOnInit() {
-    this.formdata = new FormGroup({
-      name: new FormControl(),
-      country: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-      price: new FormControl(),
-      maxPlaces: new FormControl(),
-      description: new FormControl(),
-      pictureLink: new FormControl(),
-    });
   }
 
-  onClickSubmit(data) {
-    console.log('Submitted!', data);
+  onClickSubmit(tripData: Trip) {
+    console.log('Submitted!', tripData);
+    tripData.startDate = new Date(tripData.startDate);
+    tripData.endDate = new Date(tripData.endDate);
+    tripData.placesCount = tripData.maxPlaces;
+
+    this.tripsService.addProduct(tripData);
   }
 }
