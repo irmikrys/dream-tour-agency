@@ -10,11 +10,9 @@
   </mat-card-title-group>
 
   <mat-card-content>
-
     <div class="trip-image image-cropper">
       <img mat-card-lg-image [src]="trip.pictureLink" class="trip-pic" alt="Photo">
     </div>
-
     <div class="trip-info">
       <div class="icon-containable">
         <i class="material-icons"
@@ -44,12 +42,12 @@
         <span>{{trip.description}}</span>
       </div>
     </div>
-
   </mat-card-content>
 
   <mat-card-actions>
     <button mat-raised-button class="mat-primary btn-trip-details" [routerLink]="['/trip', trip.id]"
             routerLinkActive="true">
+      <mat-icon>details</mat-icon>
       Details
     </button>
     <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.placesCount > 0">
@@ -63,7 +61,7 @@
     <div fxFlex fxLayoutAlign="end">
       <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-button-base mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
-        <span class="mat-button-wrapper">Delete</span>
+        <span class="mat-button-wrapper"><mat-icon>delete</mat-icon>Delete</span>
         <div matRipple class="mat-button-ripple mat-ripple"></div>
         <div class="mat-button-focus-overlay"></div>
       </a>
