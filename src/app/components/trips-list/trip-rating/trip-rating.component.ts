@@ -36,6 +36,7 @@ export class TripRatingComponent implements OnInit {
     } else {
       return 'star_border';
     }
+    // return 'star_half'
   }
 
 }

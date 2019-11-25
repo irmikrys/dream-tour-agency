@@ -6,7 +6,9 @@ export interface Trip {
   endDate: Date;
   price: number;
   maxPlaces: number;
-  placesCount?: number;
   description: string;
   pictureLink: string;
+  placesCount?: number;
+  rating?: number;
+  ratesCount?: number;
 }
