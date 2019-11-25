@@ -42,6 +42,7 @@
       <div class="icon-containable trip-rating-result">
         <mat-icon>stars</mat-icon>
         <span>{{(trip.rating | number: '1.1-1') || 'Never rated'}}</span>
+        <span *ngIf="trip.ratesCount > 0">&nbsp;({{trip.ratesCount}})</span>
       </div>
       <div>
         <span>Rate trip: </span>
