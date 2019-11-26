@@ -1,67 +1,68 @@
 <div class="new-trip-form">
-<!--  <h3>Add a new trip</h3>-->
   <form class="example-form" [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field class="full-width-field">
+          <input matInput [matDatepicker]="dp1" placeholder="Start" [formControl]="startDateFormControl">
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+          <mat-error *ngIf="startDateFormControl.hasError('required')">
+            Start date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput [matDatepicker]="dp2" placeholder="End" [formControl]="endDateFormControl">
+          <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+          <mat-datepicker #dp2></mat-datepicker>
+          <mat-error *ngIf="endDateFormControl.hasError('required')">
+            End date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-    <mat-card-content>
-      <mat-form-field>
-        <input matInput [matDatepicker]="dp1" placeholder="Start" [formControl]="startDateFormControl">
-        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-        <mat-datepicker #dp1></mat-datepicker>
-        <mat-error *ngIf="startDateFormControl.hasError('required')">
-          Start date is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput [matDatepicker]="dp2" placeholder="End" [formControl]="endDateFormControl">
-        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-        <mat-datepicker #dp2></mat-datepicker>
-        <mat-error *ngIf="endDateFormControl.hasError('required')">
-          End date is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Country" [formControl]="countryFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="countryFormControl.hasError('required')">
+            Country is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Price" [formControl]="priceFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="priceFormControl.hasError('required')">
+            Price is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Max places" [formControl]="maxPlacesFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="maxPlacesFormControl.hasError('required')">
+            Maximal places count is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Description" [formControl]="descriptionFormControl"
+                 [errorStateMatcher]="matcher">
+          <mat-error *ngIf="descriptionFormControl.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="Picture link" [formControl]="pictureLinkFormControl"
+                 [errorStateMatcher]="matcher">
+          <mat-error *ngIf="pictureLinkFormControl.hasError('required')">
+            Picture link is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
 
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="nameFormControl.hasError('required')">
-          Name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Country" [formControl]="countryFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="countryFormControl.hasError('required')">
-          Country is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Price" [formControl]="priceFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="priceFormControl.hasError('required')">
-          Price is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Max places" [formControl]="maxPlacesFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="maxPlacesFormControl.hasError('required')">
-          Maximal places count is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Description" [formControl]="descriptionFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="descriptionFormControl.hasError('required')">
-          Description is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Picture link" [formControl]="pictureLinkFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="pictureLinkFormControl.hasError('required')">
-          Picture link is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button type="submit" mat-raised-button color="primary" [disabled]="!formData.valid">Create</button>
-      <button type="button" mat-raised-button color="warn" routerLink="/" routerLinkActive="true">Cancel</button>
-    </mat-card-actions>
-
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!formData.valid">Create</button>
+        <button type="button" mat-raised-button color="warn" routerLink="/" routerLinkActive="true">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
   </form>
 </div>
