@@ -41,12 +41,14 @@ export class ReservationsService {
   }
 
   deleteAllReservationsFromTrip(trip: Trip): void {
-    console.log('delete all reservations from trip', trip);
-    // this.reservations.splice(this.reservations.findIndex(r => r.tripId === trip.id), 1);
+    this.deleteReservationByTripId(trip.id);
   }
 
   deleteReservationByTripId(tripId: number): void {
-    this.reservations.splice(this.reservations.findIndex(r => r.tripId === tripId), 1);
+    const reservation = this.getTripReservation(tripId);
+    if (reservation) {
+      this.reservations.splice(this.reservations.indexOf(reservation), 1);
+    }
   }
 
   private getTripReservation(tripId): Reservation | null {
