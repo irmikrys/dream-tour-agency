@@ -1,0 +1,22 @@
+@min-height-absolute: 100vh;
+@min-height-related: calc(@min-height-absolute~" - 56px");
+
+.shopping-cart-info {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: @min-height-related;
+  text-align: center;
+  padding: 2em;
+}
+
+.shopping-cart-list-container {
+  box-sizing: border-box;
+  padding: 2em 2em 0;
+  min-height: @min-height-related;
+
+  mat-list-item {
+    span, button {
+      margin-right: 14px;
+    }
+  }
+}

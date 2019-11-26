@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ReservationsService} from '../../../shared/services/reservations.service';
+import {TripsService} from '../../../shared/services/trips-service.service';
+import {DetailReservation} from '../../../shared/models/detailReservation.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor() { }
+  private reservations: DetailReservation[] = [];
+
+  constructor(private reservationsService: ReservationsService, private tripsService: TripsService) {
+  }
 
   ngOnInit() {
+    this.getReservations();
+  }
+
+  getReservations(): void {
+    const basicReservations = this.reservationsService.getReservations();
+    basicReservations.forEach(basic => {
+      const trip = this.tripsService.getProduct(basic.tripId);
+      this.reservations.push({
+        trip,
+        count: trip.maxPlaces - trip.placesCount,
+        id: basic.id,
+      });
+    });
   }
 
 }
