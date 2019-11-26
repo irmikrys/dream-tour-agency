@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
-import {TripsService} from '../../../services/trips-service.service';
+import {TripsService} from '../../../shared/services/trips-service.service';
+import {ReservationsService} from '../../../shared/services/reservations.service';
 
 @Component({
   selector: 'app-trips',
@@ -14,7 +15,7 @@ export class TripsComponent implements OnInit {
   highest: number;
   lowest: number;
 
-  constructor(private tripsService: TripsService) {
+  constructor(private tripsService: TripsService, private reservationsService: ReservationsService) {
   }
 
   ngOnInit() {
@@ -37,14 +38,22 @@ export class TripsComponent implements OnInit {
     if (trip.placesCount === 0) {
       this.takenTrips += 1;
     }
+    this.reservationsService.addReservationFromTrip(trip);
+  }
+
+  onTripDiscard(trip: Trip): void {
+    if (trip.placesCount < trip.maxPlaces) {
+      trip.placesCount += 1;
+    }
+    this.reservationsService.deleteReservationFromTrip(trip);
   }
 
   onTripDeleted(trip: Trip): void {
     this.tripsService.deleteProduct(trip.id);
+    this.reservationsService.deleteAllReservationsFromTrip(trip);
   }
 
   onTripRated(trip: Trip): void {
-    console.log('trip rated', trip);
     this.tripsService.updateProduct(trip);
   }
 

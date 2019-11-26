@@ -5,7 +5,7 @@ import {ErrorStateMatcher} from '@angular/material';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {TripsService} from '../../services/trips-service.service';
+import {TripsService} from '../../shared/services/trips-service.service';
 import {Trip} from '../../shared/models/trip.model';
 import {Router} from '@angular/router';
 
@@ -79,9 +79,6 @@ export class NewTripFormComponent implements OnInit {
   }
 
   onClickSubmit(tripData: Trip) {
-    console.log('Submitted!', tripData);
-    tripData.startDate = new Date(tripData.startDate);
-    tripData.endDate = new Date(tripData.endDate);
     tripData.placesCount = tripData.maxPlaces;
 
     this.tripsService.addProduct(tripData);

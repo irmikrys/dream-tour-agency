@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Trip} from '../shared/models/trip.model';
-import {fakeTrips} from '../shared/data/fakeTripsData';
+import {Trip} from '../models/trip.model';
+import {fakeTrips} from '../data/fakeTripsData';
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +30,11 @@ export class TripsService {
   }
 
   deleteProduct(id: number): void {
-    this.trips.splice(fakeTrips.findIndex(trip => {
-      return trip.id === id;
-    }), 1);
+    this.trips.splice(fakeTrips.findIndex(trip => trip.id === id), 1);
   }
 
   updateProduct(trip: Trip): void {
     const itemIndex = this.trips.findIndex(item => item.id === trip.id);
     this.trips[itemIndex] = trip;
-    console.log('update', this.trips);
   }
 }

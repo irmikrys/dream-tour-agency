@@ -11,6 +11,7 @@ import {NewTripFormComponent} from './components/new-trip-form/new-trip-form.com
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavbarComponent} from './components/navigation/navbar/navbar.component';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule, MatDatepickerModule,
   MatIconModule, MatInputModule,
@@ -30,6 +31,7 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {PageNotFoundComponent} from './components/navigation/page-not-found/page-not-found.component';
 import {TripDetailsComponent} from './components/trip-details/trip-details.component';
 import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rating.component';
+import { ShoppingCartComponent } from './components/cart/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rati
     PageNotFoundComponent,
     TripDetailsComponent,
     TripRatingComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rati
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

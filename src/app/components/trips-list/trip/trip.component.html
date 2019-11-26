@@ -59,11 +59,11 @@
       <mat-icon>details</mat-icon>
       Details
     </button>
-    <button mat-raised-button (click)="addTrip(trip)" *ngIf="trip.placesCount > 0">
+    <button mat-raised-button (click)="addTripToShoppingCart(trip)" *ngIf="trip.placesCount > 0">
       <mat-icon>add_shopping_cart</mat-icon>
       Reserve
     </button>
-    <button mat-raised-button (click)="removeTrip(trip)" *ngIf="trip.placesCount != 0">
+    <button mat-raised-button (click)="removeTripFromShoppingCart(trip)" *ngIf="trip.placesCount != 0">
       <mat-icon>remove_shopping_cart</mat-icon>
       Discard
     </button>

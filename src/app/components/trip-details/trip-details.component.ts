@@ -15,6 +15,6 @@ export class TripDetailsComponent implements OnInit {
 
   public executeSelectedChange = (event) => {
     console.log(event);
-  };
+  }
 
 }

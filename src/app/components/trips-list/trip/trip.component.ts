@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
+import {ReservationsService} from '../../../shared/services/reservations.service';
 
 @Component({
   selector: 'app-trip',
@@ -14,6 +15,7 @@ export class TripComponent implements OnInit {
   @Input() highest;
 
   @Output() reserveTrip = new EventEmitter<Trip>();
+  @Output() discardTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<Trip>();
   @Output() rateTrip = new EventEmitter<Trip>();
 
@@ -39,14 +41,12 @@ export class TripComponent implements OnInit {
     };
   }
 
-  addTrip(trip: Trip): void {
+  addTripToShoppingCart(trip: Trip): void {
     this.reserveTrip.emit(trip);
   }
 
-  removeTrip(trip) {
-    if (trip.placesCount < trip.maxPlaces) {
-      trip.placesCount += 1;
-    }
+  removeTripFromShoppingCart(trip) {
+    this.discardTrip.emit(trip);
   }
 
   deleteChildTrip(trip) {
