@@ -23,6 +23,9 @@ export class TripsService {
   }
 
   addProduct(trip: Trip): void {
+    trip.id = this.trips
+      .map(t => t.id)
+      .sort((t1, t2) => t2 - t1)[0] + 1;
     this.trips.push(trip);
   }
 

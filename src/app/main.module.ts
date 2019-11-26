@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavbarComponent} from './components/navigation/navbar/navbar.component';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDatepickerModule,
   MatIconModule, MatInputModule,
   MatMenuModule,
   MatRippleModule,
@@ -65,6 +65,7 @@ import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rati
     MatTooltipModule,
     MatSelectModule,
     MatInputModule,
+    MatDatepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
