@@ -34,6 +34,8 @@ import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rati
 import { ShoppingCartComponent } from './components/cart/shopping-cart/shopping-cart.component';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
 import { RegisterFormComponent } from './components/auth/register-form/register-form.component';
+import { TripCommentsComponent } from './components/trip-comments/trip-comments.component';
+import { TripReservationConfirmationComponent } from './components/trip-reservation-confirmation/trip-reservation-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { RegisterFormComponent } from './components/auth/register-form/register-
     ShoppingCartComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    TripCommentsComponent,
+    TripReservationConfirmationComponent,
   ],
   imports: [
     BrowserModule,

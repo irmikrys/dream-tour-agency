@@ -18,8 +18,7 @@ export class TripsService {
   }
 
   getProduct(id: number): Trip | null {
-    const filtered = this.trips.filter(trip => trip.id === id);
-    return filtered.length ? filtered[0] : null;
+    return this.trips.find(trip => trip.id === id) || null;
   }
 
   addProduct(trip: Trip): void {

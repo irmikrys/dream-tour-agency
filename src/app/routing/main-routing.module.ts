@@ -16,7 +16,7 @@ const routes: Routes = [
     component: TripsComponent,
     data: {title: 'Trips List'}
   },
-  {path: 'trips/:id', component: TripDetailsComponent},
+  {path: 'trip/:id', component: TripDetailsComponent},
   {path: 'new-trip', component: NewTripFormComponent},
   {path: 'cart', component: ShoppingCartComponent},
   {
