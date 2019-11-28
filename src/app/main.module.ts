@@ -32,6 +32,8 @@ import {PageNotFoundComponent} from './components/navigation/page-not-found/page
 import {TripDetailsComponent} from './components/trip-details/trip-details.component';
 import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rating.component';
 import { ShoppingCartComponent } from './components/cart/shopping-cart/shopping-cart.component';
+import { LoginFormComponent } from './components/auth/login-form/login-form.component';
+import { RegisterFormComponent } from './components/auth/register-form/register-form.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ShoppingCartComponent } from './components/cart/shopping-cart/shopping-
     TripDetailsComponent,
     TripRatingComponent,
     ShoppingCartComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,

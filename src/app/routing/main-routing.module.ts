@@ -5,8 +5,12 @@ import {TripsComponent} from '../components/trips-list/trips/trips.component';
 import {TripDetailsComponent} from '../components/trip-details/trip-details.component';
 import {NewTripFormComponent} from '../components/new-trip-form/new-trip-form.component';
 import {ShoppingCartComponent} from '../components/cart/shopping-cart/shopping-cart.component';
+import {RegisterFormComponent} from '../components/auth/register-form/register-form.component';
+import {LoginFormComponent} from '../components/auth/login-form/login-form.component';
 
 const routes: Routes = [
+  {path: 'login', component: LoginFormComponent},
+  {path: 'register', component: RegisterFormComponent},
   {
     path: 'trips',
     component: TripsComponent,
