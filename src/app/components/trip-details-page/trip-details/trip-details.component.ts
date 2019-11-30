@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {TripsService} from '../../shared/services/trips-service.service';
-import {Trip} from '../../shared/models/trip.model';
+import {TripsService} from '../../../shared/services/trips-service.service';
+import {Trip} from '../../../shared/models/trip.model';
 
 @Component({
   selector: 'app-trip-details',
@@ -18,7 +18,6 @@ export class TripDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((paramsMap) => {
       this.getTripById(Number((paramsMap as any).params.id));
-      console.log('trip', this.trip);
     });
   }
 
@@ -27,8 +26,9 @@ export class TripDetailsComponent implements OnInit {
   }
 
   private getTripById(id: number): void {
-    console.log('id to fetch', id);
-    this.trip = this.tripsService.getProduct(id);
+    this.tripsService
+      .getTrip(id)
+      .subscribe(trip => this.trip = trip);
   }
 
 }

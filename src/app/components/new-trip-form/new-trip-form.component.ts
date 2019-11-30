@@ -81,7 +81,8 @@ export class NewTripFormComponent implements OnInit {
   onClickSubmit(tripData: Trip) {
     tripData.placesCount = tripData.maxPlaces;
 
-    this.tripsService.addProduct(tripData);
-    this.router.navigateByUrl('/').then((val) => console.log(val));
+    this.tripsService
+      .addTrip(tripData)
+      .subscribe(_ => this.router.navigateByUrl('/'));
   }
 }

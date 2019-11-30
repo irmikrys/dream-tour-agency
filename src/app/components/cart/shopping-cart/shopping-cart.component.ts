@@ -22,12 +22,15 @@ export class ShoppingCartComponent implements OnInit {
   getReservations(): void {
     const basicReservations = this.reservationsService.getReservations();
     basicReservations.forEach(basic => {
-      const trip = this.tripsService.getProduct(basic.tripId);
-      this.reservations.push({
-        trip,
-        count: trip.maxPlaces - trip.placesCount,
-        id: basic.id,
-      });
+      this.tripsService
+        .getTrip(basic.tripId)
+        .subscribe(trip => {
+          this.reservations.push({
+            trip,
+            count: trip.maxPlaces - trip.placesCount,
+            id: basic.id,
+          });
+        });
     });
   }
 

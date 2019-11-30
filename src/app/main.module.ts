@@ -25,17 +25,22 @@ import {
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './shared/services/in-memory-data.service';
+
 import {LayoutComponent} from './components/layout/layout.component';
 import {SidenavListComponent} from './components/navigation/sidenav-list/sidenav-list.component';
-import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {PageNotFoundComponent} from './components/navigation/page-not-found/page-not-found.component';
-import {TripDetailsComponent} from './components/trip-details/trip-details.component';
+import {TripDetailsComponent} from './components/trip-details-page/trip-details/trip-details.component';
 import {TripRatingComponent} from './components/trips-list/trip-rating/trip-rating.component';
-import { ShoppingCartComponent } from './components/cart/shopping-cart/shopping-cart.component';
-import { LoginFormComponent } from './components/auth/login-form/login-form.component';
-import { RegisterFormComponent } from './components/auth/register-form/register-form.component';
-import { TripCommentsComponent } from './components/trip-comments/trip-comments.component';
-import { TripReservationConfirmationComponent } from './components/trip-reservation-confirmation/trip-reservation-confirmation.component';
+import {ShoppingCartComponent} from './components/cart/shopping-cart/shopping-cart.component';
+import {LoginFormComponent} from './components/auth/login-form/login-form.component';
+import {RegisterFormComponent} from './components/auth/register-form/register-form.component';
+import {TripCommentsComponent} from './components/trip-details-page/trip-comments/trip-comments.component';
+import {TripReservationConfirmationComponent} from './components/trip-reservation-confirmation/trip-reservation-confirmation.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,7 @@ import { TripReservationConfirmationComponent } from './components/trip-reservat
     RegisterFormComponent,
     TripCommentsComponent,
     TripReservationConfirmationComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +84,10 @@ import { TripReservationConfirmationComponent } from './components/trip-reservat
     MatInputModule,
     MatDatepickerModule,
     MatBadgeModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,22 +15,25 @@ export class TripsComponent implements OnInit {
   highest: number;
   lowest: number;
 
-  constructor(private tripsService: TripsService, private reservationsService: ReservationsService) {
+  constructor(
+    private tripsService: TripsService,
+    private reservationsService: ReservationsService
+  ) {
   }
 
   ngOnInit() {
-    this.getProducts();
+    this.getTrips();
     this.takenTrips = 0;
-    this.highest = this.trips
-      .sort((a, b) => (a.price > b.price) ? 1 : -1)
-      .map(trip => trip.id)[this.trips.length - 1];
-    this.lowest = this.trips
-      .sort((a, b) => (a.price > b.price) ? 1 : -1)
-      .map(trip => trip.id)[0];
   }
 
-  getProducts(): void {
-    this.trips = this.tripsService.getProducts();
+  getTrips(): void {
+    this.tripsService
+      .getTrips()
+      .subscribe(trips => {
+        this.trips = trips;
+        this.highest = this.getHighestPricedTrip();
+        this.lowest = this.getLowestPricedTrip();
+      });
   }
 
   onTripReserved(trip: Trip): void {
@@ -49,12 +52,41 @@ export class TripsComponent implements OnInit {
   }
 
   onTripDeleted(trip: Trip): void {
-    this.tripsService.deleteProduct(trip.id);
+    this.trips.splice(this.trips.findIndex(t => t.id === trip.id), 1);
+    this.tripsService
+      .deleteTrip(trip.id)
+      .subscribe();
     this.reservationsService.deleteAllReservationsFromTrip(trip);
+    this.recalculateOffers(trip.id);
   }
 
   onTripRated(trip: Trip): void {
-    this.tripsService.updateProduct(trip);
+    this.tripsService
+      .updateTrip(trip)
+      .subscribe();
+  }
+
+  private getHighestPricedTrip() {
+    return this.trips
+      .sort((a, b) => (a.price > b.price) ? 1 : -1)
+      .map(trip => trip.id)[this.trips.length - 1];
+  }
+
+  private getLowestPricedTrip() {
+    return this.trips
+      .sort((a, b) => (a.price > b.price) ? 1 : -1)
+      .map(trip => trip.id)[0];
+  }
+
+  private recalculateOffers(id: number) {
+    if (this.highest === id) {
+      this.highest = this.getHighestPricedTrip();
+      console.log(`highest now is ${this.highest}`);
+    }
+    if (this.lowest === id) {
+      this.lowest = this.getLowestPricedTrip();
+      console.log(`lowest now is ${this.lowest}`);
+    }
   }
 
 }

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
-import {ReservationsService} from '../../../shared/services/reservations.service';
 
 @Component({
   selector: 'app-trip',
@@ -19,26 +18,14 @@ export class TripComponent implements OnInit {
   @Output() deleteTrip = new EventEmitter<Trip>();
   @Output() rateTrip = new EventEmitter<Trip>();
 
-  priceColor: object;
-
   rating = 0;
   starCount = 5;
   starColor: TripRatingColor = TripRatingColor.accent;
-  starColorP: TripRatingColor = TripRatingColor.primary;
-  starColorW: TripRatingColor = TripRatingColor.warn;
 
   constructor() {
   }
 
   ngOnInit() {
-    const {trip: {id}, highest, lowest} = this;
-    this.priceColor = {
-      color: id === highest
-        ? '#ffc107'
-        : id === lowest
-          ? '#2e7d32'
-          : 'black'
-    };
   }
 
   addTripToShoppingCart(trip: Trip): void {

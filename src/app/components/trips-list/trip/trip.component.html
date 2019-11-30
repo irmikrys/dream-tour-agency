@@ -17,7 +17,13 @@
            #tooltip="matTooltip"
            matTooltip="{{trip.id === highest ? 'Highest price available!' : trip.id === lowest ? 'Lowest price available!' : ''}}"
            matTooltipPosition="right"
-           [ngStyle]="priceColor">monetization_on
+           [ngStyle]="{
+                        color: trip.id === highest
+                          ? '#ffc107'
+                          : trip.id === lowest
+                            ? '#2e7d32'
+                            : 'black'
+                      }">monetization_on
         </i>
         <span> {{trip.price | currency: 'EUR'}} </span>
       </div>
@@ -54,7 +60,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button class="mat-primary btn-trip-details" [routerLink]="['/trip', trip.id]"
+    <button mat-raised-button class="mat-primary btn-trip-details" [routerLink]="['/trips', trip.id]"
             routerLinkActive="true">
       <mat-icon>details</mat-icon>
       Details
