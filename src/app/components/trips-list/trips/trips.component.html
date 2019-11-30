@@ -3,6 +3,8 @@
     <app-header></app-header>
   </div>
 
+  <app-trip-search></app-trip-search>
+
   <ul class="trips">
     <li *ngFor="let trip of trips" style="padding: 2em">
       <app-trip [trip]="trip"

@@ -67,6 +67,19 @@ export class TripsService {
       );
   }
 
+  searchTrips(term: string): Observable<Trip[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http
+      .get<Trip[]>(`${this.tripsUrl}/?name=${term}`)
+      .pipe(
+        tap(_ => this.log(`found trips matching "${term}"`)),
+        catchError(this.handleError<Trip[]>('searchTrips', []))
+      );
+  }
+
   private log(message: string) {
     this.messageService.add(`TripsService: ${message}`);
   }

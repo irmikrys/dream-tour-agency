@@ -41,6 +41,7 @@ import {RegisterFormComponent} from './components/auth/register-form/register-fo
 import {TripCommentsComponent} from './components/trip-details-page/trip-comments/trip-comments.component';
 import {TripReservationConfirmationComponent} from './components/trip-reservation-confirmation/trip-reservation-confirmation.component';
 import { MessageComponent } from './components/message/message.component';
+import { TripSearchComponent } from './components/trips-list/trip-search/trip-search.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MessageComponent } from './components/message/message.component';
     TripCommentsComponent,
     TripReservationConfirmationComponent,
     MessageComponent,
+    TripSearchComponent,
   ],
   imports: [
     BrowserModule,
