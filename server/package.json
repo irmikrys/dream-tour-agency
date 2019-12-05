@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Dream Tour travel agency",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "author": "Irmina Kasprzyk",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.13"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^2.0.1"
+  }
+}
