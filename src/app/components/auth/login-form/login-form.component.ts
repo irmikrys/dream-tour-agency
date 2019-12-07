@@ -24,6 +24,6 @@ export class LoginFormComponent implements OnInit {
 
   onClickSubmit = (data) => {
     console.log('login data', data);
-  };
+  }
 
 }

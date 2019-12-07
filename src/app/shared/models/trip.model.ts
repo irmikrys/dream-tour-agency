@@ -15,4 +15,5 @@ export interface Trip {
   ratesCount?: number;
   gallery?: string[];
   comments?: Comment[];
+  createDate: Date;
 }
