@@ -22,7 +22,7 @@ router.post('/', [
     return res.status(400).json({errors: errors.array()})
   }
 
-  const {name, surname, email, password} = req.body;
+  const {name, surname, email, password, role} = req.body;
 
   try {
     let user = await User.findOne({email: email});
@@ -34,7 +34,8 @@ router.post('/', [
       name,
       surname,
       email,
-      password
+      password,
+      role
     });
 
     // encrypt password
