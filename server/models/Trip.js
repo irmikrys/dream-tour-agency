@@ -41,18 +41,24 @@ const TripSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  rating: {
-    type: Number
-  },
-  ratesCount: {
-    type: Number
-  },
+  ratings: [{
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
+      required: true
+    },
+    rating: {
+      type: Number,
+      required: true
+    }
+  }],
   gallery: [{
-    type: String
+    type: String,
   }],
   comments: [{
     author: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
       required: true
     },
     title: {
