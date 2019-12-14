@@ -74,6 +74,17 @@ const TripSchema = new mongoose.Schema({
       default: Date.now
     }
   }],
+  reservations: [{
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
+      required: true
+    },
+    count: {
+      type: Number,
+      required: true
+    }
+  }],
   createDate: {
     type: Date,
     default: Date.now
