@@ -7,7 +7,7 @@ const {check, validationResult} = require('express-validator');
 const Trip = require('../../models/Trip');
 const User = require('../../models/User');
 
-const QUERY_TRIP_BASICS = '-_id -__v -gallery -comments -reservations -createDate';
+const QUERY_TRIP_BASICS = '-__v -gallery -comments -reservations -createDate';
 
 /**
  * @route   GET api/trips
@@ -16,7 +16,9 @@ const QUERY_TRIP_BASICS = '-_id -__v -gallery -comments -reservations -createDat
  */
 router.get('/', async (req, res) => {
   try {
-    const trips = await Trip.find();
+    const trips = await Trip
+      .find()
+      .select(QUERY_TRIP_BASICS);
     await res.json(trips);
   } catch (e) {
     console.error(e.message);
@@ -38,6 +40,7 @@ router.post('/', [auth, [
   check('endDate', 'End date must be valid').custom(isValidDate),
   check('price', 'Price is required').not().isEmpty(),
   check('currency', 'Currency is required').not().isEmpty(),
+  check('currency', 'Enter a valid currency code').isCurrency(),
   check('maxPlaces', 'Maximum number of places is required').not().isEmpty(),
   check('description', 'Description is required').not().isEmpty(),
 ]], async (req, res) => {
@@ -72,24 +75,6 @@ router.post('/', [auth, [
     });
     await newTrip.save();
     await res.json(newTrip)
-
-  } catch (e) {
-    console.error(e.message);
-    res.status(500).send('Server error');
-  }
-});
-
-/**
- * @route   GET api/trips/:tripId/basics
- * @desc    Trip basic information for main page
- * @access  Public
- */
-router.get('/:tripId/basics', async (req, res) => {
-  try {
-    const trip = await Trip
-      .findById(req.params.tripId)
-      .select(QUERY_TRIP_BASICS);
-    await res.json(trip);
 
   } catch (e) {
     console.error(e.message);
@@ -171,8 +156,6 @@ router.get('/user/reservations', auth, async (req, res) => {
       .find()
       .select('reservations price -_id');
 
-    console.log(trips);
-
     const userReservations = trips
       .filter(trip => trip.reservations
         .filter(r => r.author.toString() === req.user.id).length > 0
@@ -233,6 +216,83 @@ router.get('/:tripId/comments', auth, async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.tripId).select('comments');
     await res.json(trip.comments);
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @route   POST api/trips/:tripId/ratings
+ * @desc    Trips ratings creation route
+ * @access  Private
+ */
+router.post('/:tripId/ratings', [auth, [
+  check('rating', 'Rating is required').not().isEmpty(),
+  check('rating', 'Rating should be a number between 1 and 5').matches(/^(?:[1-5])$/),
+]], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()})
+  }
+  try {
+    const {rating} = req.body;
+    const trip = await Trip.findById(req.params.tripId);
+
+    // check if author made trip reservation
+    const hasReservedTrip = trip.reservations.filter(it => it.author.toString() === req.user.id).length > 0;
+    if (!hasReservedTrip) {
+      return res.status(400).json({errors: [{msg: 'Only users with reservation can add rating'}]})
+    }
+
+    // check if author hasn't already made rating
+    const hasRatedTrip = trip.ratings.filter(it => it.author.toString() === req.user.id).length > 0;
+    if (hasRatedTrip) {
+      return res.status(400).json({errors: [{msg: 'You have already rated this trip'}]});
+    }
+
+    const newRating = {
+      author: req.user.id,
+      rating
+    };
+
+    trip.ratings.unshift(newRating);
+    await trip.save();
+    await res.json(trip.ratings);
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @route   GET api/trips/:tripId/ratings
+ * @desc    Trip ratings route
+ * @access  Public
+ */
+router.get('/:tripId/ratings', async (req, res) => {
+  try {
+    const trip = await Trip.findById(req.params.tripId).select('ratings');
+    await res.json(trip.ratings);
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @route   GET api/trips/:tripId/user/rating
+ * @desc    Trip user's rating route
+ * @access  Private
+ */
+router.get('/:tripId/user/rating', auth, async (req, res) => {
+  try {
+    const trip = await Trip.findById(req.params.tripId).select('ratings');
+    const userRatings = trip.ratings.filter(r => r.author.toString() === req.user.id);
+    await res.json(userRatings);
 
   } catch (e) {
     console.error(e.message);
