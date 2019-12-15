@@ -12,8 +12,8 @@ export class TripsComponent implements OnInit {
 
   trips: Trip[] = [];
   takenTrips: number;
-  highest: number;
-  lowest: number;
+  highest: string;
+  lowest: string;
 
   constructor(
     private tripsService: TripsService,
@@ -42,6 +42,7 @@ export class TripsComponent implements OnInit {
       this.takenTrips += 1;
     }
     this.reservationsService.addReservationFromTrip(trip);
+    this.tripsService.updateTrip(trip).subscribe();
   }
 
   onTripDiscard(trip: Trip): void {
@@ -78,7 +79,7 @@ export class TripsComponent implements OnInit {
       .map(trip => trip.id)[0];
   }
 
-  private recalculateOffers(id: number) {
+  private recalculateOffers(id: string) {
     if (this.highest === id) {
       this.highest = this.getHighestPricedTrip();
       console.log(`highest now is ${this.highest}`);

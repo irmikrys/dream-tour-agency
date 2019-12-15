@@ -1,6 +1,9 @@
+import {User} from './user.model';
+
 export interface Comment {
-  author: string;
+  author: User;
   title: string;
-  description: string;
+  content: string;
   createDate: Date;
+  tripId: string;
 }

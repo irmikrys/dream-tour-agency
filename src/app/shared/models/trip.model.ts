@@ -1,19 +1,17 @@
 import {Comment} from './comment.model';
+import {Rating} from './rating.model';
 
 export interface Trip {
-  id: number;
+  id: string;
   name: string;
   country: string;
   startDate: Date;
   endDate: Date;
   price: number;
+  currency: string;
   maxPlaces: number;
   description: string;
   pictureLink: string;
   placesCount?: number;
-  rating?: number;
-  ratesCount?: number;
-  gallery?: string[];
-  comments?: Comment[];
-  createDate?: Date;
+  ratings?: Rating[];
 }

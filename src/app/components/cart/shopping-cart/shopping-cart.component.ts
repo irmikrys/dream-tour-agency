@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ReservationsService} from '../../../shared/services/reservations.service';
 import {TripsService} from '../../../shared/services/trips-service.service';
-import {DetailReservation} from '../../../shared/models/detailReservation.model';
+import {ReservationDetails} from '../../../shared/models/reservationDetails.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,7 +10,7 @@ import {DetailReservation} from '../../../shared/models/detailReservation.model'
 })
 export class ShoppingCartComponent implements OnInit {
 
-  private reservations: DetailReservation[] = [];
+  private reservations: ReservationDetails[] = [];
 
   constructor(private reservationsService: ReservationsService, private tripsService: TripsService) {
   }
@@ -26,9 +26,13 @@ export class ShoppingCartComponent implements OnInit {
         .getTrip(basic.tripId)
         .subscribe(trip => {
           this.reservations.push({
-            trip,
+            price: trip.price,
+            name: trip.name,
+            currency: trip.currency,
             count: trip.maxPlaces - trip.placesCount,
             id: basic.id,
+            tripId: trip.id,
+            author: null // TODO: change to author from AuthService
           });
         });
     });

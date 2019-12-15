@@ -28,7 +28,7 @@ export class TripsService {
       );
   }
 
-  getTrip(id: number): Observable<Trip> {
+  getTrip(id: string): Observable<Trip> {
     this.log('fetch trip');
     return this.http
       .get<Trip>(`${this.tripsUrl}/${id}`)
@@ -47,7 +47,7 @@ export class TripsService {
       );
   }
 
-  deleteTrip(id: number): Observable<Trip> {
+  deleteTrip(id: string): Observable<Trip> {
     const url = `${this.tripsUrl}/${id}`;
     return this.http
       .delete<Trip>(url, this.httpOptions)
@@ -57,10 +57,10 @@ export class TripsService {
       );
   }
 
-  updateTrip(trip: Trip): Observable<any> {
+  updateTrip(trip: Trip): Observable<Trip> {
     this.log('update trip');
     return this.http
-      .put(this.tripsUrl, trip, this.httpOptions)
+      .put<Trip>(this.tripsUrl, trip, this.httpOptions)
       .pipe(
         tap(_ => this.log(`updated trip id=${trip.id}`)),
         catchError(this.handleError<any>('updateTrip'))
@@ -69,7 +69,7 @@ export class TripsService {
 
   searchTrips(term: string): Observable<Trip[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty trip array.
       return of([]);
     }
     return this.http

@@ -152,15 +152,20 @@ router.post('/:tripId/reservations', [auth, [
  */
 router.get('/user/reservations', auth, async (req, res) => {
   try {
-    const trips = await Trip
-      .find()
-      .select('reservations price -_id');
-
-    const userReservations = trips
+    const trips = await Trip.find().select('reservations price currency name');
+    const userTrips = trips
       .filter(trip => trip.reservations
         .filter(r => r.author.toString() === req.user.id).length > 0
-      );
-    await res.json(userReservations);
+      )
+      .map(trip => ({
+        ...trip.reservations,
+        id: trip._id,
+        tripId: trip._id,
+        price: trip.price,
+        name: trip.name,
+        currency: trip.currency
+      }));
+    await res.json(userTrips);
 
   } catch (e) {
     console.error(e.message);

@@ -24,7 +24,8 @@ export class ReservationsService {
       reservation = {
         id: this.generateReservationId(),
         tripId: trip.id,
-        count: 1
+        count: 1,
+        author: null // TODO: get user form AuthService
       };
       this.reservations.push(reservation);
     }
@@ -44,7 +45,7 @@ export class ReservationsService {
     this.deleteReservationByTripId(trip.id);
   }
 
-  deleteReservationByTripId(tripId: number): void {
+  deleteReservationByTripId(tripId: string): void {
     const reservation = this.getTripReservation(tripId);
     if (reservation) {
       this.reservations.splice(this.reservations.indexOf(reservation), 1);
@@ -55,10 +56,12 @@ export class ReservationsService {
     return this.reservations.filter(r => r.tripId === tripId)[0] || null;
   }
 
-  private generateReservationId(): number {
-    return (this.reservations
-      .map(reservation => reservation.id)
-      .sort((r1, r2) => r2 - r1)[0] || 0) + 1;
+  private generateReservationId(): string {
+    return (
+      this.reservations
+        .map(reservation => reservation.id)
+        .join('')
+    ) + '1';
   }
 
 }

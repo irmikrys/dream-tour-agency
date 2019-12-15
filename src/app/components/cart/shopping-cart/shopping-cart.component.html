@@ -4,9 +4,9 @@
 <div class="shopping-cart-list-container" *ngIf="reservations.length > 0">
   <mat-action-list class='shopping-cart-list' *ngFor="let reservation of reservations">
     <mat-list-item>
-      <span>{{reservation.id}}: {{reservation.trip.name}}</span>
+      <span>{{reservation.id}}: {{reservation.name}}</span>
       <span>Times: {{reservation.count}}</span>
-      <span>Price summary: {{reservation.count * reservation.trip.price}}</span>
+      <span>Price summary: {{reservation.count * reservation.price}}</span>
 
       <button mat-raised-button color="warn" (click)="null"> Discard </button>
       <button mat-raised-button color="primary" (click)="null"> Add more </button>

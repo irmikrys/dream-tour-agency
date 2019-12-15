@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
+import {Rating} from '../../../shared/models/rating.model';
 
 @Component({
   selector: 'app-trip',
@@ -16,8 +17,10 @@ export class TripComponent implements OnInit {
   @Output() reserveTrip = new EventEmitter<Trip>();
   @Output() discardTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<Trip>();
-  @Output() rateTrip = new EventEmitter<Trip>();
+  @Output() rateTrip = new EventEmitter<Rating>();
 
+  ratesCount = 0;
+  overallRating = 0;
   rating = 0;
   starCount = 5;
   starColor: TripRatingColor = TripRatingColor.accent;
@@ -40,19 +43,23 @@ export class TripComponent implements OnInit {
     this.deleteTrip.emit(trip);
   }
 
-  onRatingChanged(rating) {
+  onRatingChanged(rating: 1 | 2 | 3 | 4 | 5) {
     this.rating = rating;
 
-    let ratesCount = this.trip.ratesCount || 0;
-    let currentRating = this.trip.rating || 0;
+    let ratesCount = this.ratesCount || 0;
+    let currentRating = this.overallRating || 0;
 
     currentRating *= ratesCount;
     ratesCount += 1;
 
-    this.trip.ratesCount = ratesCount;
-    this.trip.rating = (currentRating + rating) / ratesCount;
+    this.ratesCount = ratesCount;
+    this.overallRating = (currentRating + rating) / ratesCount;
 
-    this.rateTrip.emit(this.trip);
+    this.rateTrip.emit({
+      tripId: this.trip.id,
+      rating,
+      author: null // TODO: get user from auth service
+    });
   }
 
 }

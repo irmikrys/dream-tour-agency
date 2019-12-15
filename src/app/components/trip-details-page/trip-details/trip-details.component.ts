@@ -17,7 +17,7 @@ export class TripDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramsMap) => {
-      this.getTripById(Number((paramsMap as any).params.id));
+      this.getTripById(String((paramsMap as any).params.id));
     });
   }
 
@@ -25,7 +25,7 @@ export class TripDetailsComponent implements OnInit {
     console.log(event);
   }
 
-  private getTripById(id: number): void {
+  private getTripById(id: string): void {
     this.tripsService
       .getTrip(id)
       .subscribe(trip => this.trip = trip);
