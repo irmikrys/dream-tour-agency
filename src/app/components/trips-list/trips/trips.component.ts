@@ -62,6 +62,7 @@ export class TripsComponent implements OnInit {
   }
 
   onTripRated(trip: Trip): void {
+    // TODO: change to rating
     this.tripsService
       .updateTrip(trip)
       .subscribe();

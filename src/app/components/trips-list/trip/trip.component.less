@@ -3,6 +3,11 @@
 
 .trip {
   padding: 2em;
+  min-width: 260px;
+
+  .hidden {
+    display: none
+  }
 
   mat-card-content {
     height: auto;
@@ -41,5 +46,36 @@
 
   .trip-rating-result {
     margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 720px) {
+  .trip {
+    padding: 1em;
+
+    .hidden {
+      display: inherit
+    }
+
+    .sm-hidden {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+    }
+
+    .sm-visible {
+      visibility: visible;
+    }
+
+    .card-actions {
+        display: block !important;
+
+        button, div > a {
+          width: 100%;
+          margin: 1em 0 0;
+        }
+
+    }
+
   }
 }

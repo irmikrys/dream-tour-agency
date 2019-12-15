@@ -1,4 +1,3 @@
-import {Trip} from './trip.model';
 import {Reservation} from './reservation.model';
 
 export interface ReservationDetails extends Reservation {
