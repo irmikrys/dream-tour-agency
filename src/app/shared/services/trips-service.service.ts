@@ -3,6 +3,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Trip} from '../models/trip.model';
+import {TripDetails} from '../models/tripDetails.model';
 import {MessageService} from './message.service';
 
 @Injectable({
@@ -28,22 +29,22 @@ export class TripsService {
       );
   }
 
-  getTrip(id: string): Observable<Trip> {
-    this.log('fetch trip');
-    return this.http
-      .get<Trip>(`${this.tripsUrl}/${id}`)
-      .pipe(
-        tap(_ => this.log(`fetched trip id=${id}`)),
-        catchError(this.handleError<Trip>(`getTrip id=${id}`, null))
-      );
-  }
-
   addTrip(trip: Trip): Observable<Trip> {
     return this.http
       .post<Trip>(this.tripsUrl, trip, this.httpOptions)
       .pipe(
         tap((newTrip: Trip) => this.log(`added a trip w/ id=${newTrip.id}`)),
         catchError(this.handleError<Trip>('addTrip'))
+      );
+  }
+
+  getTrip(id: string): Observable<TripDetails> {
+    this.log('fetch trip');
+    return this.http
+      .get<TripDetails>(`${this.tripsUrl}/${id}`)
+      .pipe(
+        tap(_ => this.log(`fetched trip id=${id}`)),
+        catchError(this.handleError<TripDetails>(`getTrip id=${id}`, null))
       );
   }
 
@@ -57,6 +58,7 @@ export class TripsService {
       );
   }
 
+  // TODO: specify more about the functionality of update
   updateTrip(trip: Trip): Observable<Trip> {
     this.log('update trip');
     return this.http

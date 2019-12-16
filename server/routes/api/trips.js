@@ -101,6 +101,29 @@ router.get('/:tripId', async (req, res) => {
 });
 
 /**
+ * @route   DELETE api/trips/:tripId
+ * @desc    Trip detailed information
+ * @access  Private
+ */
+router.delete('/:tripId', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('role');
+    if (user.role !== 'admin') {
+      return res.status(400).json({msg: 'Only administrator can delete a trip', user})
+    }
+
+    await Trip.findOneAndRemove({_id: req.params.tripId});
+    await res.json({msg: `Trip with id ${req.params.tripId} deleted`});
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// TODO: make a route that updates trip, but only specific fields for user; and specific fields for admin
+
+/**
  * @route   POST api/trips/:tripId/reservations
  * @desc    Trips reservations creation route
  * @access  Private
