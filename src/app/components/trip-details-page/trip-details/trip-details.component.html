@@ -1,8 +1,9 @@
 <div class="trip-details-container">
   <mat-card class="trip-details">
-    <p *ngIf="!trip">We could not find the requested trip, sorry!</p>
+    <p *ngIf="!trip && !isLoading">We could not find the requested trip, sorry!</p>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-    <mat-tab-group *ngIf="trip" (selectedTabChange)="executeSelectedChange($event)">
+    <mat-tab-group *ngIf="trip && !isLoading" (selectedTabChange)="executeSelectedChange($event)">
       <mat-tab label="Description">
         <p >We are now exploring the {{trip.id}} trip.</p>
         <div class="trip-info">

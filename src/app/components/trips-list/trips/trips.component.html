@@ -3,9 +3,10 @@
     <app-header></app-header>
   </div>
 
-  <app-trip-search></app-trip-search>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <ul class="trips">
+  <app-trip-search *ngIf="!isLoading"></app-trip-search>
+  <ul class="trips" *ngIf="!isLoading">
     <li *ngFor="let trip of trips" style="padding: 2em">
       <app-trip [trip]="trip"
                 [highest]="highest"

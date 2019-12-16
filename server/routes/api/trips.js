@@ -40,7 +40,7 @@ router.post('/', [auth, [
   check('endDate', 'End date must be valid').custom(isValidDate),
   check('price', 'Price is required').not().isEmpty(),
   check('currency', 'Currency is required').not().isEmpty(),
-  check('currency', 'Enter a valid currency code').isCurrency(),
+  // check('currency', 'Enter a valid currency code').isCurrency(),
   check('maxPlaces', 'Maximum number of places is required').not().isEmpty(),
   check('description', 'Description is required').not().isEmpty(),
 ]], async (req, res) => {

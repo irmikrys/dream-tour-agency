@@ -12,11 +12,14 @@ export class TripDetailsComponent implements OnInit {
 
   private trip: Trip = null;
 
+  isLoading = false;
+
   constructor(private route: ActivatedRoute, private tripsService: TripsService) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramsMap) => {
+      this.isLoading = true;
       this.getTripById(String((paramsMap as any).params.id));
     });
   }
@@ -28,7 +31,10 @@ export class TripDetailsComponent implements OnInit {
   private getTripById(id: string): void {
     this.tripsService
       .getTrip(id)
-      .subscribe(trip => this.trip = trip);
+      .subscribe(trip => {
+        this.isLoading = false;
+        this.trip = trip;
+      });
   }
 
 }

@@ -15,6 +15,8 @@ export class TripsComponent implements OnInit {
   highest: string;
   lowest: string;
 
+  isLoading = false;
+
   constructor(
     private tripsService: TripsService,
     private reservationsService: ReservationsService
@@ -27,12 +29,14 @@ export class TripsComponent implements OnInit {
   }
 
   getTrips(): void {
+    this.isLoading = true;
     this.tripsService
       .getTrips()
       .subscribe(trips => {
         this.trips = trips;
         this.highest = this.getHighestPricedTrip();
         this.lowest = this.getLowestPricedTrip();
+        this.isLoading = false;
       });
   }
 

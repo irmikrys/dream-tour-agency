@@ -15,7 +15,7 @@ import {
   MatButtonModule,
   MatCardModule, MatDatepickerModule,
   MatIconModule, MatInputModule,
-  MatMenuModule,
+  MatMenuModule, MatProgressSpinnerModule,
   MatRippleModule,
   MatSelectModule,
   MatTabsModule,
@@ -87,6 +87,7 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
     MatInputModule,
     MatDatepickerModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
