@@ -89,6 +89,19 @@ const TripSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+}, {
+  toObject: {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    }
+  },
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    }
+  }
 });
 
 module.exports = Trip = mongoose.model('trip', TripSchema);

@@ -46,7 +46,7 @@ router.post('/', [auth, [
 ]], async (req, res) => {
 
   try {
-    const user = await User.findById(req.user.id).select('role -_id');
+    const user = await User.findById(req.user.id).select('role');
     if (user.role !== 'admin') {
       return res.status(400).json({msg: 'Only administrator can add a new trip', user})
     }
@@ -91,7 +91,7 @@ router.get('/:tripId', async (req, res) => {
   try {
     const trip = await Trip
       .findById(req.params.tripId)
-      .select('-_id -__v');
+      .select('-__v');
     await res.json(trip);
 
   } catch (e) {
@@ -159,8 +159,8 @@ router.get('/user/reservations', auth, async (req, res) => {
       )
       .map(trip => ({
         ...trip.reservations,
-        id: trip._id,
-        tripId: trip._id,
+        id: trip.id,
+        tripId: trip.id,
         price: trip.price,
         name: trip.name,
         currency: trip.currency

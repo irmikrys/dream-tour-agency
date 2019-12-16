@@ -88,9 +88,9 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
     MatDatepickerModule,
     MatBadgeModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // ),
   ],
   providers: [],
   bootstrap: [AppComponent]
