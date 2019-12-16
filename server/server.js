@@ -10,6 +10,13 @@ connectDB();
 // init middleware to get req.body
 app.use(express.json({extended: false}));
 
+// enable CORS for all origins
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // routes
 app.get('/', (req, res) => res.send('API Running'));
 
