@@ -1,21 +1,13 @@
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {Component, OnInit} from '@angular/core';
-import {ErrorStateMatcher} from '@angular/material';
-import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {TripsService} from '../../shared/services/trips-service.service';
-import {Trip} from '../../shared/models/trip.model';
-import {Router} from '@angular/router';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import {MessageService} from '../../shared/services/message.service';
+import {tripFormConfig} from '../../shared/config/forms';
 
 const moment = _rollupMoment || _moment;
 
@@ -48,41 +40,50 @@ export const MY_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
+
 export class NewTripFormComponent implements OnInit {
 
-  nameFormControl = new FormControl('', [Validators.required]);
-  countryFormControl = new FormControl('', [Validators.required]);
-  startDateFormControl = new FormControl(moment(), [Validators.required]);
-  endDateFormControl = new FormControl(moment(), [Validators.required]);
-  priceFormControl = new FormControl('', [Validators.required]); // todo price with currency
-  maxPlacesFormControl = new FormControl('', [Validators.required]);
-  descriptionFormControl = new FormControl('', [Validators.required]); // todo textarea & max length
-  pictureLinkFormControl = new FormControl('', [Validators.required]);
+  config = tripFormConfig;
+  added = false;
+  submitted = false;
+  tripForm: FormGroup;
 
-  formData: FormGroup = new FormGroup({
-    name: this.nameFormControl,
-    country: this.countryFormControl,
-    startDate: this.startDateFormControl,
-    endDate: this.endDateFormControl,
-    price: this.priceFormControl,
-    maxPlaces: this.maxPlacesFormControl,
-    description: this.descriptionFormControl,
-    pictureLink: this.pictureLinkFormControl,
-  });
-
-  matcher = new MyErrorStateMatcher();
-
-  constructor(private tripsService: TripsService, private router: Router) {
+  constructor(
+    private tripsService: TripsService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
+    this.tripForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      country: ['', Validators.required],
+      price: ['', Validators.required],
+      currency: ['', Validators.required],
+      maxPlaces: ['', Validators.required],
+      pictureLink: ['', []],
+      description: ['', Validators.required],
+      startDate: [moment(), [Validators.required]],
+      endDate: [moment(), [Validators.required]],
+    });
   }
 
-  onClickSubmit(tripData: Trip) {
-    tripData.placesCount = tripData.maxPlaces;
+  onSubmit() {
+    this.submitted = true;
 
-    this.tripsService
-      .addTrip(tripData)
-      .subscribe(_ => this.router.navigateByUrl('/'));
+    if (this.tripForm.invalid === true) {
+      this.messageService.add('creation failed, invalid form');
+      return;
+    } else {
+      this.messageService.add('creation form succeeded');
+      this.added = true;
+
+      const tripData = this.tripForm.value;
+      tripData.placesCount = tripData.maxPlaces;
+      this.tripsService
+        .addTrip(tripData)
+        .subscribe(_ => this.router.navigateByUrl('/'));
+    }
   }
 }

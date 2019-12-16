@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import {MainRoutingModule} from './routing/main-routing.module';
 import {AppComponent} from './components/app/app.component';
@@ -67,6 +67,7 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
   imports: [
     BrowserModule,
     MainRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
