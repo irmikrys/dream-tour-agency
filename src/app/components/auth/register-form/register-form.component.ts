@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {registerFormConfig} from '../../../shared/config/forms';
 import {MessageService} from '../../../shared/services/message.service';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-register-form',
@@ -15,7 +16,11 @@ export class RegisterFormComponent implements OnInit {
   submitted = false;
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
+    public authService: AuthService
+  ) {
   }
 
   ngOnInit() {
@@ -28,13 +33,20 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const form = this.registerForm;
     this.submitted = true;
 
-    if (this.registerForm.invalid === true) {
+    if (form.invalid === true) {
       this.messageService.add('registration failed, invalid form');
       return;
     } else {
-      this.messageService.add('registration succeeded');
+      this.authService.createUser({
+        name: form.get('name').value,
+        surname: form.get('surname').value,
+        email: form.get('email').value,
+        password: form.get('password').value,
+      });
+      this.messageService.add('registration form valid');
       this.registered = true;
     }
   }

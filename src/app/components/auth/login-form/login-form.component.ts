@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../shared/services/message.service';
 import {loginFormConfig} from '../../../shared/config/forms';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -24,7 +25,11 @@ export class LoginFormComponent implements OnInit {
     password: this.passwordFormControl,
   });
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
+    public authService: AuthService
+  ) {
   }
 
   ngOnInit() {
@@ -35,13 +40,18 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const form = this.loginForm;
     this.submitted = true;
 
-    if (this.loginForm.invalid === true) {
+    if (form.invalid === true) {
       console.log(this.loginForm.controls);
       this.messageService.add('login failed, invalid form');
       return;
     } else {
+      this.authService.loginUser({
+        email: form.get('email').value,
+        password: form.get('password').value
+      });
       this.messageService.add('login succeeded');
       this.login = true;
     }
