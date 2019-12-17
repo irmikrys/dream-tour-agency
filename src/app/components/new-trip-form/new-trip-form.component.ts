@@ -44,9 +44,9 @@ export const MY_FORMATS = {
 export class NewTripFormComponent implements OnInit {
 
   config = tripFormConfig;
-  added = false;
-  submitted = false;
   tripForm: FormGroup;
+
+  isLoading = false;
 
   constructor(
     private tripsService: TripsService,
@@ -70,14 +70,11 @@ export class NewTripFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.tripForm.invalid === true) {
       this.messageService.add('creation failed, invalid form');
       return;
     } else {
-      this.messageService.add('creation form succeeded');
-      this.added = true;
+      this.isLoading = true;
 
       const tripData = this.tripForm.value;
       tripData.placesCount = tripData.maxPlaces;

@@ -6,6 +6,7 @@ import {UserData} from '../models/userData.model';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from '../models/user.model';
 import {AuthData} from '../models/authData.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AuthService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private messageService: MessageService, private http: HttpClient) {
+  constructor(private messageService: MessageService, private http: HttpClient, private router: Router) {
   }
 
   getToken() {
@@ -66,6 +67,7 @@ export class AuthService {
           if (token) {
             this.authStatusListener.next(true);
             this.isAuthenticated = true;
+            this.router.navigate(['/']);
           }
         }
       });
@@ -75,6 +77,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.router.navigate(['/']);
   }
 
   private log(message: string) {

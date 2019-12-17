@@ -24,7 +24,10 @@
         </mat-form-field>
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">Register</button>
+      <button mat-stroked-button color="accent" class="btn-block">
+        <mat-spinner *ngIf="isLoading" diameter="30" color="accent"></mat-spinner>
+        <a *ngIf="!isLoading">Register</a>
+      </button>
 
     </form>
   </mat-card>

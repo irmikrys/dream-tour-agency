@@ -12,9 +12,9 @@ import {AuthService} from '../../../shared/services/auth.service';
 export class RegisterFormComponent implements OnInit {
 
   config = registerFormConfig;
-  registered = false;
-  submitted = false;
   registerForm: FormGroup;
+
+  private isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,20 +34,18 @@ export class RegisterFormComponent implements OnInit {
 
   onSubmit() {
     const form = this.registerForm;
-    this.submitted = true;
 
     if (form.invalid === true) {
       this.messageService.add('registration failed, invalid form');
       return;
     } else {
+      this.isLoading = true;
       this.authService.createUser({
         name: form.get('name').value,
         surname: form.get('surname').value,
         email: form.get('email').value,
         password: form.get('password').value,
       });
-      this.messageService.add('registration form valid');
-      this.registered = true;
     }
   }
 

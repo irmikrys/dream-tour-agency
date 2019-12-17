@@ -58,7 +58,8 @@
       </mat-card-content>
 
       <button mat-stroked-button color="accent" class="btn-block" [disabled]="!tripForm.valid">
-        Create
+        <mat-spinner *ngIf="isLoading" diameter="30" color="accent"></mat-spinner>
+        <a *ngIf="!isLoading">Create</a>
       </button>
       <button mat-stroked-button color="warn" class="btn-block" type="button" routerLink="/" routerLinkActive="true">
         Cancel
