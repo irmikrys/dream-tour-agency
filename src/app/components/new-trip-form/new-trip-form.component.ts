@@ -83,7 +83,9 @@ export class NewTripFormComponent implements OnInit {
       tripData.placesCount = tripData.maxPlaces;
       this.tripsService
         .addTrip(tripData)
-        .subscribe(_ => this.router.navigateByUrl('/'));
+        .subscribe(
+          // _ => this.router.navigateByUrl('/')
+        );
     }
   }
 }

@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Trip} from '../models/trip.model';
 import {TripDetails} from '../models/tripDetails.model';
 import {MessageService} from './message.service';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,11 @@ export class TripsService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private messageService: MessageService, private http: HttpClient) {
+  constructor(
+    private messageService: MessageService,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
   }
 
   getTrips(): Observable<Trip[]> {
@@ -30,8 +35,12 @@ export class TripsService {
   }
 
   addTrip(trip: Trip): Observable<Trip> {
+    console.log(this.authService.getToken());
+    const options = {
+      headers: this.httpOptions.headers.append('x-auth-token', this.authService.getToken())
+    };
     return this.http
-      .post<Trip>(this.tripsUrl, trip, this.httpOptions)
+      .post<Trip>(this.tripsUrl, trip, options)
       .pipe(
         tap((newTrip: Trip) => this.log(`added a trip w/ id=${newTrip.id}`)),
         catchError(this.handleError<Trip>('addTrip'))

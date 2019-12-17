@@ -10,7 +10,7 @@ const router = express.Router();
 
 /**
  * @route   GET api/auth
- * @desc    Auth main route
+ * @desc    Current logged in user
  * @access  Protected
  */
 router.get('/', auth, async (req, res) => {

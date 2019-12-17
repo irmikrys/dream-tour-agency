@@ -12,6 +12,8 @@ import {AuthData} from '../models/authData.model';
 })
 export class AuthService {
 
+  private token: string;
+
   private authUrl = 'api/auth';
   private usersUrl = 'api/users';
   httpOptions = {
@@ -19,6 +21,10 @@ export class AuthService {
   };
 
   constructor(private messageService: MessageService, private http: HttpClient) {
+  }
+
+  getToken() {
+    return this.token;
   }
 
   createUser(userData: UserData) {
@@ -35,13 +41,18 @@ export class AuthService {
 
   loginUser(authData: AuthData) {
     this.http
-      .post(this.authUrl, authData, this.httpOptions)
+      .post<{ token: string }>(this.authUrl, authData, this.httpOptions)
       .pipe(
         tap((data) => this.log(`logged in user`)),
         catchError(this.handleError<any>('loginUser'))
       )
       .subscribe(response => {
-        console.log(response);
+        if (!response) {
+          this.log('response undefined');
+        } else {
+          console.log(response);
+          this.token = response.token;
+        }
       });
   }
 
