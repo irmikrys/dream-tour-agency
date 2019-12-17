@@ -1,46 +1,46 @@
-<div class="trip-details-container">
-  <mat-card class="trip-details">
-    <p *ngIf="!trip && !isLoading">We could not find the requested trip, sorry!</p>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class='trip-details-container'>
+  <mat-card class='trip-details'>
+    <p *ngIf='!trip && !isLoading'>We could not find the requested trip, sorry!</p>
+    <mat-spinner *ngIf='isLoading'></mat-spinner>
 
-    <mat-tab-group *ngIf="trip && !isLoading" (selectedTabChange)="executeSelectedChange($event)">
-      <mat-tab label="Description">
+    <mat-tab-group *ngIf='trip && !isLoading' (selectedTabChange)='executeSelectedChange($event)'>
+      <mat-tab label='Description'>
         <p >We are now exploring the {{trip.id}} trip.</p>
-        <div class="trip-info">
-          <div class="icon-containable">
-            <i class="material-icons">monetization_on</i>
+        <div class='trip-info'>
+          <div class='icon-containable'>
+            <i class='material-icons'>monetization_on</i>
             <span> {{trip.price | currency: 'EUR'}} </span>
           </div>
-          <div class="icon-containable">
+          <div class='icon-containable'>
             <mat-icon>date_range</mat-icon>
             <span> {{trip.startDate | date }} - {{trip.endDate | date}} </span>
           </div>
-          <div class="icon-containable"
-               *ngIf="trip.placesCount !== 0"
-               [ngStyle]="{'color': trip.placesCount < 3 ? 'red' : 'inherit'}">
+          <div class='icon-containable'
+               *ngIf='trip.placesCount !== 0'
+               [ngStyle]='{"color": trip.placesCount < 3 ? "red" : "inherit"}'>
             <mat-icon>people_outline</mat-icon>
             <span>Free places: {{trip.placesCount}}</span>
           </div>
-          <div class="icon-containable" *ngIf="trip.placesCount == 0">
+          <div class='icon-containable' *ngIf='trip.placesCount == 0'>
             <mat-icon>people_outline</mat-icon>
             <span>No free places!</span>
           </div>
-          <div class="icon-containable">
+          <div class='icon-containable'>
             <mat-icon>info</mat-icon>
             <span>{{trip.description}}</span>
           </div>
-          <div class="icon-containable trip-rating-result">
+          <div class='icon-containable trip-rating-result'>
             <mat-icon>stars</mat-icon>
-            <span>{{(trip.rating | number: '1.1-1') || 'Never rated'}}</span>
-            <span *ngIf="trip.ratesCount > 0">&nbsp;({{trip.ratesCount}})</span>
+            <span>{{(trip.rating | number: '1.1-1') || 'Never rated'}}</span> <!-- FIXME: store overall rating in component -->
+            <span *ngIf='trip.ratings.length > 0'>&nbsp;({{trip.ratings.length}})</span>
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Photo gallery">
-        <p *ngIf="!trip.gallery || !trip.gallery.length">Gallery not available for the trip :(</p>
-        <p *ngIf="trip.gallery && trip.gallery.length">Photos: </p> <!-- TODO: photos implementation -->
+      <mat-tab label='Photo gallery'>
+        <p *ngIf='!trip.gallery || !trip.gallery.length'>Gallery not available for the trip :(</p>
+        <p *ngIf='trip.gallery && trip.gallery.length'>Photos: </p> <!-- TODO: photos implementation -->
       </mat-tab>
-      <mat-tab label="Comments">
+      <mat-tab label='Comments'>
         <app-trip-comments></app-trip-comments>
       </mat-tab>
     </mat-tab-group>

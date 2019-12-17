@@ -7,6 +7,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {User} from '../models/user.model';
 import {AuthData} from '../models/authData.model';
 import {Router} from '@angular/router';
+import {UserRole} from '../models/userRole.type';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private userId: string;
-  private userRole: 'user' | 'admin';
+  private userRole: UserRole;
   // @ts-ignore
   private tokenTimer: NodeJS.Timer;
 
@@ -42,7 +43,7 @@ export class AuthService {
     return this.userId;
   }
 
-  getUserRole(): 'user' | 'admin' {
+  getUserRole(): UserRole {
     return this.userRole;
   }
 
@@ -59,12 +60,18 @@ export class AuthService {
       )
       .subscribe(response => {
         console.log(response);
+        this.router.navigate(['/login']);
       });
   }
 
   loginUser(authData: AuthData) {
     this.http
-      .post<{ token: string, expiresIn: number, userId: string, userRole: 'admin' | 'user' }>(this.authUrl, authData, this.httpOptions)
+      .post<{
+        token: string,
+        expiresIn: number,
+        userId: string,
+        userRole: UserRole
+      }>(this.authUrl, authData, this.httpOptions)
       .pipe(
         tap(_ => this.log(`logged in user`)),
         catchError(this.handleError<any>('loginUser'))
@@ -74,15 +81,15 @@ export class AuthService {
         const token = response && response.token;
         this.token = token;
         if (token) {
-          const expiresInDuration = response.expiresIn;
+          const {expiresIn: expiresInDuration, userId, userRole} = response;
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
-          this.userId = response.userId;
-          this.userRole = response.userRole;
+          this.userId = userId;
+          this.userRole = userRole;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, this.userId, this.userRole);
+          this.saveAuthData(token, expirationDate, userId, userRole);
           this.router.navigate(['/']);
         }
       });
@@ -126,7 +133,7 @@ export class AuthService {
     );
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, userRole: 'user' | 'admin') {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, userRole: UserRole) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
@@ -144,7 +151,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole')  as 'admin' | 'user';
+    const userRole = localStorage.getItem('userRole') as UserRole;
     if (!token || !expirationDate) {
       return;
     }

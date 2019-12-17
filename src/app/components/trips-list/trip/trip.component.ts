@@ -3,8 +3,8 @@ import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
 import {Rating} from '../../../shared/models/rating.model';
 import {Subscription} from 'rxjs';
-import {ReservationsService} from '../../../shared/services/reservations.service';
 import {AuthService} from '../../../shared/services/auth.service';
+import {UserRole} from '../../../shared/models/userRole.type';
 
 @Component({
   selector: 'app-trip',
@@ -24,7 +24,7 @@ export class TripComponent implements OnInit, OnDestroy {
 
   private authListenerSubs: Subscription;
   isUserAuthenticated = false;
-  userRole: 'admin' | 'user';
+  userRole: UserRole;
 
   ratesCount = 0;
   overallRating = 0;

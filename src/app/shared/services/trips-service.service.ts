@@ -1,5 +1,5 @@
 import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Trip} from '../models/trip.model';
@@ -81,7 +81,7 @@ export class TripsService {
     return this.http
       .get<Trip[]>(`${this.tripsUrl}/?name=${term}`)
       .pipe(
-        tap(_ => this.log(`found trips matching "${term}"`)),
+        tap(_ => this.log(`found trips matching '${term}'`)),
         catchError(this.handleError<Trip[]>('searchTrips', []))
       );
   }

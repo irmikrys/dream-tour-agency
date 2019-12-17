@@ -1,13 +1,14 @@
-<mat-card class="trip-search">
+<mat-card class='trip-search'>
   <mat-card-content>
 
-    <mat-form-field class="example-full-width">
-      <input matInput #searchBox id="search-box" placeholder="Search by name..." (input)="search(searchBox.value)" />
+    <mat-form-field class='example-full-width'>
+      <label for='search-box'></label>
+      <input matInput #searchBox id='search-box' placeholder='Search by name...' (input)='search(searchBox.value)' />
     </mat-form-field>
 
-    <ul class="search-result">
-      <li *ngFor="let trip of trips$ | async" >
-        <a routerLink="/trips/{{trip.id}}">
+    <ul class='search-result'>
+      <li *ngFor='let trip of trips$ | async' >
+        <a routerLink='/trips/{{trip.id}}'>
           {{trip.name}}
         </a>
       </li>

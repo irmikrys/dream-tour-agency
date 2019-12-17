@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TripsService} from '../../../shared/services/trips-service.service';
-import {Trip} from '../../../shared/models/trip.model';
+import {TripDetails} from '../../../shared/models/tripDetails.model';
 
 @Component({
   selector: 'app-trip-details',
@@ -10,7 +10,7 @@ import {Trip} from '../../../shared/models/trip.model';
 })
 export class TripDetailsComponent implements OnInit {
 
-  private trip: Trip = null;
+  private trip: TripDetails = null;
 
   isLoading = false;
 

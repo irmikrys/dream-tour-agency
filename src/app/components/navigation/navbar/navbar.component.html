@@ -1,41 +1,41 @@
-<mat-toolbar color="primary" class="mat-elevation-z6 nav-toolbar">
+<mat-toolbar color='primary' class='mat-elevation-z6 nav-toolbar'>
 
   <div fxHide.gt-xs>
-    <button mat-icon-button (click)="onToggleSidenav()">
+    <button mat-icon-button (click)='onToggleSidenav()'>
       <mat-icon>menu</mat-icon>
     </button>
   </div>
 
-  <a *ngFor="let route of leftRoutes">
-    <a mat-button routerLink="{{route.link}}" routerLinkActive="{{!route.inactive && 'mat-accent'}}"
-       *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth">
-      <span class="mat-button-wrapper">
-        <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
-        <span *ngIf="route.span.text"> {{route.span.text}}</span>
+  <a *ngFor='let route of leftRoutes'>
+    <a mat-button routerLink='{{route.link}}' routerLinkActive='{{!route.inactive && "mat-accent"}}'
+       *ngIf='route.auth === null ? true : isUserAuthenticated === route.auth'>
+      <span class='mat-button-wrapper'>
+        <i *ngIf='route.span.icon' class='material-icons'>{{route.span.icon}}</i>
+        <span *ngIf='route.span.text'> {{route.span.text}}</span>
       </span>
     </a>
   </a>
 
-  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <a *ngIf="isUserAuthenticated" mat-button routerLink="/cart" routerLinkActive="mat-accent">
-      <span class="mat-button-wrapper">
-        <mat-icon matBadge="{{reservations.length}}" matBadgeColor="warn">shopping_cart</mat-icon>
+  <div fxFlex fxLayout fxLayoutAlign='end' fxHide.xs>
+    <a *ngIf='isUserAuthenticated' mat-button routerLink='/cart' routerLinkActive='mat-accent'>
+      <span class='mat-button-wrapper'>
+        <mat-icon matBadge='{{reservations.length}}' matBadgeColor='warn'>shopping_cart</mat-icon>
       </span>
-      <div matRipple class="mat-button-ripple mat-ripple"></div>
-      <div class="mat-button-focus-overlay"></div>
+      <div matRipple class='mat-button-ripple mat-ripple'></div>
+      <div class='mat-button-focus-overlay'></div>
     </a>
 
-    <a *ngFor="let route of rightRoutes">
-      <a mat-button routerLink="{{route.link}}" routerLinkActive="mat-accent"
-         *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth">
-        <span class="mat-button-wrapper">
-          <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
-          <span *ngIf="route.span.text"> {{route.span.text}}</span>
+    <a *ngFor='let route of rightRoutes'>
+      <a mat-button routerLink='{{route.link}}' routerLinkActive='mat-accent'
+         *ngIf='route.auth === null ? true : isUserAuthenticated === route.auth'>
+        <span class='mat-button-wrapper'>
+          <i *ngIf='route.span.icon' class='material-icons'>{{route.span.icon}}</i>
+          <span *ngIf='route.span.text'> {{route.span.text}}</span>
         </span>
       </a>
     </a>
 
-    <button *ngIf="isUserAuthenticated" mat-button (click)="onLogout()">Logout</button>
+    <button *ngIf='isUserAuthenticated' mat-button (click)='onLogout()'>Logout</button>
   </div>
 
 </mat-toolbar>

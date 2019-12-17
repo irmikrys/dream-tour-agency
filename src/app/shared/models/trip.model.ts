@@ -1,4 +1,3 @@
-import {Comment} from './comment.model';
 import {Rating} from './rating.model';
 
 export interface Trip {

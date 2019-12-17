@@ -1,26 +1,26 @@
-<section fxLayout="column" fxFlexAlign="stretch" class="trips-list-container">
-  <div fxFlexAlign="center" class="header-container">
+<section fxLayout='column' fxFlexAlign='stretch' class='trips-list-container'>
+  <div fxFlexAlign='center' class='header-container'>
     <app-header></app-header>
   </div>
 
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-spinner *ngIf='isLoading'></mat-spinner>
 
-  <app-trip-search *ngIf="!isLoading"></app-trip-search>
-  <ul class="trips" *ngIf="!isLoading">
-    <li *ngFor="let trip of trips" style="padding: 2em">
-      <app-trip [trip]="trip"
-                [highest]="highest"
-                [lowest]="lowest"
-                (reserveTrip)="onTripReserved($event)"
-                (discardTrip)="onTripDiscard($event)"
-                (deleteTrip)="onTripDeleted($event)"
-                (rateTrip)="onTripRated($event)"
+  <app-trip-search *ngIf='!isLoading'></app-trip-search>
+  <ul class='trips' *ngIf='!isLoading'>
+    <li *ngFor='let trip of trips' style='padding: 2em'>
+      <app-trip [trip]='trip'
+                [highest]='highest'
+                [lowest]='lowest'
+                (reserveTrip)='onTripReserved($event)'
+                (discardTrip)='onTripDiscard($event)'
+                (deleteTrip)='onTripDeleted($event)'
+                (rateTrip)='onTripRated($event)'
       ></app-trip>
     </li>
   </ul>
 
-  <button mat-raised-button color="primary" class="trips-count-indicator"
-          [ngStyle]="{'background': takenTrips > 5 ? 'green' : 'red'}">
+  <button mat-raised-button color='primary' class='trips-count-indicator'
+          [ngStyle]='{"background": takenTrips > 5 ? "green" : "red"}'>
     <span>
       Taken trips: {{takenTrips}}
     </span>
