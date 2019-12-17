@@ -1,42 +1,26 @@
 <mat-toolbar color="primary" class="mat-elevation-z6 nav-toolbar">
+
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div>
-    <a mat-button
-       routerLink="/"
-       aria-label="DreamTour"
-       class="mat-button mat-button-base"
-       tabindex="0"
-       aria-disabled="false">
+
+  <a *ngFor="let route of leftRoutes">
+    <a mat-button routerLink="{{route.link}}" routerLinkActive="{{!route.inactive && 'mat-accent'}}"
+       *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth">
       <span class="mat-button-wrapper">
-        <i class="material-icons">wb_sunny</i>
-        <span> DreamTour</span>
+        <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
+        <span *ngIf="route.span.text"> {{route.span.text}}</span>
       </span>
-      <div matRipple class="mat-button-ripple mat-ripple"></div>
-      <div class="mat-button-focus-overlay"></div>
     </a>
-    <a mat-button
-       routerLink="/new-trip"
-       routerLinkActive="mat-accent"
-       aria-label="New trip"
-       class="mat-button mat-button-base"
-       tabindex="0"
-       aria-disabled="false">
-      <span class="mat-button-wrapper">
-        <span> New trip</span>
-      </span>
-      <div matRipple class="mat-button-ripple mat-ripple"></div>
-      <div class="mat-button-focus-overlay"></div>
-    </a>
-  </div>
+  </a>
+
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <a mat-button
+    <a *ngIf="isUserAuthenticated"
+       mat-button
        routerLink="/cart"
        routerLinkActive="mat-accent"
-       aria-label="Shopping cart"
        class="mat-button mat-button-base"
        tabindex="0"
        aria-disabled="false">
@@ -46,21 +30,19 @@
       <div matRipple class="mat-button-ripple mat-ripple"></div>
       <div class="mat-button-focus-overlay"></div>
     </a>
-    <a mat-button
-       routerLink="/profile"
-       routerLinkActive="mat-accent"
-       aria-label="User"
-       class="mat-button mat-button-base"
-       tabindex="0"
-       aria-disabled="false">
+
+    <a *ngFor="let route of rightRoutes">
+      <a mat-button routerLink="{{route.link}}" routerLinkActive="mat-accent"
+         *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth"
+      >
       <span class="mat-button-wrapper">
-        <i class="material-icons">face</i>
+        <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
+        <span *ngIf="route.span.text"> {{route.span.text}}</span>
       </span>
-      <div matRipple class="mat-button-ripple mat-ripple"></div>
-      <div class="mat-button-focus-overlay"></div>
+      </a>
     </a>
-    <a mat-button routerLink="login" routerLinkActive="mat-accent">Log in</a>
-    <a mat-button routerLink="register" routerLinkActive="mat-accent">Register</a>
-    <a mat-button routerLink="confirmation" routerLinkActive="mat-accent">Confirmation</a>
+
+    <button *ngIf="isUserAuthenticated" mat-button>Logout</button>
   </div>
+
 </mat-toolbar>

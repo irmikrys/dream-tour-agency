@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from './message.service';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {UserData} from '../models/userData.model';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from '../models/user.model';
@@ -13,6 +13,7 @@ import {AuthData} from '../models/authData.model';
 export class AuthService {
 
   private token: string;
+  private authStatusListener = new Subject<boolean>();
 
   private authUrl = 'api/auth';
   private usersUrl = 'api/users';
@@ -25,6 +26,10 @@ export class AuthService {
 
   getToken() {
     return this.token;
+  }
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
   }
 
   createUser(userData: UserData) {
@@ -52,6 +57,7 @@ export class AuthService {
         } else {
           console.log(response);
           this.token = response.token;
+          this.authStatusListener.next(true);
         }
       });
   }
