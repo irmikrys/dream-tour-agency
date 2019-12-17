@@ -1,9 +1,9 @@
 const express = require('express');
+const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const isValidDate = require('../../utils/dateValidator');
-const {check, validationResult} = require('express-validator');
-
+const generateError = require('../../utils/errorsGenerator');
 const Trip = require('../../models/Trip');
 const User = require('../../models/User');
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     await res.json(trips);
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on fetching trips'));
   }
 });
 
@@ -48,11 +48,11 @@ router.post('/', [auth, [
   try {
     const user = await User.findById(req.user.id).select('role');
     if (user.role !== 'admin') {
-      return res.status(401).json({msg: 'Only administrator can add a new trip', user})
+      return res.status(401).json(generateError('Only administrator can add a new trip'))
     }
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Server error');
+    return res.status(500).json(generateError('Server error on fetching trip author'));
   }
 
   const errors = validationResult(req);
@@ -78,7 +78,7 @@ router.post('/', [auth, [
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on trip create'));
   }
 });
 
@@ -96,7 +96,7 @@ router.get('/:tripId', async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on detail trip fetch'));
   }
 });
 
@@ -109,7 +109,7 @@ router.delete('/:tripId', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('role');
     if (user.role !== 'admin') {
-      return res.status(401).json({msg: 'Only administrator can delete a trip', user})
+      return res.status(401).json(generateError('Only administrator can delete a trip'))
     }
 
     await Trip.findOneAndRemove({_id: req.params.tripId});
@@ -117,7 +117,7 @@ router.delete('/:tripId', auth, async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).send(generateError('Server error on trip delete'));
   }
 });
 
@@ -140,11 +140,11 @@ router.post('/:tripId/reservations', [auth, [
     const trip = await Trip.findById(req.params.tripId);
 
     if (trip.reservations.map(r => r.author).filter(a => a.toString() === req.user.id).length > 0) {
-      return res.status(400).json({errors: [{msg: 'You\'ve already made a reservation for this trip'}]})
+      return res.status(400).json(generateError('You\'ve already made a reservation for this trip'))
     }
 
     if (trip.placesCount === 0) {
-      return res.status(400).json({errors: [{msg: 'Cannot make reservation for a trip with no places left'}]})
+      return res.status(400).json(generateError('Cannot make reservation for a trip with no places left'))
     }
 
     if (count > trip.placesCount) {
@@ -164,7 +164,7 @@ router.post('/:tripId/reservations', [auth, [
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).send(generateError('Server error on reservation'));
   }
 });
 
@@ -192,7 +192,7 @@ router.get('/user/reservations', auth, async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on fetching user reservations'));
   }
 });
 
@@ -216,7 +216,7 @@ router.post('/:tripId/comments', [auth, [
     // check if author made trip reservation
     const hasReservedTrip = trip.reservations.filter(it => it.author.toString() === req.user.id).length > 0;
     if (!hasReservedTrip) {
-      return res.status(401).json({errors: [{msg: 'Only users with reservation can comment'}]})
+      return res.status(401).json(generateError('Only users with reservation can comment'))
     }
 
     const newComment = {
@@ -231,7 +231,7 @@ router.post('/:tripId/comments', [auth, [
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on comments add'));
   }
 });
 
@@ -247,7 +247,7 @@ router.get('/:tripId/comments', auth, async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on fetching comments'));
   }
 });
 
@@ -271,13 +271,13 @@ router.post('/:tripId/ratings', [auth, [
     // check if author made trip reservation
     const hasReservedTrip = trip.reservations.filter(it => it.author.toString() === req.user.id).length > 0;
     if (!hasReservedTrip) {
-      return res.status(401).json({errors: [{msg: 'Only users with reservation can add rating'}]})
+      return res.status(401).json(generateError('Only users with reservation can add rating'))
     }
 
     // check if author hasn't already made rating
     const hasRatedTrip = trip.ratings.filter(it => it.author.toString() === req.user.id).length > 0;
     if (hasRatedTrip) {
-      return res.status(400).json({errors: [{msg: 'You have already rated this trip'}]});
+      return res.status(400).json(generateError('You have already rated this trip'));
     }
 
     const newRating = {
@@ -291,7 +291,7 @@ router.post('/:tripId/ratings', [auth, [
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on rating add'));
   }
 });
 
@@ -307,7 +307,7 @@ router.get('/:tripId/ratings', async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on ratings fetch'));
   }
 });
 
@@ -324,7 +324,7 @@ router.get('/:tripId/user/rating', auth, async (req, res) => {
 
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server error');
+    res.status(500).json(generateError('Server error on trip rating fetch'));
   }
 });
 

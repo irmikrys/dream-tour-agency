@@ -1,20 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../shared/services/message.service';
 import {loginFormConfig} from '../../../shared/config/forms';
 import {AuthService} from '../../../shared/services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.less']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
 
   config = loginFormConfig;
   loginForm: FormGroup;
 
   private isLoading = false;
+  private authStatusSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,10 +26,20 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        console.log('auth sub', authStatus);
+        this.isLoading = false;
+      }
+    );
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   onSubmit() {

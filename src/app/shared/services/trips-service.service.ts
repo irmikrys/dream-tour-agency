@@ -12,7 +12,7 @@ import {AuthService} from './auth.service';
 })
 export class TripsService {
 
-  private tripsUrl = 'api/trips';
+  private tripsUrl = 'http://localhost:5000/api/trips';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };

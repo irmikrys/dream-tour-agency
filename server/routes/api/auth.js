@@ -5,6 +5,7 @@ const config = require('config');
 const {check, validationResult} = require('express-validator');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
+const generateError = require('../../utils/errorsGenerator');
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get('/', auth, async (req, res) => {
     await res.json(user);
   } catch (e) {
     console.error(e.message);
-    res.status(500).send(`Server error: ${e.message}`);
+    res.status(500).json(generateError(`Server error: ${e.message}`));
   }
 });
 
@@ -44,7 +45,7 @@ router.post('/', [
     if (!user) {
       return res
         .status(400)
-        .json({errors: [{msg: 'Invalid credentials'}]});
+        .json(generateError('Invalid credentials'));
     }
 
     // password matches
@@ -53,7 +54,7 @@ router.post('/', [
     if(!isMatch) {
       return res
         .status(400)
-        .json({errors: [{msg: 'Invalid credentials'}]});
+        .json(generateError('Invalid credentials'));
     }
 
     // return json-web-token
@@ -77,7 +78,7 @@ router.post('/', [
 
   } catch (e) {
     console.log(e.message);
-    res.status(500).send(`Server error: ${e.message}`);
+    res.status(500).json(generateError(`Server error: ${e.message}`));
   }
 
 });

@@ -13,7 +13,7 @@ import {NavbarComponent} from './components/navigation/navbar/navbar.component';
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatCardModule, MatDatepickerModule,
+  MatCardModule, MatDatepickerModule, MatDialogModule,
   MatIconModule, MatInputModule,
   MatMenuModule, MatProgressSpinnerModule,
   MatRippleModule,
@@ -26,9 +26,9 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
-import {HttpClientModule} from '@angular/common/http';
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDataService} from './shared/services/in-memory-data.service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+// import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+// import {InMemoryDataService} from './shared/services/in-memory-data.service';
 
 import {LayoutComponent} from './components/layout/layout.component';
 import {SidenavListComponent} from './components/navigation/sidenav-list/sidenav-list.component';
@@ -42,6 +42,8 @@ import {TripCommentsComponent} from './components/trip-details-page/trip-comment
 import {TripReservationConfirmationComponent} from './components/trip-reservation-confirmation/trip-reservation-confirmation.component';
 import { MessageComponent } from './components/message/message.component';
 import { TripSearchComponent } from './components/trips-list/trip-search/trip-search.component';
+import {ErrorInterceptor} from './shared/utils/ErrorInterceptor';
+import { ErrorComponent } from './components/message/error/error.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
     TripReservationConfirmationComponent,
     MessageComponent,
     TripSearchComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,13 +91,17 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
     MatDatepickerModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     HttpClientModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class MainModule {
 }

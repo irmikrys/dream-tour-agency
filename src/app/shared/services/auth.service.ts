@@ -1,13 +1,11 @@
+import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {MessageService} from './message.service';
-import {Observable, of, Subject} from 'rxjs';
-import {UserData} from '../models/userData.model';
-import {catchError, tap} from 'rxjs/operators';
-import {User} from '../models/user.model';
-import {AuthData} from '../models/authData.model';
 import {Router} from '@angular/router';
+import {UserData} from '../models/userData.model';
+import {AuthData} from '../models/authData.model';
 import {UserRole} from '../models/userRole.type';
+import {MessageService} from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +20,8 @@ export class AuthService {
   // @ts-ignore
   private tokenTimer: NodeJS.Timer;
 
-  private authUrl = 'api/auth';
-  private usersUrl = 'api/users';
+  private authUrl = 'http://localhost:5000/api/auth';
+  private usersUrl = 'http://localhost:5000/api/users';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -54,13 +52,11 @@ export class AuthService {
   createUser(userData: UserData) {
     this.http
       .post(this.usersUrl, userData, this.httpOptions)
-      .pipe(
-        tap((newUser: User) => this.log(`added a user w/ email=${newUser.email}`)),
-        catchError(this.handleError<User>('addUser'))
-      )
-      .subscribe(response => {
-        console.log(response);
+      .subscribe(() => {
         this.router.navigate(['/login']);
+      }, error => {
+        console.log(error);
+        this.authStatusListener.next(false);
       });
   }
 
@@ -72,10 +68,6 @@ export class AuthService {
         userId: string,
         userRole: UserRole
       }>(this.authUrl, authData, this.httpOptions)
-      .pipe(
-        tap(_ => this.log(`logged in user`)),
-        catchError(this.handleError<any>('loginUser'))
-      )
       .subscribe(response => {
         console.log(response);
         const token = response && response.token;
@@ -92,6 +84,9 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, userId, userRole);
           this.router.navigate(['/']);
         }
+      }, error => {
+        console.log(error);
+        this.authStatusListener.next(false);
       });
   }
 
@@ -163,27 +158,4 @@ export class AuthService {
     };
   }
 
-  private log(message: string) {
-    this.messageService.add(`TripsService: ${message}`);
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
 }
