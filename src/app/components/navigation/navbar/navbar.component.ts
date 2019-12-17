@@ -44,4 +44,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getReservations() {
     this.reservations = this.reservationsService.getReservations();
   }
+
+  onLogout() {
+    this.authService.logout();
+  }
 }
