@@ -16,6 +16,8 @@ export class AuthService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
+  // @ts-ignore
+  private tokenTimer: NodeJS.Timer;
 
   private authUrl = 'api/auth';
   private usersUrl = 'api/users';
@@ -52,9 +54,9 @@ export class AuthService {
 
   loginUser(authData: AuthData) {
     this.http
-      .post<{ token: string }>(this.authUrl, authData, this.httpOptions)
+      .post<{ token: string, expiresIn: number }>(this.authUrl, authData, this.httpOptions)
       .pipe(
-        tap((data) => this.log(`logged in user`)),
+        tap(_ => this.log(`logged in user`)),
         catchError(this.handleError<any>('loginUser'))
       )
       .subscribe(response => {
@@ -65,6 +67,10 @@ export class AuthService {
           const token = response.token;
           this.token = token;
           if (token) {
+            const expiresInDuration = response.expiresIn;
+            this.tokenTimer = setTimeout(() => {
+              this.logout();
+            }, expiresInDuration * 1000);
             this.authStatusListener.next(true);
             this.isAuthenticated = true;
             this.router.navigate(['/']);
@@ -77,6 +83,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    clearTimeout(this.tokenTimer);
     this.router.navigate(['/']);
   }
 
