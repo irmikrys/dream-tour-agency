@@ -8,19 +8,20 @@ import {ShoppingCartComponent} from '../components/cart/shopping-cart/shopping-c
 import {RegisterFormComponent} from '../components/auth/register-form/register-form.component';
 import {LoginFormComponent} from '../components/auth/login-form/login-form.component';
 import {TripReservationConfirmationComponent} from '../components/trip-reservation-confirmation/trip-reservation-confirmation.component';
+import {AuthGuard} from '../shared/utils/AuthGuard';
 
 const routes: Routes = [
   {path: 'login', component: LoginFormComponent},
   {path: 'register', component: RegisterFormComponent},
-  {path: 'confirmation', component: TripReservationConfirmationComponent},
+  {path: 'confirmation', component: TripReservationConfirmationComponent, canActivate: [AuthGuard]},
   {
     path: 'trips',
     component: TripsComponent,
     data: {title: 'Trips List'}
   },
   {path: 'trips/:id', component: TripDetailsComponent},
-  {path: 'new-trip', component: NewTripFormComponent},
-  {path: 'cart', component: ShoppingCartComponent},
+  {path: 'new-trip', component: NewTripFormComponent , canActivate: [AuthGuard]},
+  {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
   {
     path: '',
     redirectTo: '/trips',
@@ -31,7 +32,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class MainRoutingModule {
 }
