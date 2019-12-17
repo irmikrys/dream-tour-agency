@@ -35,12 +35,8 @@ export class TripsService {
   }
 
   addTrip(trip: Trip): Observable<Trip> {
-    console.log(this.authService.getToken());
-    const options = {
-      headers: this.httpOptions.headers.append('x-auth-token', this.authService.getToken())
-    };
     return this.http
-      .post<Trip>(this.tripsUrl, trip, options)
+      .post<Trip>(this.tripsUrl, trip, this.getOptionsWithToken())
       .pipe(
         tap((newTrip: Trip) => this.log(`added a trip w/ id=${newTrip.id}`)),
         catchError(this.handleError<Trip>('addTrip'))
@@ -48,7 +44,6 @@ export class TripsService {
   }
 
   getTrip(id: string): Observable<TripDetails> {
-    this.log('fetch trip');
     return this.http
       .get<TripDetails>(`${this.tripsUrl}/${id}`)
       .pipe(
@@ -60,7 +55,7 @@ export class TripsService {
   deleteTrip(id: string): Observable<Trip> {
     const url = `${this.tripsUrl}/${id}`;
     return this.http
-      .delete<Trip>(url, this.httpOptions)
+      .delete<Trip>(url, this.getOptionsWithToken())
       .pipe(
         tap(_ => this.log(`deleted trip id=${id}`)),
         catchError(this.handleError<Trip>('deleteTrip'))
@@ -71,7 +66,7 @@ export class TripsService {
   updateTrip(trip: Trip): Observable<Trip> {
     this.log('update trip');
     return this.http
-      .put<Trip>(this.tripsUrl, trip, this.httpOptions)
+      .put<Trip>(this.tripsUrl, trip, this.getOptionsWithToken())
       .pipe(
         tap(_ => this.log(`updated trip id=${trip.id}`)),
         catchError(this.handleError<any>('updateTrip'))
@@ -89,6 +84,12 @@ export class TripsService {
         tap(_ => this.log(`found trips matching "${term}"`)),
         catchError(this.handleError<Trip[]>('searchTrips', []))
       );
+  }
+
+  private getOptionsWithToken() {
+    return {
+      headers: this.httpOptions.headers.append('x-auth-token', this.authService.getToken())
+    };
   }
 
   private log(message: string) {

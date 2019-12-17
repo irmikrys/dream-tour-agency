@@ -74,7 +74,7 @@
       <mat-icon>remove_shopping_cart</mat-icon>
       Discard
     </button>
-    <div fxFlex fxLayoutAlign="end" *ngIf="isUserAuthenticated">
+    <div fxFlex fxLayoutAlign="end" *ngIf="isUserAuthenticated && userRole === 'admin'">
       <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
         <span class="mat-button-wrapper"><mat-icon>delete</mat-icon>Delete</span>

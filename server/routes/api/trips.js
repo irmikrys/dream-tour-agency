@@ -48,7 +48,7 @@ router.post('/', [auth, [
   try {
     const user = await User.findById(req.user.id).select('role');
     if (user.role !== 'admin') {
-      return res.status(400).json({msg: 'Only administrator can add a new trip', user})
+      return res.status(401).json({msg: 'Only administrator can add a new trip', user})
     }
   } catch (e) {
     console.error(e.message);
@@ -109,7 +109,7 @@ router.delete('/:tripId', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('role');
     if (user.role !== 'admin') {
-      return res.status(400).json({msg: 'Only administrator can delete a trip', user})
+      return res.status(401).json({msg: 'Only administrator can delete a trip', user})
     }
 
     await Trip.findOneAndRemove({_id: req.params.tripId});
@@ -216,7 +216,7 @@ router.post('/:tripId/comments', [auth, [
     // check if author made trip reservation
     const hasReservedTrip = trip.reservations.filter(it => it.author.toString() === req.user.id).length > 0;
     if (!hasReservedTrip) {
-      return res.status(400).json({errors: [{msg: 'Only users with reservation can comment'}]})
+      return res.status(401).json({errors: [{msg: 'Only users with reservation can comment'}]})
     }
 
     const newComment = {
@@ -271,7 +271,7 @@ router.post('/:tripId/ratings', [auth, [
     // check if author made trip reservation
     const hasReservedTrip = trip.reservations.filter(it => it.author.toString() === req.user.id).length > 0;
     if (!hasReservedTrip) {
-      return res.status(400).json({errors: [{msg: 'Only users with reservation can add rating'}]})
+      return res.status(401).json({errors: [{msg: 'Only users with reservation can add rating'}]})
     }
 
     // check if author hasn't already made rating
