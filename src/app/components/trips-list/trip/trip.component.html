@@ -66,15 +66,15 @@
       <mat-icon>details</mat-icon>
       Details
     </button>
-    <button mat-raised-button (click)="addTripToShoppingCart(trip)" *ngIf="trip.placesCount > 0">
+    <button mat-raised-button (click)="addTripToShoppingCart(trip)" *ngIf="trip.placesCount > 0 && isUserAuthenticated">
       <mat-icon>add_shopping_cart</mat-icon>
       Reserve
     </button>
-    <button mat-raised-button (click)="removeTripFromShoppingCart(trip)" *ngIf="trip.placesCount != 0">
+    <button mat-raised-button (click)="removeTripFromShoppingCart(trip)" *ngIf="trip.placesCount != 0 && isUserAuthenticated">
       <mat-icon>remove_shopping_cart</mat-icon>
       Discard
     </button>
-    <div fxFlex fxLayoutAlign="end">
+    <div fxFlex fxLayoutAlign="end" *ngIf="isUserAuthenticated">
       <a mat-raised-button color="warn" class="docs-button mat-raised-button mat-accent"
          tabindex="0" aria-disabled="false" (click)="deleteChildTrip(trip)">
         <span class="mat-button-wrapper"><mat-icon>delete</mat-icon>Delete</span>

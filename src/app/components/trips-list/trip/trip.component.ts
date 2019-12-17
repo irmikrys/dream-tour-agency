@@ -1,14 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
 import {Rating} from '../../../shared/models/rating.model';
+import {Subscription} from 'rxjs';
+import {ReservationsService} from '../../../shared/services/reservations.service';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-trip',
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.less']
 })
-export class TripComponent implements OnInit {
+export class TripComponent implements OnInit, OnDestroy {
 
   @Input() trip: Trip;
   @Input() lowest;
@@ -19,16 +22,29 @@ export class TripComponent implements OnInit {
   @Output() deleteTrip = new EventEmitter<Trip>();
   @Output() rateTrip = new EventEmitter<Rating>();
 
+  private authListenerSubs: Subscription;
+  isUserAuthenticated = false;
+
   ratesCount = 0;
   overallRating = 0;
   rating = 0;
   starCount = 5;
   starColor: TripRatingColor = TripRatingColor.accent;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.isUserAuthenticated = this.authService.getIsAuthenticated();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.isUserAuthenticated = isAuthenticated;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.authListenerSubs.unsubscribe();
   }
 
   addTripToShoppingCart(trip: Trip): void {

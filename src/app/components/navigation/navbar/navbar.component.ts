@@ -20,9 +20,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isUserAuthenticated = false;
   leftRoutes = navbarLeftRoutes;
   rightRoutes = navbarRightRoutes;
-  cartBadge = `
-          <mat-icon matBadge="{{reservations.length}}" matBadgeColor="warn">shopping_cart</mat-icon>
-  `;
 
   constructor(private reservationsService: ReservationsService, private authService: AuthService) {
   }
@@ -42,7 +39,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  };
+  }
 
   getReservations() {
     this.reservations = this.reservationsService.getReservations();

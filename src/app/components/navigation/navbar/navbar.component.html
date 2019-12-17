@@ -17,13 +17,7 @@
   </a>
 
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <a *ngIf="isUserAuthenticated"
-       mat-button
-       routerLink="/cart"
-       routerLinkActive="mat-accent"
-       class="mat-button mat-button-base"
-       tabindex="0"
-       aria-disabled="false">
+    <a *ngIf="isUserAuthenticated" mat-button routerLink="/cart" routerLinkActive="mat-accent">
       <span class="mat-button-wrapper">
         <mat-icon matBadge="{{reservations.length}}" matBadgeColor="warn">shopping_cart</mat-icon>
       </span>
@@ -33,12 +27,11 @@
 
     <a *ngFor="let route of rightRoutes">
       <a mat-button routerLink="{{route.link}}" routerLinkActive="mat-accent"
-         *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth"
-      >
-      <span class="mat-button-wrapper">
-        <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
-        <span *ngIf="route.span.text"> {{route.span.text}}</span>
-      </span>
+         *ngIf="route.auth === null ? true : isUserAuthenticated === route.auth">
+        <span class="mat-button-wrapper">
+          <i *ngIf="route.span.icon" class="material-icons">{{route.span.icon}}</i>
+          <span *ngIf="route.span.text"> {{route.span.text}}</span>
+        </span>
       </a>
     </a>
 

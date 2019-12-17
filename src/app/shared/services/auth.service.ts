@@ -14,6 +14,7 @@ export class AuthService {
 
   private token: string;
   private authStatusListener = new Subject<boolean>();
+  private isAuthenticated = false;
 
   private authUrl = 'api/auth';
   private usersUrl = 'api/users';
@@ -26,6 +27,10 @@ export class AuthService {
 
   getToken() {
     return this.token;
+  }
+
+  getIsAuthenticated() {
+    return this.isAuthenticated;
   }
 
   getAuthStatusListener() {
@@ -56,8 +61,12 @@ export class AuthService {
           this.log('response undefined');
         } else {
           console.log(response);
-          this.token = response.token;
-          this.authStatusListener.next(true);
+          const token = response.token;
+          this.token = token;
+          if (token) {
+            this.authStatusListener.next(true);
+            this.isAuthenticated = true;
+          }
         }
       });
   }
