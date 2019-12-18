@@ -24,13 +24,14 @@ export class TripsService {
   ) {
   }
 
-  getTrips(): Observable<Trip[]> {
+  getTrips(pageSize: number, currentPage: number) {
+    const queryParams = `?pagesize=${pageSize}&page=${currentPage}`;
     this.log('fetch trips');
     return this.http
-      .get<Trip[]>(this.tripsUrl)
+      .get<{ trips: Trip[], maxTrips: number }>(this.tripsUrl + queryParams)
       .pipe(
         tap(_ => this.log('fetched trips')),
-        catchError(this.handleError<Trip[]>('getTrips', []))
+        catchError(this.handleError<{ trips: Trip[], maxTrips: number }>('getTrips', {trips: [], maxTrips: 0}))
       );
   }
 

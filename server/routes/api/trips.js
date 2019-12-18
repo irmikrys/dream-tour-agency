@@ -16,10 +16,23 @@ const QUERY_TRIP_BASICS = '-__v -gallery -comments -reservations -createDate';
  */
 router.get('/', async (req, res) => {
   try {
-    const trips = await Trip
-      .find()
-      .select(QUERY_TRIP_BASICS);
-    await res.json(trips);
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+    const tripQuery = Trip.find().select(QUERY_TRIP_BASICS);
+    let fetchedTrips;
+    if (pageSize && currentPage) {
+      tripQuery
+        .skip(pageSize * (currentPage - 1))
+        .limit(pageSize);
+    }
+    tripQuery
+      .then(trips => {
+        fetchedTrips = trips;
+        return Trip.count()
+      })
+      .then(count => {
+        res.json({trips: fetchedTrips, maxTrips: count})
+      });
   } catch (e) {
     console.error(e.message);
     res.status(500).json(generateError('Server error on fetching trips'));

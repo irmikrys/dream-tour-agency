@@ -15,7 +15,7 @@ import {
   MatButtonModule,
   MatCardModule, MatDatepickerModule, MatDialogModule,
   MatIconModule, MatInputModule,
-  MatMenuModule, MatProgressSpinnerModule,
+  MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule,
   MatSelectModule,
   MatTabsModule,
@@ -92,6 +92,7 @@ import { ErrorComponent } from './components/message/error/error.component';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatPaginatorModule,
     HttpClientModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }

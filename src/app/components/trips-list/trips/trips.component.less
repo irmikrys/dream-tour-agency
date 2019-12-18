@@ -1,27 +1,48 @@
+.header-container {
+  width: 100%;
+}
+
 .trips-list-container {
-  .header-container {
-    width: 100%;
+  padding: 2em;
+
+  .paginator-card {
+    margin-top: 2em;
+
+    @media (max-width: 400px) {
+      margin-top: 1em;
+    }
   }
 
   .trips {
     list-style-type: none;
     padding: 0;
-  }
 
-  .trips-count-indicator {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    cursor: default;
+    li {
+      padding: 1em 0 !important;
+    }
   }
 
   @media (max-width: 400px) {
+    padding: 1em;
+
     li {
-      padding: 1em !important;
+      padding-top: 0.5em !important;
+      padding-bottom: 0.5em !important;
     }
   }
 }
 
+.trips-count-indicator {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  cursor: default;
+}
+
 mat-spinner {
   margin: auto;
+}
+
+mat-paginator {
+  margin-top: 1rem;
 }

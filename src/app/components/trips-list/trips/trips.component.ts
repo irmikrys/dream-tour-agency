@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripsService} from '../../../shared/services/trips-service.service';
 import {ReservationsService} from '../../../shared/services/reservations.service';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'app-trips',
@@ -16,6 +17,10 @@ export class TripsComponent implements OnInit {
   lowest: string;
 
   isLoading = false;
+  totalTrips = 0;
+  tripsPerPage = 2;
+  pageSizeOptions = [1, 2, 5, 10];
+  currentPage = 1;
 
   constructor(
     private tripsService: TripsService,
@@ -31,13 +36,20 @@ export class TripsComponent implements OnInit {
   getTrips(): void {
     this.isLoading = true;
     this.tripsService
-      .getTrips()
-      .subscribe(trips => {
-        this.trips = trips;
+      .getTrips(this.tripsPerPage, this.currentPage)
+      .subscribe(tripsData => {
+        this.trips = tripsData.trips;
+        this.totalTrips = tripsData.maxTrips;
         this.highest = this.getHighestPricedTrip();
         this.lowest = this.getLowestPricedTrip();
         this.isLoading = false;
       });
+  }
+
+  onChangePage(pageEvent: PageEvent) {
+    this.currentPage = pageEvent.pageIndex + 1;
+    this.tripsPerPage = pageEvent.pageSize;
+    this.getTrips();
   }
 
   onTripReserved(trip: Trip): void {
@@ -57,12 +69,13 @@ export class TripsComponent implements OnInit {
   }
 
   onTripDeleted(trip: Trip): void {
-    this.trips.splice(this.trips.findIndex(t => t.id === trip.id), 1);
+    this.isLoading = true;
     this.tripsService
       .deleteTrip(trip.id)
-      .subscribe();
+      .subscribe(() => {
+        this.getTrips();
+      });
     this.reservationsService.deleteAllReservationsFromTrip(trip);
-    this.recalculateOffers(trip.id);
   }
 
   onTripRated(trip: Trip): void {
@@ -82,17 +95,6 @@ export class TripsComponent implements OnInit {
     return this.trips
       .sort((a, b) => (a.price > b.price) ? 1 : -1)
       .map(trip => trip.id)[0];
-  }
-
-  private recalculateOffers(id: string) {
-    if (this.highest === id) {
-      this.highest = this.getHighestPricedTrip();
-      console.log(`highest now is ${this.highest}`);
-    }
-    if (this.lowest === id) {
-      this.lowest = this.getLowestPricedTrip();
-      console.log(`lowest now is ${this.lowest}`);
-    }
   }
 
 }
