@@ -6,6 +6,14 @@ import {Trip} from '../models/trip.model';
 import {TripDetails} from '../models/tripDetails.model';
 import {MessageService} from './message.service';
 import {AuthService} from './auth.service';
+import {Comment} from '../models/comment.model';
+
+interface TripsData {
+  trips: Trip[];
+  maxTrips: number;
+  cheap: string;
+  expensive: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +36,15 @@ export class TripsService {
     const queryParams = `?pagesize=${pageSize}&page=${currentPage}`;
     this.log('fetch trips');
     return this.http
-      .get<{ trips: Trip[], maxTrips: number }>(this.tripsUrl + queryParams)
+      .get<TripsData>(this.tripsUrl + queryParams)
       .pipe(
         tap(_ => this.log('fetched trips')),
-        catchError(this.handleError<{ trips: Trip[], maxTrips: number }>('getTrips', {trips: [], maxTrips: 0}))
+        catchError(this.handleError<TripsData>('getTrips', {
+          trips: [],
+          maxTrips: 0,
+          cheap: null,
+          expensive: null
+        }))
       );
   }
 

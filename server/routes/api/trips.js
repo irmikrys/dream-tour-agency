@@ -18,8 +18,12 @@ router.get('/', async (req, res) => {
   try {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-    const tripQuery = Trip.find().select(QUERY_TRIP_BASICS);
+    const tripQuery = Trip.find().select(QUERY_TRIP_BASICS).sort({price: 1});
+    const allTrips = await tripQuery;
+    const expensive = allTrips.length && allTrips[allTrips.length - 1].id;
+    const cheap = allTrips.length && allTrips[0].id;
     let fetchedTrips;
+
     if (pageSize && currentPage) {
       tripQuery
         .skip(pageSize * (currentPage - 1))
@@ -28,10 +32,15 @@ router.get('/', async (req, res) => {
     tripQuery
       .then(trips => {
         fetchedTrips = trips;
-        return Trip.count()
+        return Trip.countDocuments();
       })
       .then(count => {
-        res.json({trips: fetchedTrips, maxTrips: count})
+        res.json({
+          trips: fetchedTrips,
+          maxTrips: count,
+          expensive,
+          cheap
+        })
       });
   } catch (e) {
     console.error(e.message);

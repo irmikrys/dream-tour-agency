@@ -39,12 +39,11 @@ export class TripsComponent implements OnInit {
     this.tripsService
       .getTrips(this.tripsPerPage, this.currentPage)
       .subscribe(tripsData => {
+        console.log('trips data fetched', tripsData);
         this.trips = tripsData.trips;
         this.totalTrips = tripsData.maxTrips;
-        this.highest = this.getHighestPricedTrip(); // FIXME: send from backend
-        // this.highest = tripsData.expensive;
-        this.lowest = this.getLowestPricedTrip(); // FIXME: send from backend
-        // this.lowest = tripsData.cheap; // FIXME: send from backend
+        this.highest = tripsData.expensive;
+        this.lowest = tripsData.cheap;
         this.isLoading = false;
       });
   }
@@ -86,18 +85,6 @@ export class TripsComponent implements OnInit {
     // this.tripsService
     //   .rateTrip(rating, tripId)
     //   .subscribe();
-  }
-
-  private getHighestPricedTrip() {
-    return this.trips
-      .sort((a, b) => (a.price > b.price) ? 1 : -1)
-      .map(trip => trip.id)[this.trips.length - 1];
-  }
-
-  private getLowestPricedTrip() {
-    return this.trips
-      .sort((a, b) => (a.price > b.price) ? 1 : -1)
-      .map(trip => trip.id)[0];
   }
 
 }
