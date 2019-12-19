@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getReservations();
     this.isUserAuthenticated = this.authService.getIsAuthenticated();
     this.isAdmin = this.authService.getUserRole() === 'admin';
     this.authListenerSubs = this.authService
@@ -33,8 +34,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe(authStatusData => {
         this.isUserAuthenticated = authStatusData.isAuthenticated;
         this.isAdmin = authStatusData.isAdmin;
+        if (!this.isUserAuthenticated) {
+          this.reservationsService.clearReservations();
+          this.getReservations();
+        }
       });
-    this.getReservations();
   }
 
   ngOnDestroy(): void {

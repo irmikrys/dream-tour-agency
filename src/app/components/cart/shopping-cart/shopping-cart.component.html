@@ -5,7 +5,7 @@
   <mat-action-list class='shopping-cart-list' *ngFor='let reservation of reservations'>
     <mat-list-item disableRipple>
       <span>{{reservation.id}}: {{reservation.name}}</span>
-      <span>Times: {{reservation.count}}</span>
+      <span>Places: {{reservation.count}}</span>
       <span>Price summary: {{reservation.count * reservation.price}}</span>
 
       <button mat-raised-button color='warn'

@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {UserData} from '../models/userData.model';
 import {AuthData} from '../models/authData.model';
 import {UserRole} from '../models/userRole.type';
-import {MessageService} from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ import {MessageService} from './message.service';
 export class AuthService {
 
   private token: string;
-  private authStatusListener = new Subject<{isAuthenticated: boolean, isAdmin: boolean}>();
+  private authStatusListener = new Subject<{ isAuthenticated: boolean, isAdmin: boolean }>();
   private isAuthenticated = false;
   private userId: string;
   private userRole: UserRole;
@@ -26,7 +25,7 @@ export class AuthService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private messageService: MessageService, private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   getToken() {
@@ -140,7 +139,6 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
-    localStorage.removeItem('reservations');
   }
 
   private getAuthData() {

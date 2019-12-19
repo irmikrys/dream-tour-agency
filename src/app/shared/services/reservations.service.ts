@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Reservation} from '../models/reservation.model';
-import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ export class ReservationsService {
 
   private reservations: Reservation[] = []; // reservations for auth user
 
-  constructor(private authService: AuthService) {
+  constructor() {
   }
 
   loadReservationsFromStorage(): void {
@@ -23,6 +22,11 @@ export class ReservationsService {
     return this.reservations;
   }
 
+  clearReservations(): void {
+    localStorage.removeItem('reservations');
+    this.reservations = [];
+  }
+
   addReservationFromTrip(tripId: string, placesLeft: number): void {
     let reservation = this.getTripReservation(tripId);
     if (reservation) {
@@ -34,8 +38,7 @@ export class ReservationsService {
       reservation = {
         id: this.generateReservationId(),
         tripId,
-        count: 1,
-        author: this.authService.getUserId()
+        count: 1
       };
       this.reservations.push(reservation);
       localStorage.setItem('reservations', JSON.stringify(this.reservations));
