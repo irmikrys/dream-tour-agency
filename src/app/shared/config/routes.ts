@@ -12,16 +12,11 @@ export const navbarLeftRoutes = [{
     icon: 'post_add',
     text: ' New Trip'
   },
-  auth: true
+  auth: true,
+  admin: true
 }];
 
 export const navbarRightRoutes = [{
-  link: '/profile',
-  span: {
-    icon: 'face'
-  },
-  auth: true
-}, {
   link: '/confirmation',
   span: {
     icon: 'confirmation_number'

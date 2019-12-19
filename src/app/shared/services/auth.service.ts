@@ -13,7 +13,7 @@ import {MessageService} from './message.service';
 export class AuthService {
 
   private token: string;
-  private authStatusListener = new Subject<boolean>();
+  private authStatusListener = new Subject<{isAuthenticated: boolean, isAdmin: boolean}>();
   private isAuthenticated = false;
   private userId: string;
   private userRole: UserRole;
@@ -56,7 +56,7 @@ export class AuthService {
         this.router.navigate(['/login']);
       }, error => {
         console.log(error);
-        this.authStatusListener.next(false);
+        this.authStatusListener.next({isAuthenticated: false, isAdmin: false});
       });
   }
 
@@ -78,7 +78,7 @@ export class AuthService {
           this.isAuthenticated = true;
           this.userId = userId;
           this.userRole = userRole;
-          this.authStatusListener.next(true);
+          this.authStatusListener.next({isAuthenticated: true, isAdmin: userRole === 'admin'});
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, userId, userRole);
@@ -86,7 +86,7 @@ export class AuthService {
         }
       }, error => {
         console.log(error);
-        this.authStatusListener.next(false);
+        this.authStatusListener.next({isAuthenticated: false, isAdmin: false});
       });
   }
 
@@ -103,7 +103,7 @@ export class AuthService {
       this.userId = authInformation.userId;
       this.userRole = authInformation.userRole;
       this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
+      this.authStatusListener.next({isAuthenticated: true, isAdmin: this.userRole === 'admin'});
     }
   }
 
@@ -112,7 +112,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.userId = null;
     this.userRole = null;
-    this.authStatusListener.next(false);
+    this.authStatusListener.next({isAuthenticated: false, isAdmin: false});
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(['/']);
@@ -140,6 +140,7 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('reservations');
   }
 
   private getAuthData() {

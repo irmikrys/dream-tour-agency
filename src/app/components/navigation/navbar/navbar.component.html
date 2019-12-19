@@ -8,7 +8,7 @@
 
   <a *ngFor='let route of leftRoutes'>
     <a mat-button routerLink='{{route.link}}' routerLinkActive='{{!route.inactive && "mat-accent"}}'
-       *ngIf='route.auth === null ? true : isUserAuthenticated === route.auth'>
+       *ngIf='route.auth === null ? true : (route.admin ? isAdmin : isUserAuthenticated === route.auth)'>
       <span class='mat-button-wrapper'>
         <i *ngIf='route.span.icon' class='material-icons'>{{route.span.icon}}</i>
         <span *ngIf='route.span.text'> {{route.span.text}}</span>

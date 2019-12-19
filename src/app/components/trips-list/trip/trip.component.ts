@@ -25,6 +25,7 @@ export class TripComponent implements OnInit, OnDestroy {
   private authListenerSubs: Subscription;
   isUserAuthenticated = false;
   userRole: UserRole;
+  isAdmin = false;
 
   ratesCount = 0;
   overallRating = 0;
@@ -40,9 +41,10 @@ export class TripComponent implements OnInit, OnDestroy {
     this.userRole = this.authService.getUserRole(); // TODO check if necessary
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.isUserAuthenticated = isAuthenticated;
+      .subscribe(authStatusData => {
+        this.isUserAuthenticated = authStatusData.isAuthenticated;
         this.userRole = this.authService.getUserRole();
+        this.isAdmin = authStatusData.isAdmin;
       });
   }
 

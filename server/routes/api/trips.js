@@ -188,7 +188,10 @@ router.post('/:tripId/reservations', [auth, [
  */
 router.get('/user/reservations', auth, async (req, res) => {
   try {
-    const trips = await Trip.find().select('reservations price currency name');
+    const trips = await Trip
+      .find()
+      .select('reservations price currency name')
+      .sort({price: 1});
     const userTrips = trips
       .filter(trip => trip.reservations
         .filter(r => r.author.toString() === req.user.id).length > 0
@@ -250,10 +253,10 @@ router.post('/:tripId/comments', [auth, [
 
 /**
  * @route   GET api/trips/:tripId/comments
- * @desc    Trips comments creation route
- * @access  Private
+ * @desc    Trips comments fetch route
+ * @access  Public
  */
-router.get('/:tripId/comments', auth, async (req, res) => {
+router.get('/:tripId/comments', async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.tripId).select('comments');
     await res.json(trip.comments);

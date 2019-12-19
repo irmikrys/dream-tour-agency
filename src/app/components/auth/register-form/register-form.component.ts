@@ -27,8 +27,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
-      authStatus => {
-        console.log('auth sub', authStatus);
+      authStatusData => {
+        console.log('auth sub', authStatusData);
         this.isLoading = false;
       }
     );

@@ -20,7 +20,7 @@ const routes: Routes = [
     data: {title: 'Trips List'}
   },
   {path: 'trips/:id', component: TripDetailsComponent},
-  {path: 'new-trip', component: NewTripFormComponent , canActivate: [AuthGuard]},
+  {path: 'new-trip', component: NewTripFormComponent , canActivate: [AuthGuard]}, // FIXME: new trip guard for admin
   {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
   {
     path: '',

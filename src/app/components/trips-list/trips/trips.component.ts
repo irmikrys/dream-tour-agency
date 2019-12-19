@@ -1,8 +1,9 @@
+import {PageEvent} from '@angular/material';
 import {Component, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripsService} from '../../../shared/services/trips-service.service';
 import {ReservationsService} from '../../../shared/services/reservations.service';
-import {PageEvent} from '@angular/material';
+import {Rating} from '../../../shared/models/rating.model';
 
 @Component({
   selector: 'app-trips',
@@ -30,7 +31,7 @@ export class TripsComponent implements OnInit {
 
   ngOnInit() {
     this.getTrips();
-    this.takenTrips = 0;
+    this.takenTrips = this.trips.filter(trip => trip.placesCount === 0).length;
   }
 
   getTrips(): void {
@@ -40,8 +41,10 @@ export class TripsComponent implements OnInit {
       .subscribe(tripsData => {
         this.trips = tripsData.trips;
         this.totalTrips = tripsData.maxTrips;
-        this.highest = this.getHighestPricedTrip();
-        this.lowest = this.getLowestPricedTrip();
+        this.highest = this.getHighestPricedTrip(); // FIXME: send from backend
+        // this.highest = tripsData.expensive;
+        this.lowest = this.getLowestPricedTrip(); // FIXME: send from backend
+        // this.lowest = tripsData.cheap; // FIXME: send from backend
         this.isLoading = false;
       });
   }
@@ -53,19 +56,19 @@ export class TripsComponent implements OnInit {
   }
 
   onTripReserved(trip: Trip): void {
-    trip.placesCount -= 1;
-    if (trip.placesCount === 0) {
-      this.takenTrips += 1;
-    }
-    this.reservationsService.addReservationFromTrip(trip);
-    this.tripsService.updateTrip(trip).subscribe();
+    // FIXME: this should be done in trip service after successful reservation
+    // trip.placesCount -= 1;
+    // if (trip.placesCount === 0) {
+    //   this.takenTrips += 1;
+    // }
+    this.reservationsService.addReservationFromTrip(trip.id, trip.placesCount);
   }
 
   onTripDiscard(trip: Trip): void {
-    if (trip.placesCount < trip.maxPlaces) {
-      trip.placesCount += 1;
-    }
-    this.reservationsService.deleteReservationFromTrip(trip);
+    // if (trip.placesCount < trip.maxPlaces) {
+    //   trip.placesCount += 1;
+    // }
+    this.reservationsService.deleteReservationFromTrip(trip.id);
   }
 
   onTripDeleted(trip: Trip): void {
@@ -75,14 +78,14 @@ export class TripsComponent implements OnInit {
       .subscribe(() => {
         this.getTrips();
       });
-    this.reservationsService.deleteAllReservationsFromTrip(trip);
+    this.reservationsService.deleteReservationByTripId(trip.id);
   }
 
-  onTripRated(trip: Trip): void {
-    // TODO: change to rating
-    this.tripsService
-      .updateTrip(trip)
-      .subscribe();
+  onTripRated(rating: Rating, tripId: string): void {
+    // TODO: implement on backend
+    // this.tripsService
+    //   .rateTrip(rating, tripId)
+    //   .subscribe();
   }
 
   private getHighestPricedTrip() {

@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private authListenerSubs: Subscription;
 
   isUserAuthenticated = false;
+  isAdmin = false;
   leftRoutes = navbarLeftRoutes;
   rightRoutes = navbarRightRoutes;
 
@@ -26,10 +27,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isUserAuthenticated = this.authService.getIsAuthenticated();
+    this.isAdmin = this.authService.getUserRole() === 'admin';
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.isUserAuthenticated = isAuthenticated;
+      .subscribe(authStatusData => {
+        this.isUserAuthenticated = authStatusData.isAuthenticated;
+        this.isAdmin = authStatusData.isAdmin;
       });
     this.getReservations();
   }
@@ -40,7 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  }
+  };
 
   getReservations() {
     this.reservations = this.reservationsService.getReservations();

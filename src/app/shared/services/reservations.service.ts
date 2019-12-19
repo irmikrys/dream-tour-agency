@@ -1,67 +1,76 @@
 import {Injectable} from '@angular/core';
 import {Reservation} from '../models/reservation.model';
-import {Trip} from '../models/trip.model';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationsService {
 
-  private reservations: Reservation[] = [];
+  private reservations: Reservation[] = []; // reservations for auth user
 
-  constructor() {
+  constructor(private authService: AuthService) {
+  }
+
+  loadReservationsFromStorage(): void {
+    const reservationsData = JSON.parse(localStorage.getItem('reservations'));
+    if (reservationsData && reservationsData.length > 0) {
+      this.reservations = reservationsData;
+    }
   }
 
   getReservations(): Reservation[] {
     return this.reservations;
   }
 
-  addReservationFromTrip(trip: Trip): void {
-    let reservation = this.getTripReservation(trip.id);
+  addReservationFromTrip(tripId: string, placesLeft: number): void {
+    let reservation = this.getTripReservation(tripId);
     if (reservation) {
-      reservation.count += 1;
+      if (reservation.count < placesLeft) {
+        reservation.count += 1;
+        localStorage.setItem('reservations', JSON.stringify(this.reservations));
+      }
     } else {
       reservation = {
         id: this.generateReservationId(),
-        tripId: trip.id,
+        tripId,
         count: 1,
-        author: null // TODO: get user form AuthService
+        author: this.authService.getUserId()
       };
       this.reservations.push(reservation);
+      localStorage.setItem('reservations', JSON.stringify(this.reservations));
     }
   }
 
-  deleteReservationFromTrip(trip: Trip): void {
-    const reservation = this.getTripReservation(trip.id);
+  deleteReservationFromTrip(tripId: string): void {
+    const reservation = this.getTripReservation(tripId);
     if (reservation) {
       reservation.count -= 1;
+      localStorage.setItem('reservations', JSON.stringify(this.reservations));
       if (reservation.count === 0) {
-        this.deleteReservationByTripId(trip.id);
+        this.deleteReservationByTripId(tripId);
       }
     }
-  }
-
-  deleteAllReservationsFromTrip(trip: Trip): void {
-    this.deleteReservationByTripId(trip.id);
   }
 
   deleteReservationByTripId(tripId: string): void {
     const reservation = this.getTripReservation(tripId);
     if (reservation) {
       this.reservations.splice(this.reservations.indexOf(reservation), 1);
+      localStorage.setItem('reservations', JSON.stringify(this.reservations));
     }
   }
 
-  private getTripReservation(tripId): Reservation | null {
+  private getTripReservation(tripId: string): Reservation | null {
     return this.reservations.filter(r => r.tripId === tripId)[0] || null;
   }
 
   private generateReservationId(): string {
     return (
-      this.reservations
-        .map(reservation => reservation.id)
-        .join('')
-    ) + '1';
+      (this.reservations
+        .map(reservation => Number(reservation.id))
+        .sort((a, b) => a > b ? 1 : -1)[0] || 0) + 1
+    ).toString();
   }
 
 }
