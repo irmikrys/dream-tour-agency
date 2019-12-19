@@ -36,6 +36,10 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  getIsAdmin() {
+    return this.userRole === 'admin';
+  }
+
   getUserId() {
     return this.userId;
   }

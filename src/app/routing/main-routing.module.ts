@@ -9,6 +9,7 @@ import {RegisterFormComponent} from '../components/auth/register-form/register-f
 import {LoginFormComponent} from '../components/auth/login-form/login-form.component';
 import {TripReservationConfirmationComponent} from '../components/trip-reservation-confirmation/trip-reservation-confirmation.component';
 import {AuthGuard} from '../shared/utils/AuthGuard';
+import {AdminGuard} from '../shared/utils/AdminGuard';
 
 const routes: Routes = [
   {path: 'login', component: LoginFormComponent},
@@ -20,7 +21,7 @@ const routes: Routes = [
     data: {title: 'Trips List'}
   },
   {path: 'trips/:id', component: TripDetailsComponent},
-  {path: 'new-trip', component: NewTripFormComponent , canActivate: [AuthGuard]}, // FIXME: new trip guard for admin
+  {path: 'new-trip', component: NewTripFormComponent , canActivate: [AdminGuard]},
   {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
   {
     path: '',
@@ -33,7 +34,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard, AdminGuard]
 })
 export class MainRoutingModule {
 }
