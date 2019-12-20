@@ -81,8 +81,17 @@ router.post('/', [auth, [
   if (!errors.isEmpty()) {
     return res.status(400).json({errors: errors.array()})
   }
+
   try {
     const {name, country, startDate, endDate, price, currency, maxPlaces, description, pictureLink = ''} = req.body;
+
+    if(new Date().getTime() - new Date(startDate).getTime() > 0) {
+      return res.status(400).json(generateError('Start date cannot be earlier than now'));
+    }
+    if(new Date(endDate).getTime() - new Date(startDate).getTime() < 0) {
+      return res.status(400).json(generateError('End date cannot be earlier than start date'));
+    }
+
     const newTrip = new Trip({
       name,
       country,
