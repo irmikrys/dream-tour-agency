@@ -51,12 +51,6 @@
         <span *ngIf='ratesCount == 0'>Never rated</span>
         <span *ngIf='ratesCount > 0'>&nbsp;({{ratesCount}})</span>
       </div>
-      <div>
-        <span>Rate trip: </span>
-        <app-trip-rating [rating]='rating' [starCount]='starCount' [color]='starColor'
-                         (ratingUpdated)='onRatingChanged($event)'>
-        </app-trip-rating>
-      </div>
     </div>
   </mat-card-content>
 

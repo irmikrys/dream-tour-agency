@@ -23,7 +23,11 @@
           <div fxFlex fxLayout fxLayoutAlign='end'>
             <button mat-raised-button color='primary'
                     [routerLink]='["/purchases", purchase.tripId, "confirmation", purchase.reservation._id]'>
-              Details
+              Confirmation
+            </button>
+            <button mat-raised-button color='primary'
+                    [routerLink]='["/trips", purchase.tripId]'>
+              Trip
             </button>
           </div>
 

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripRatingColor} from '../trip-rating/trip-rating.component';
-import {Rating} from '../../../shared/models/rating.model';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../shared/services/auth.service';
 import {UserRole} from '../../../shared/models/userRole.type';
@@ -20,7 +19,6 @@ export class TripComponent implements OnInit, OnDestroy {
   @Output() reserveTrip = new EventEmitter<Trip>();
   @Output() discardTrip = new EventEmitter<Trip>();
   @Output() deleteTrip = new EventEmitter<Trip>();
-  @Output() rateTrip = new EventEmitter<Rating>();
 
   private authListenerSubs: Subscription;
   isUserAuthenticated = false;
@@ -29,9 +27,6 @@ export class TripComponent implements OnInit, OnDestroy {
 
   ratesCount = 0;
   overallRating = 0;
-  rating = 0;
-  starCount = 5;
-  starColor: TripRatingColor = TripRatingColor.accent;
 
   constructor(private authService: AuthService) {
   }
@@ -46,6 +41,8 @@ export class TripComponent implements OnInit, OnDestroy {
         this.userRole = this.authService.getUserRole();
         this.isAdmin = authStatusData.isAdmin;
       });
+    this.ratesCount = this.trip.ratings.length;
+    this.countOverAllRating();
   }
 
   ngOnDestroy(): void {
@@ -64,23 +61,10 @@ export class TripComponent implements OnInit, OnDestroy {
     this.deleteTrip.emit(trip);
   }
 
-  onRatingChanged(rating: 1 | 2 | 3 | 4 | 5) {
-    this.rating = rating;
-
-    let ratesCount = this.ratesCount || 0;
-    let currentRating = this.overallRating || 0;
-
-    currentRating *= ratesCount;
-    ratesCount += 1;
-
-    this.ratesCount = ratesCount;
-    this.overallRating = (currentRating + rating) / ratesCount;
-
-    this.rateTrip.emit({
-      tripId: this.trip.id,
-      rating,
-      author: null // TODO: get user from auth service
-    });
+  private countOverAllRating() {
+    this.overallRating = this.trip.ratings.map(r => r.rating).reduce((prev, curr, index, array) => {
+      return prev + curr;
+    }, 0) / this.trip.ratings.length;
   }
 
 }

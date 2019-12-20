@@ -25,10 +25,17 @@
                   (reserveTrip)='onTripReserved($event)'
                   (discardTrip)='onTripDiscard($event)'
                   (deleteTrip)='onTripDeleted($event)'
-                  (rateTrip)='onTripRated($event)'
         ></app-trip>
       </li>
     </ul>
+
+    <mat-card class='paginator-card' *ngIf='trips.length > 0'>
+      <mat-paginator [length]='totalTrips'
+                     [pageSize]='tripsPerPage'
+                     [pageSizeOptions]='pageSizeOptions'
+                     (page)='onChangePage($event)'
+      ></mat-paginator>
+    </mat-card>
 
   </div>
 

@@ -58,11 +58,11 @@ export class NewTripFormComponent implements OnInit {
   ngOnInit() {
     this.tripForm = this.formBuilder.group({
       name: ['', Validators.required],
-      country: ['', Validators.required],
+      country: ['Indonezja', Validators.required],
       price: ['', Validators.required],
       currency: ['', Validators.required],
       maxPlaces: ['', Validators.required],
-      pictureLink: ['', []],
+      pictureLink: ['https://www.traveligo.pl/repository/images/box_promocja/sylwia/indonezja.jpg', []],
       description: ['', Validators.required],
       startDate: [moment(), [Validators.required]],
       endDate: [moment(), [Validators.required]],
@@ -80,8 +80,11 @@ export class NewTripFormComponent implements OnInit {
       tripData.placesCount = tripData.maxPlaces;
       this.tripsService
         .addTrip(tripData)
-        .subscribe(
-          // _ => this.router.navigateByUrl('/')
+        .subscribe(trip => {
+            if (trip) {
+              this.router.navigateByUrl('/');
+            }
+          }
         );
     }
   }

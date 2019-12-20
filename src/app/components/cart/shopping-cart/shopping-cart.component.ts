@@ -47,7 +47,7 @@ export class ShoppingCartComponent implements OnInit {
             id: basic.id,
             tripId: trip.id,
             placesLeft: trip.placesCount,
-            author: this.authService.getUserId() // TODO: change to author from AuthService
+            author: this.authService.getUserId()
           });
           processedCount += 1;
           if (processedCount === reservationsCount) {

@@ -1,12 +1,25 @@
 @import '../../../../styles.less';
 
 .trip-details-container {
+  box-sizing: border-box;
   min-height: @min-height-related;
+  padding: 2em;
+
+  @media(max-width: 600px) {
+    padding: 1em;
+  }
+
+  @media(max-width: 400px) {
+    padding: 0.5em;
+  }
 
   .trip-details {
-    box-sizing: border-box;
-    margin: 2em;
-    padding: 2em;
+    padding: 0;
+
+    .tab-info {
+      padding: 2em;
+    }
+
   }
 }
 

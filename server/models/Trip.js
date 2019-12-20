@@ -52,6 +52,10 @@ const TripSchema = new mongoose.Schema({
       required: true
     }
   }],
+  // overallRating: {
+  //   type: Number,
+  //   required: true
+  // },
   gallery: [{
     type: String,
   }],

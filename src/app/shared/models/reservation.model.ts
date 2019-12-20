@@ -3,4 +3,5 @@ export interface Reservation {
   id: string;
   tripId: string;
   count: number;
+  author?: string;
 }

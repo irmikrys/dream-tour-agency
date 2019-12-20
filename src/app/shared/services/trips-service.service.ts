@@ -9,6 +9,7 @@ import {AuthService} from './auth.service';
 import {Comment} from '../models/comment.model';
 import {Reservation} from '../models/reservation.model';
 import {User} from '../models/user.model';
+import {Rating} from '../models/rating.model';
 
 interface TripsData {
   trips: Trip[];
@@ -80,11 +81,7 @@ export class TripsService {
 
   addTrip(trip: Trip): Observable<Trip> {
     return this.http
-      .post<Trip>(this.tripsUrl, trip, this.getOptionsWithToken())
-      .pipe(
-        tap((newTrip: Trip) => this.log(`added a trip w/ id=${newTrip.id}`)),
-        catchError(this.handleError<Trip>('addTrip'))
-      );
+      .post<Trip>(this.tripsUrl, trip, this.getOptionsWithToken());
   }
 
   getTrip(id: string): Observable<TripDetails> {
@@ -99,11 +96,7 @@ export class TripsService {
   deleteTrip(id: string): Observable<Trip> {
     const url = `${this.tripsUrl}/${id}`;
     return this.http
-      .delete<Trip>(url, this.getOptionsWithToken())
-      .pipe(
-        tap(_ => this.log(`deleted trip id=${id}`)),
-        catchError(this.handleError<Trip>('deleteTrip'))
-      );
+      .delete<Trip>(url, this.getOptionsWithToken());
   }
 
   // TODO: specify more about the functionality of update
@@ -143,6 +136,28 @@ export class TripsService {
         tap(_ => this.log(`found trips matching '${term}'`)),
         catchError(this.handleError<Trip[]>('searchTrips', []))
       );
+  }
+
+  getComments(id: string) {
+    return this.http
+      .get<Comment[]>(`${this.tripsUrl}/${id}/comments`, this.getOptionsWithToken());
+  }
+
+  addComment(tripId: string, title: string, content: string): Observable<Comment[]> {
+    const commentData = {title, content};
+    return this.http
+      .post<Comment[]>(`${this.tripsUrl}/${tripId}/comments`, commentData, this.getOptionsWithToken());
+  }
+
+  getRatings(id: string) {
+    return this.http
+      .get<Rating[]>(`${this.tripsUrl}/${id}/ratings`, this.getOptionsWithToken());
+  }
+
+  addRating(tripId: string, rating: number): Observable<Rating[]> {
+    const ratingData = {rating};
+    return this.http
+      .post<Rating[]>(`${this.tripsUrl}/${tripId}/ratings`, ratingData, this.getOptionsWithToken());
   }
 
   private getOptionsWithToken() {

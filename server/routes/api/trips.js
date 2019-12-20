@@ -94,6 +94,7 @@ router.post('/', [auth, [
       description,
       pictureLink,
       placesCount: maxPlaces,
+      // overallRating: 0,
     });
     await newTrip.save();
     await res.json(newTrip)
@@ -113,7 +114,7 @@ router.get('/:tripId', async (req, res) => {
   try {
     const trip = await Trip
       .findById(req.params.tripId)
-      .select('-__v');
+      .select('-__v -comments');
     await res.json(trip);
 
   } catch (e) {
@@ -261,7 +262,7 @@ router.get('/user/reservations', auth, async (req, res) => {
         name: trip.name,
         currency: trip.currency
       }))
-      .sort(function(a , b){
+      .sort(function (a, b) {
         return new Date(b.reservation.createDate) - new Date(a.reservation.createDate);
       });
     await res.json(userTrips);
@@ -303,7 +304,13 @@ router.post('/:tripId/comments', [auth, [
 
     trip.comments.unshift(newComment);
     await trip.save();
-    await res.json(trip.comments);
+
+    const updatedTrip = await Trip
+      .findById(req.params.tripId)
+      .select('comments')
+      .populate('comments.author');
+
+    await res.json(updatedTrip.comments);
 
   } catch (e) {
     console.error(e.message);
@@ -318,8 +325,13 @@ router.post('/:tripId/comments', [auth, [
  */
 router.get('/:tripId/comments', async (req, res) => {
   try {
-    const trip = await Trip.findById(req.params.tripId).select('comments');
-    await res.json(trip.comments);
+    const trip = await Trip
+      .findById(req.params.tripId)
+      .select('comments')
+      .populate('comments.author', 'name surname');
+    await res.json(trip.comments.sort(function (a, b) {
+      return new Date(b.createDate) - new Date(a.createDate);
+    }));
 
   } catch (e) {
     console.error(e.message);

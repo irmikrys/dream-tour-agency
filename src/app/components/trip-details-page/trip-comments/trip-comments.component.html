@@ -1,1 +1,46 @@
-<p>trip-comments works!</p>
+<mat-spinner *ngIf='isLoading'></mat-spinner>
+<div *ngIf='!isLoading'>
+  <p *ngIf='comments.length === 0'>No comments for this trip.</p>
+
+  <form class='form' [formGroup]='commentForm' (ngSubmit)='onAddComment()' *ngIf='editable'>
+    <mat-form-field class='full-width'>
+      <input matInput
+             placeholder='Title'
+             formControlName='title'>
+      <mat-error *ngIf='commentForm.get("title").hasError("required")'>
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class='full-width'>
+          <textarea matInput rows='2'
+                    placeholder='Content'
+                    formControlName='content'>
+          </textarea>
+      <mat-error *ngIf='commentForm.get("content").hasError("required")'>
+        Content is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-button mat-raised-button color='primary' class='btn-block' [disabled]='!commentForm.valid'>
+      <mat-spinner *ngIf='isCommentLoading' diameter='30' color='accent'></mat-spinner>
+      <a *ngIf='!isCommentLoading'>Comment</a>
+    </button>
+  </form>
+
+  <mat-accordion *ngIf='comments.length > 0'>
+    <mat-expansion-panel *ngFor='let comment of comments'>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{comment.title}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{comment.createDate.toLocaleString()}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <strong>{{comment.author.name}} {{comment.author.surname}}</strong>
+      <p>{{comment.content}}</p>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>

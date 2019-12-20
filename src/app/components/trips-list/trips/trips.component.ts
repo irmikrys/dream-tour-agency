@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import {TripsService} from '../../../shared/services/trips-service.service';
 import {ReservationsService} from '../../../shared/services/reservations.service';
-import {Rating} from '../../../shared/models/rating.model';
 
 @Component({
   selector: 'app-trips',
@@ -38,7 +37,6 @@ export class TripsComponent implements OnInit {
     this.tripsService
       .getTrips(this.tripsPerPage, this.currentPage)
       .subscribe(tripsData => {
-        console.log('trips data fetched', tripsData);
         this.trips = tripsData.trips;
         this.totalTrips = tripsData.maxTrips;
         this.highest = tripsData.expensive;
@@ -55,18 +53,10 @@ export class TripsComponent implements OnInit {
   }
 
   onTripReserved(trip: Trip): void {
-    // FIXME: this should be done in trip service after successful reservation
-    // trip.placesCount -= 1;
-    // if (trip.placesCount === 0) {
-    //   this.takenTrips += 1;
-    // }
     this.reservationsService.addReservationFromTrip(trip.id, trip.placesCount);
   }
 
   onTripDiscard(trip: Trip): void {
-    // if (trip.placesCount < trip.maxPlaces) {
-    //   trip.placesCount += 1;
-    // }
     this.reservationsService.deleteReservationFromTrip(trip.id);
   }
 
@@ -78,13 +68,6 @@ export class TripsComponent implements OnInit {
         this.getTrips();
       });
     this.reservationsService.deleteReservationByTripId(trip.id);
-  }
-
-  onTripRated(rating: Rating, tripId: string): void {
-    // TODO: implement on backend
-    // this.tripsService
-    //   .rateTrip(rating, tripId)
-    //   .subscribe();
   }
 
 }
