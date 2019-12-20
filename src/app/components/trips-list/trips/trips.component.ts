@@ -41,7 +41,7 @@ export class TripsComponent implements OnInit {
         this.totalTrips = tripsData.maxTrips;
         this.highest = tripsData.expensive;
         this.lowest = tripsData.cheap;
-        this.takenTrips = this.trips.filter(trip => trip.placesCount === 0).length;
+        this.takenTrips = tripsData.taken;
         this.isLoading = false;
       });
   }

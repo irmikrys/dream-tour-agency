@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
     const allTrips = await tripQuery;
     const expensive = allTrips.length && allTrips[allTrips.length - 1].id;
     const cheap = allTrips.length && allTrips[0].id;
+    const taken = allTrips.filter(t => t.placesCount === 0).length;
     let fetchedTrips;
 
     if (pageSize && currentPage) {
@@ -39,7 +40,8 @@ router.get('/', async (req, res) => {
           trips: fetchedTrips,
           maxTrips: count,
           expensive,
-          cheap
+          cheap,
+          taken
         })
       });
   } catch (e) {

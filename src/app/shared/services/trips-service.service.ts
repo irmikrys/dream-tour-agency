@@ -16,6 +16,7 @@ interface TripsData {
   maxTrips: number;
   cheap: string;
   expensive: string;
+  taken: number;
 }
 
 export interface ConfirmationData {
@@ -74,7 +75,8 @@ export class TripsService {
           trips: [],
           maxTrips: 0,
           cheap: null,
-          expensive: null
+          expensive: null,
+          taken: 0
         }))
       );
   }

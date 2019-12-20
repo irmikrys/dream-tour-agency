@@ -63,6 +63,7 @@ export class TripCommentsComponent implements OnInit {
           this.comments = comments;
             this.isCommentLoading = false;
             this.commentForm.reset();
+            this.commentForm.setErrors(null);
           }
         );
     }
