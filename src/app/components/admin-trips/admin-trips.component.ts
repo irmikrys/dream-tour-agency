@@ -11,7 +11,7 @@ import {ReservationsService} from '../../shared/services/reservations.service';
 })
 export class AdminTripsComponent implements OnInit {
 
-  private trips: Trip[] = [];
+  trips: Trip[] = [];
 
   isLoading = false;
   totalTrips = 0;

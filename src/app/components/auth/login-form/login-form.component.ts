@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   config = loginFormConfig;
   loginForm: FormGroup;
 
-  private isLoading = false;
+  isLoading = false;
   private authStatusSub: Subscription;
 
   constructor(

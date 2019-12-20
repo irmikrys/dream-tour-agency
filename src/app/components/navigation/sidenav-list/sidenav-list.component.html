@@ -1,21 +1,41 @@
 <mat-nav-list>
   <a mat-list-item routerLink='/' (click)='onSidenavClose()'>
-    <mat-icon>home</mat-icon>
-    <span class='nav-caption'>Home</span>
+    <mat-icon>wb_sunny</mat-icon>
+    <span class='nav-caption'> DreamTour</span>
   </a>
-  <a mat-list-item routerLink='/cart' (click)='onSidenavClose()'>
-    <mat-icon>shopping_cart</mat-icon>
-    <span class='nav-caption'>Shopping Cart</span>
+  <a mat-list-item routerLink='/cart' (click)='onSidenavClose()'
+     *ngIf='isUserAuthenticated'>
+    <mat-icon matBadge='{{reservations.length}}' matBadgeColor='warn'>shopping_cart</mat-icon>
+    <span class='nav-caption'> Shopping Cart</span>
   </a>
-  <mat-list-item [matMenuTriggerFor]='menu'>
+  <a mat-list-item routerLink='/purchases' (click)='onSidenavClose()'
+     *ngIf='isUserAuthenticated'>
+    <mat-icon>confirmation_number</mat-icon>
+    <span class='nav-caption'> Purchases</span>
+  </a>
+  <a mat-list-item routerLink='/login' (click)='onSidenavClose()'
+     *ngIf='!isUserAuthenticated'>
+    <mat-icon>input</mat-icon>
+    <span class='nav-caption'> Login</span>
+  </a>
+  <a mat-list-item routerLink='/register' (click)='onSidenavClose()'
+     *ngIf='!isUserAuthenticated'>
+    <mat-icon>assignment_ind</mat-icon>
+    <span class='nav-caption'> Register</span>
+  </a>
+  <a *ngIf='isUserAuthenticated' mat-list-item (click)='onLogout()'>Logout</a>
+  <mat-list-item [matMenuTriggerFor]='menu'
+                 *ngIf='isAdmin'>
     <mat-icon>unfold_more</mat-icon>
     <a matLine class='icon-containable'>
-      <mat-icon>face</mat-icon>
-      <span class='nav-caption'>User</span>
+      <mat-icon>build</mat-icon>
+      <span class='nav-caption'>Admin</span>
     </a>
   </mat-list-item>
   <mat-menu #menu='matMenu'>
-    <button mat-menu-item routerLink='/profile' routerLinkActive='active' (click)='onSidenavClose()'>View profile</button>
-    <button mat-menu-item (click)='onSidenavClose()'>Add contact</button>
+    <button mat-menu-item routerLink='/new-trip' routerLinkActive='mat-accent' (click)='onSidenavClose()'>New Trip
+    </button>
+    <button mat-menu-item routerLink='/admin' routerLinkActive='mat-accent' (click)='onSidenavClose()'>View Trips
+    </button>
   </mat-menu>
 </mat-nav-list>

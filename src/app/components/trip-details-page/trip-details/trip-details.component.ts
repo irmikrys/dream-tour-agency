@@ -12,8 +12,8 @@ import {AuthService} from '../../../shared/services/auth.service';
 })
 export class TripDetailsComponent implements OnInit {
 
-  private trip: TripDetails = null;
-  private isParticipant = false;
+  trip: TripDetails = null;
+  isParticipant = false;
 
   isLoading = false;
 

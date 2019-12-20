@@ -8,12 +8,12 @@ import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from 
 })
 export class TripRatingComponent implements OnInit {
 
-  @Input() private rating = 3;
-  @Input() private starCount = 5;
-  @Input() private color = 'accent';
-  @Output() private ratingUpdated = new EventEmitter<number>();
+  @Input() rating = 3;
+  @Input() starCount = 5;
+  @Input() color = 'accent';
+  @Output() ratingUpdated = new EventEmitter<number>();
 
-  private ratingArr = [];
+  ratingArr = [];
 
   constructor() {
   }

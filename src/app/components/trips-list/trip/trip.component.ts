@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
-import {TripRatingColor} from '../trip-rating/trip-rating.component';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../shared/services/auth.service';
 import {UserRole} from '../../../shared/models/userRole.type';

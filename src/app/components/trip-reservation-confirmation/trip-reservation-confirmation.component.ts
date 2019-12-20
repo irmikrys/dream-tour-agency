@@ -9,8 +9,7 @@ import {ConfirmationData, TripsService} from '../../shared/services/trips-servic
 })
 export class TripReservationConfirmationComponent implements OnInit {
 
-  private confirmation: ConfirmationData = null;
-
+  confirmation: ConfirmationData = null;
   isLoading = false;
 
   constructor(private route: ActivatedRoute, private tripsService: TripsService) {

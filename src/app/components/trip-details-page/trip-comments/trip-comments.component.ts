@@ -11,10 +11,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class TripCommentsComponent implements OnInit {
 
-  @Input() private editable = false;
+  @Input() editable = false;
   @Input() private tripId = '';
 
-  private comments: Comment[] = [];
+  comments: Comment[] = [];
 
   isLoading = false;
   isCommentLoading = false;

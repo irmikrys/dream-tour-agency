@@ -14,8 +14,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 
   config = registerFormConfig;
   registerForm: FormGroup;
+  isLoading = false;
 
-  private isLoading = false;
   private authStatusSub: Subscription;
 
   constructor(

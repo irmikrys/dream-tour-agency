@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  private reservations: ReservationDetails[] = [];
+  reservations: ReservationDetails[] = [];
 
   constructor(
     private reservationsService: ReservationsService,

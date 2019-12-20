@@ -14,7 +14,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  private reservations: Reservation[] = [];
+  reservations: Reservation[] = [];
+
   private authListenerSubs: Subscription;
 
   isUserAuthenticated = false;
@@ -22,7 +23,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   leftRoutes = navbarLeftRoutes;
   rightRoutes = navbarRightRoutes;
 
-  constructor(private reservationsService: ReservationsService, private authService: AuthService) {
+  constructor(
+    private reservationsService: ReservationsService,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit() {
@@ -47,7 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  };
+  }
 
   getReservations() {
     this.reservations = this.reservationsService.getReservations();

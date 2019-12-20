@@ -8,8 +8,7 @@ import {Purchase, TripsService} from '../../shared/services/trips-service.servic
 })
 export class PurchasesPageComponent implements OnInit {
 
-  private purchases: Purchase[] = [];
-
+  purchases: Purchase[] = [];
   isLoading = false;
 
   constructor(
