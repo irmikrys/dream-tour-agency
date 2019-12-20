@@ -13,7 +13,7 @@ import {NavbarComponent} from './components/navigation/navbar/navbar.component';
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatCardModule, MatDatepickerModule, MatDialogModule,
+  MatCardModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
   MatIconModule, MatInputModule,
   MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule,
@@ -44,6 +44,7 @@ import { MessageComponent } from './components/message/message.component';
 import { TripSearchComponent } from './components/trips-list/trip-search/trip-search.component';
 import {ErrorInterceptor} from './shared/utils/ErrorInterceptor';
 import { ErrorComponent } from './components/message/error/error.component';
+import { PurchasesPageComponent } from './components/purchases-page/purchases-page.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ErrorComponent } from './components/message/error/error.component';
     MessageComponent,
     TripSearchComponent,
     ErrorComponent,
+    PurchasesPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,9 @@ import { ErrorComponent } from './components/message/error/error.component';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatExpansionModule,
     HttpClientModule,
+    MatChipsModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

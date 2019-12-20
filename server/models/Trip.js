@@ -83,6 +83,10 @@ const TripSchema = new mongoose.Schema({
     count: {
       type: Number,
       required: true
+    },
+    createDate: {
+      type: Date,
+      default: Date.now
     }
   }],
   createDate: {

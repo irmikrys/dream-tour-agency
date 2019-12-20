@@ -1,1 +1,54 @@
-<p>trip-reservation-confirmation works!</p>
+<div class='confirmation-container'>
+
+  <mat-spinner *ngIf='isLoading'></mat-spinner>
+  <mat-card *ngIf='!isLoading'>
+
+    <p *ngIf='!confirmation'>We could not find the requested confirmation, sorry!</p>
+
+    <div *ngIf='confirmation' class='confirmation'>
+
+      <h3>{{confirmation.reservationData.id}}</h3>
+      <p>Number above is your confirmation id. Please use it when making a purchase.</p>
+      <mat-icon color="primary">check_circle</mat-icon>
+
+      <p>Your confirmation information are provided below.</p>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <p>{{confirmation.reservationData.author.name}} {{confirmation.reservationData.author.surname}}</p>
+          <p>{{confirmation.reservationData.author.email}}</p>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Reservation details
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <p>Trip: {{confirmation.tripData.name}}</p>
+          <p>Price: {{confirmation.tripData.price * confirmation.reservationData.count | currency: 'EUR'}}</p>
+          <p>Places: {{confirmation.reservationData.count}}</p>
+          <p>Created at: {{confirmation.reservationData.createDate.toLocaleString()}}</p>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div fxLayoutAlign='end' class='actions-container'>
+        <button mat-raised-button matRipple color="primary" [routerLink]='["/purchases"]'
+                routerLinkActive='true' [routerLinkActiveOptions]='{exact:true}'>Ok
+        </button>
+      </div>
+
+    </div>
+
+  </mat-card>
+
+</div>
+

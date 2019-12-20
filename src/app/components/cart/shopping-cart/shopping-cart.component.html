@@ -3,18 +3,22 @@
 </div>
 <div class='shopping-cart-list-container' *ngIf='reservations.length > 0'>
   <mat-action-list class='shopping-cart-list' *ngFor='let reservation of reservations'>
-    <mat-list-item disableRipple>
-      <span>{{reservation.id}}: {{reservation.name}}</span>
-      <span>Places: {{reservation.count}}</span>
-      <span>Price summary: {{reservation.count * reservation.price}}</span>
+    <mat-list-item disableRipple class='shopping-cart-item'>
+      <div>{{reservation.id}}: {{reservation.name}}</div>
+      <div>Places: {{reservation.count}}</div>
+      <div>Price summary: {{reservation.count * reservation.price}}</div>
 
-      <button mat-raised-button color='warn'
-              [disabled]='reservation.placesLeft === reservation.count'
-              (click)='onAdd(reservation.tripId, reservation.placesLeft)'>+</button>
-      <button mat-raised-button color='warn'
-              [disabled]='reservation.count === 0'
-              (click)='onCountDown(reservation.tripId)'>-</button>
-      <button mat-raised-button color='primary' (click)='onConfirm(reservation.tripId)'>Confirm</button>
+      <div fxFlex fxLayout fxLayoutAlign='end' >
+        <button mat-raised-button color='warn'
+                [disabled]='reservation.placesLeft === reservation.count'
+                (click)='onAdd(reservation.tripId, reservation.placesLeft)'>+</button>
+        <button mat-raised-button color='warn'
+                [disabled]='reservation.count === 0'
+                (click)='onCountDown(reservation.tripId)'>-</button>
+        <button mat-raised-button color='primary'
+                (click)='onConfirm(reservation.count, reservation.tripId)'>Confirm</button>
+      </div>
+
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-action-list>

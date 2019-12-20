@@ -1,6 +1,5 @@
 export const navbarLeftRoutes = [{
   link: '/',
-  inactive: true,
   span: {
     icon: 'wb_sunny',
     text: ' DreamTour'
@@ -17,7 +16,7 @@ export const navbarLeftRoutes = [{
 }];
 
 export const navbarRightRoutes = [{
-  link: '/confirmation',
+  link: '/purchases',
   span: {
     icon: 'confirmation_number'
   },

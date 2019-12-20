@@ -8,13 +8,15 @@ import {ShoppingCartComponent} from '../components/cart/shopping-cart/shopping-c
 import {RegisterFormComponent} from '../components/auth/register-form/register-form.component';
 import {LoginFormComponent} from '../components/auth/login-form/login-form.component';
 import {TripReservationConfirmationComponent} from '../components/trip-reservation-confirmation/trip-reservation-confirmation.component';
+import {PurchasesPageComponent} from '../components/purchases-page/purchases-page.component';
 import {AuthGuard} from '../shared/utils/AuthGuard';
 import {AdminGuard} from '../shared/utils/AdminGuard';
 
 const routes: Routes = [
   {path: 'login', component: LoginFormComponent},
   {path: 'register', component: RegisterFormComponent},
-  {path: 'confirmation', component: TripReservationConfirmationComponent, canActivate: [AuthGuard]},
+  {path: 'purchases/:tripId/confirmation/:confirmationId', component: TripReservationConfirmationComponent, canActivate: [AuthGuard]},
+  {path: 'purchases', component: PurchasesPageComponent, canActivate: [AuthGuard]},
   {
     path: 'trips',
     component: TripsComponent,

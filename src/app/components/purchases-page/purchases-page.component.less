@@ -1,0 +1,47 @@
+@import '../../../styles';
+
+.purchases-container {
+  min-height: @min-height-related;
+  box-sizing: border-box;
+  padding: 2em;
+
+  mat-spinner {
+    margin: 0 auto;
+  }
+
+  .purchases-info {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+  }
+
+  .purchases-list-container {
+
+    .purchase-item {
+
+      min-height: fit-content !important;
+      height: fit-content;
+
+      .purchase-item {
+
+        @media(max-width: 600px) {
+
+        }
+      }
+
+      span, button {
+        &:not(:last-child) {
+          margin-right: 14px;
+        }
+      }
+
+    }
+
+    .purchase-item {
+      div {
+        min-width: fit-content;
+        padding: 0.5em;
+      }
+    }
+  }
+}

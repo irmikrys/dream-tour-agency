@@ -62,7 +62,7 @@ router.post('/', [auth, [
   // check('endDate', 'End date must be valid').custom(isValidDate),
   check('price', 'Price is required').not().isEmpty(),
   check('currency', 'Currency is required').not().isEmpty(),
-  // check('currency', 'Enter a valid currency code').isCurrency(),
+  check('currency', 'Currency code must have length of 3 characters').isLength({min: 3, max: 3}),
   check('maxPlaces', 'Maximum number of places is required').not().isEmpty(),
   check('description', 'Description is required').not().isEmpty(),
 ]], async (req, res) => {
@@ -124,7 +124,7 @@ router.get('/:tripId', async (req, res) => {
 
 /**
  * @route   DELETE api/trips/:tripId
- * @desc    Trip detailed information
+ * @desc    Delete trip by id
  * @access  Private
  */
 router.delete('/:tripId', auth, async (req, res) => {
@@ -176,17 +176,67 @@ router.post('/:tripId/reservations', [auth, [
 
     const newReservation = {
       author: req.user.id,
-      count
+      count,
+      createDate: Date.now()
     };
 
     trip.reservations.unshift(newReservation);
     trip.placesCount -= count;
     await trip.save();
-    await res.json(trip);
+    await res.json(trip.reservations[0]);
 
   } catch (e) {
     console.error(e.message);
     res.status(500).send(generateError('Server error on reservation'));
+  }
+});
+
+/**
+ * @route   GET api/trips/:tripId/reservations/:reservationId
+ * @desc    Trip reservation by reservation id
+ * @access  Private
+ */
+router.get('/:tripId/reservations/:reservationId', auth, async (req, res) => {
+  try {
+    const trip = await Trip
+      .findById(req.params.tripId)
+      .select('reservations price currency name date')
+      .populate('reservations.author', 'name surname email');
+
+    if (!trip) {
+      return res.status(400).json(generateError('Trip does not exist!'));
+    }
+
+    const reservation = trip.reservations.filter(r => r._id.toString() === req.params.reservationId)[0];
+
+    if (!reservation) {
+      return res.status(400).json(generateError('Reservation does not exist!'));
+    }
+
+    if (req.user.id !== reservation.author._id.toString()) {
+      return res.status(400).json(generateError('You do not have such reservation!'));
+    }
+
+    const confirmation = {
+      tripData: {
+        name: trip.name,
+        price: trip.price,
+        currency: trip.currency,
+        id: trip.id
+      },
+      reservationData: {
+        id: reservation._id,
+        createDate: reservation.createDate,
+        author: reservation.author,
+        count: reservation.count
+      }
+    };
+
+    await res.json(confirmation);
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).json(generateError('Server error on fetching user reservations'));
   }
 });
 
@@ -199,20 +249,21 @@ router.get('/user/reservations', auth, async (req, res) => {
   try {
     const trips = await Trip
       .find()
-      .select('reservations price currency name')
-      .sort({price: 1});
+      .select('reservations price currency name');
     const userTrips = trips
       .filter(trip => trip.reservations
         .filter(r => r.author.toString() === req.user.id).length > 0
       )
       .map(trip => ({
-        ...trip.reservations,
-        id: trip.id,
+        reservation: trip.reservations[0],
         tripId: trip.id,
         price: trip.price,
         name: trip.name,
         currency: trip.currency
-      }));
+      }))
+      .sort(function(a , b){
+        return new Date(b.reservation.createDate) - new Date(a.reservation.createDate);
+      });
     await res.json(userTrips);
 
   } catch (e) {

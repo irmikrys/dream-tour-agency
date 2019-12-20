@@ -7,12 +7,42 @@ import {TripDetails} from '../models/tripDetails.model';
 import {MessageService} from './message.service';
 import {AuthService} from './auth.service';
 import {Comment} from '../models/comment.model';
+import {Reservation} from '../models/reservation.model';
+import {User} from '../models/user.model';
 
 interface TripsData {
   trips: Trip[];
   maxTrips: number;
   cheap: string;
   expensive: string;
+}
+
+export interface ConfirmationData {
+  tripData: {
+    name: string;
+    price: number;
+    currency: string;
+    id: string;
+  };
+  reservationData: {
+    id: string;
+    createDate: Date;
+    author: User;
+    count: number;
+  };
+}
+
+export interface Purchase {
+  reservation: {
+    _id: string;
+    createDate: Date;
+    author: string;
+    count: number;
+  };
+  tripId: string;
+  price: number;
+  currency: string;
+  name: string;
 }
 
 @Injectable({
@@ -85,6 +115,21 @@ export class TripsService {
         tap(_ => this.log(`updated trip id=${trip.id}`)),
         catchError(this.handleError<any>('updateTrip'))
       );
+  }
+
+  confirmReservation(count: number, tripId: string): Observable<Reservation> {
+    return this.http
+      .post<Reservation>(`${this.tripsUrl}/${tripId}/reservations`, {count}, this.getOptionsWithToken());
+  }
+
+  getReservation(tripId: string, confId: string): Observable<ConfirmationData> {
+    return this.http
+      .get<ConfirmationData>(`${this.tripsUrl}/${tripId}/reservations/${confId}`, this.getOptionsWithToken());
+  }
+
+  getPurchases(): Observable<Purchase[]> {
+    return this.http
+      .get<Purchase[]>(`${this.tripsUrl}/user/reservations`, this.getOptionsWithToken());
   }
 
   searchTrips(term: string): Observable<Trip[]> {

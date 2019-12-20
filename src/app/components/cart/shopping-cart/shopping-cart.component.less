@@ -15,7 +15,16 @@
 
   mat-list-item {
     span, button {
-      margin-right: 14px;
+      &:not(:last-child) {
+        margin-right: 14px;
+      }
+    }
+  }
+
+  .shopping-cart-item {
+    div {
+      min-width: fit-content;
+      padding: 0.5em;
     }
   }
 }

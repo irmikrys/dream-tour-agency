@@ -3,6 +3,7 @@ import {ReservationsService} from '../../../shared/services/reservations.service
 import {TripsService} from '../../../shared/services/trips-service.service';
 import {ReservationDetails} from '../../../shared/models/reservationDetails.model';
 import {AuthService} from '../../../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -16,7 +17,8 @@ export class ShoppingCartComponent implements OnInit {
   constructor(
     private reservationsService: ReservationsService,
     private tripsService: TripsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
   ) {
   }
 
@@ -66,11 +68,16 @@ export class ShoppingCartComponent implements OnInit {
     this.getReservations();
   }
 
-  onConfirm(tripId: string) {
-    console.log('confirm reservation to trip id' + tripId);
-    // reserve in trip service
-    // if good remove from reservation service
-    // if good redirect to confirmation page
+  onConfirm(count: number, tripId: string) {
+    this.tripsService
+      .confirmReservation(count, tripId)
+      .subscribe(reservation => {
+        console.log(reservation);
+        if (reservation) {
+          this.reservationsService.deleteReservationByTripId(tripId);
+          this.router.navigate([`/purchases/${tripId}/confirmation/${reservation._id}`]);
+        }
+      });
   }
 
 }

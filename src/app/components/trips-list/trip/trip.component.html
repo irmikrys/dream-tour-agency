@@ -72,7 +72,7 @@
     </button>
     <div fxFlex fxLayoutAlign='end'>
       <button mat-raised-button class='mat-primary btn-trip-details' [routerLink]='["/trips", trip.id]'
-              routerLinkActive='true'>
+              routerLinkActive='true' [routerLinkActiveOptions]='{exact:true}'>
         <mat-icon>details</mat-icon>
         Details
       </button>

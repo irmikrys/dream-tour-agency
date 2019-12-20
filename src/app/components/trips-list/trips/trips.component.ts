@@ -13,7 +13,7 @@ import {Rating} from '../../../shared/models/rating.model';
 export class TripsComponent implements OnInit {
 
   trips: Trip[] = [];
-  takenTrips: number;
+  takenTrips = 0;
   highest: string;
   lowest: string;
 
@@ -31,7 +31,6 @@ export class TripsComponent implements OnInit {
 
   ngOnInit() {
     this.getTrips();
-    this.takenTrips = this.trips.filter(trip => trip.placesCount === 0).length;
   }
 
   getTrips(): void {
@@ -44,6 +43,7 @@ export class TripsComponent implements OnInit {
         this.totalTrips = tripsData.maxTrips;
         this.highest = tripsData.expensive;
         this.lowest = tripsData.cheap;
+        this.takenTrips = this.trips.filter(trip => trip.placesCount === 0).length;
         this.isLoading = false;
       });
   }
