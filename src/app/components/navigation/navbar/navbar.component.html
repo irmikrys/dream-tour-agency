@@ -15,6 +15,18 @@
         <span *ngIf='route.span.text'> {{route.span.text}}</span>
       </span>
     </a>
+    <button mat-button [matMenuTriggerFor]='menu' *ngIf='isAdmin'>
+      <mat-icon>build</mat-icon><span>Admin</span>
+    </button>
+    <mat-menu #menu='matMenu'>
+      <button mat-menu-item routerLink='/new-trip' routerLinkActive='mat-accent'>
+        <mat-icon>post_add</mat-icon><span> New Trip</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink='/admin' routerLinkActive='mat-accent'>
+        <mat-icon>dns</mat-icon><span> View Trips</span>
+      </button>
+    </mat-menu>
   </a>
 
   <div fxFlex fxLayout fxLayoutAlign='end' fxHide.xs>

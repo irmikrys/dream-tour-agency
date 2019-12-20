@@ -4,16 +4,19 @@ export const navbarLeftRoutes = [{
     icon: 'wb_sunny',
     text: ' DreamTour'
   },
-  auth: null
-}, {
-  link: '/new-trip',
-  span: {
-    icon: 'post_add',
-    text: ' New Trip'
-  },
-  auth: true,
-  admin: true
-}];
+  auth: null,
+  admin: null
+},
+//   {
+//   link: '/new-trip',
+//   span: {
+//     icon: 'post_add',
+//     text: ' New Trip'
+//   },
+//   auth: true,
+//   admin: true
+// }
+];
 
 export const navbarRightRoutes = [{
   link: '/purchases',

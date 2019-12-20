@@ -45,6 +45,7 @@ import { TripSearchComponent } from './components/trips-list/trip-search/trip-se
 import {ErrorInterceptor} from './shared/utils/ErrorInterceptor';
 import { ErrorComponent } from './components/message/error/error.component';
 import { PurchasesPageComponent } from './components/purchases-page/purchases-page.component';
+import { AdminTripsComponent } from './components/admin-trips/admin-trips.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { PurchasesPageComponent } from './components/purchases-page/purchases-pa
     TripSearchComponent,
     ErrorComponent,
     PurchasesPageComponent,
+    AdminTripsComponent,
   ],
   imports: [
     BrowserModule,

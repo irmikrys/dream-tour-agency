@@ -9,6 +9,7 @@ import {RegisterFormComponent} from '../components/auth/register-form/register-f
 import {LoginFormComponent} from '../components/auth/login-form/login-form.component';
 import {TripReservationConfirmationComponent} from '../components/trip-reservation-confirmation/trip-reservation-confirmation.component';
 import {PurchasesPageComponent} from '../components/purchases-page/purchases-page.component';
+import {AdminTripsComponent} from '../components/admin-trips/admin-trips.component';
 import {AuthGuard} from '../shared/utils/AuthGuard';
 import {AdminGuard} from '../shared/utils/AdminGuard';
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   },
   {path: 'trips/:id', component: TripDetailsComponent},
   {path: 'new-trip', component: NewTripFormComponent , canActivate: [AdminGuard]},
+  {path: 'admin', component: AdminTripsComponent , canActivate: [AdminGuard]},
   {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
   {
     path: '',

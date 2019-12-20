@@ -1,0 +1,62 @@
+<div class='admin-container'>
+
+  <mat-spinner *ngIf='isLoading'></mat-spinner>
+
+  <div *ngIf='!isLoading'>
+
+    <div class='admin-info' *ngIf='trips.length === 0'>
+      No trips.
+    </div>
+
+    <mat-card class='paginator-card' *ngIf='trips.length > 0'>
+      <mat-paginator [length]='totalTrips'
+                     [pageSize]='tripsPerPage'
+                     [pageSizeOptions]='pageSizeOptions'
+                     (page)='onChangePage($event)'
+      ></mat-paginator>
+    </mat-card>
+
+    <div class='trips-container'>
+      <mat-accordion *ngIf='trips.length > 0'>
+        <mat-expansion-panel *ngFor='let trip of trips'>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{trip.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip>
+                  {{trip.id}}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class='panel-content'>
+            <div>{{trip.createDate.toLocaleString()}}</div>
+            <div>{{trip.description}}</div>
+
+            <div fxFlex fxLayout fxLayoutAlign='end' class='card-actions'>
+              <button mat-raised-button color='warn' (click)='onTripDeleted(trip.id)'>
+                Delete
+              </button>
+              <button mat-raised-button color='primary'
+                      [routerLink]='["/trips", trip.id]'>
+                Trip
+              </button>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <mat-card class='paginator-card' *ngIf='trips.length > 5'>
+      <mat-paginator [length]='totalTrips'
+                     [pageSize]='tripsPerPage'
+                     [pageSizeOptions]='pageSizeOptions'
+                     (page)='onChangePage($event)'
+      ></mat-paginator>
+    </mat-card>
+
+  </div>
+</div>

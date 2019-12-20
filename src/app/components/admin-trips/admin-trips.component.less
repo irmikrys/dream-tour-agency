@@ -1,0 +1,57 @@
+@import '../../../styles';
+
+.admin-container {
+  min-height: @min-height-related;
+  box-sizing: border-box;
+  padding: 2em;
+
+  mat-spinner {
+    margin: 0 auto;
+  }
+
+  .admin-info {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+  }
+
+  .trips-container {
+    margin-top: 2em;
+
+    mat-expansion-panel-header {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      min-height: fit-content;
+      min-width: fit-content;
+    }
+
+    .panel-content {
+      display: block !important;
+
+      button, div > a {
+        &:not(:last-child) {
+          margin-right: 1em;
+        }
+      }
+    }
+
+  }
+
+  @media (max-width: 600px) {
+
+    mat-expansion-panel-header > span.mat-content {
+      display: block !important;
+    }
+
+    .card-actions {
+      display: block !important;
+
+      button, div > a {
+        width: 100%;
+        margin: 1em 0 0;
+      }
+
+    }
+  }
+
+}

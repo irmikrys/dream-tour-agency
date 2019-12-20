@@ -7,7 +7,7 @@ const generateError = require('../../utils/errorsGenerator');
 const Trip = require('../../models/Trip');
 const User = require('../../models/User');
 
-const QUERY_TRIP_BASICS = '-__v -gallery -comments -reservations -createDate';
+const QUERY_TRIP_BASICS = '-__v -gallery -comments -reservations';
 
 /**
  * @route   GET api/trips

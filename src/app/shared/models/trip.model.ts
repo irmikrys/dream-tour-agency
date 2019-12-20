@@ -1,6 +1,7 @@
 import {Rating} from './rating.model';
 
 export interface Trip {
+  createDate?: Date;
   id: string;
   name: string;
   country: string;
