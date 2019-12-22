@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Node.js Express server
 
-Run `npm run:server` for a node server that starts on `http://localhost:5000/`. The server will automatically reload if you change any of the source files.
+Run `npm run:server` inside `server` directory for a node server that starts on `http://localhost:5000/`. The server will automatically reload if you change any of the source files.
 
 To serve angular app with node, please run `ng build --prod` in main project directory first and then navigate to `http://localhost:5000/`.
 
